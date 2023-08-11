@@ -7,6 +7,8 @@
 - **Lead Dev Front** : Thomas G.
 - **Project Manager** : Anthony B.
 
+## [Trello](https://trello.com/b/Nkp4wJJY/osport)
+
 ## Presentation du projet
 
 Une application autour du sport, réfléchie pour des matchs de foot 5v5 mais pouvant s'appliquer à d'autres sports. L'application regrouperait des utilisateurs, chaque utilisateur aurait une fiche sous forme de tableau de scores par compétences.
