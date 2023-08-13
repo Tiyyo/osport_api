@@ -1,0 +1,33 @@
+{
+  "width": 326,
+  "height": 354,
+  "cx": [
+    [ "Match", 51 ],
+    [ "posseder", 171 ],
+    [ "Sport", 278 ],
+    [ "créer", 51 ],
+    [ "jouer", 171 ],
+    [ "Player", 51 ],
+    [ "avoir en ami", 171 ]
+  ],
+  "cy": [
+    [ "Match", 68 ],
+    [ "posseder", 68 ],
+    [ "Sport", 68 ],
+    [ "créer", 177 ],
+    [ "jouer", 177 ],
+    [ "Player", 286 ],
+    [ "avoir en ami", 286 ]
+  ],
+  "shift": [
+    [ "posseder,Sport,0", 0 ],
+    [ "posseder,Match,0", 0 ],
+    [ "créer,Match,0", 0 ],
+    [ "créer,Player,0", 0 ],
+    [ "jouer,Match,0", 0 ],
+    [ "jouer,Player,0", 0 ],
+    [ "avoir en ami,Player,-1_0", 0 ],
+    [ "avoir en ami,Player,1_0", 0 ]
+  ],
+  "ratio": []
+}

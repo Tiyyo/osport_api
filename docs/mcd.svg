@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg width="326" height="354" viewBox="0 0 326 354" xmlns="http://www.w3.org/2000/svg">
+<rect id="frame" x="0" y="0" width="326" height="354" fill="#f7f7f7" stroke="none" stroke-width="0"/>
+
+<!-- Association posseder -->
+<g>
+	<line x1="278" y1="68" x2="171" y2="68" stroke="#d6604d" stroke-width="2"/>
+	<text x="212" y="85" fill="#2166ac" font-family="Verdana" font-size="12">0,N</text>
+	<line x1="51" y1="68" x2="171" y2="68" stroke="#d6604d" stroke-width="2"/>
+	<text x="98" y="60" fill="#2166ac" font-family="Verdana" font-size="12">1,1</text>
+	<g>
+		<path d="M192 43 a14 14 90 0 1 14 14 V68 h-70 V57 a14 14 90 0 1 14 -14" fill="#f4a582" stroke="#f4a582" stroke-width="0"/>
+		<path d="M206 68 v11 a14 14 90 0 1 -14 14 H150 a14 14 90 0 1 -14 -14 V68 H70" fill="#fddbc7" stroke="#fddbc7" stroke-width="0"/>
+		<rect x="136" y="43" width="70" height="50" fill="none" rx="14" stroke="#d6604d" stroke-width="2"/>
+		<line x1="136" y1="68" x2="206" y2="68" stroke="#d6604d" stroke-width="1"/>
+		<text x="144" y="60.75" fill="#000" font-family="Verdana" font-size="12">posseder</text>
+	</g>
+</g>
+
+<!-- Association créer -->
+<g>
+	<line x1="51" y1="68" x2="51" y2="177" stroke="#d6604d" stroke-width="2"/>
+	<text x="25" y="144" fill="#2166ac" font-family="Verdana" font-size="12">1,1</text>
+	<line x1="51" y1="286" x2="51" y2="177" stroke="#d6604d" stroke-width="2"/>
+	<text x="24" y="219" fill="#2166ac" font-family="Verdana" font-size="12">0,N</text>
+	<g>
+		<path d="M60 152 a14 14 90 0 1 14 14 V177 h-46 V166 a14 14 90 0 1 14 -14" fill="#f4a582" stroke="#f4a582" stroke-width="0"/>
+		<path d="M74 177 v11 a14 14 90 0 1 -14 14 H42 a14 14 90 0 1 -14 -14 V177 H46" fill="#fddbc7" stroke="#fddbc7" stroke-width="0"/>
+		<rect x="28" y="152" width="46" height="50" fill="none" rx="14" stroke="#d6604d" stroke-width="2"/>
+		<line x1="28" y1="177" x2="74" y2="177" stroke="#d6604d" stroke-width="1"/>
+		<text x="35" y="169.75" fill="#000" font-family="Verdana" font-size="12">créer</text>
+	</g>
+</g>
+
+<!-- Association jouer -->
+<g>
+	<line x1="51" y1="68" x2="171" y2="177" stroke="#d6604d" stroke-width="2"/>
+	<text x="98" y="104.74" fill="#2166ac" font-family="Verdana" font-size="12">N,N</text>
+	<path d="M51 286 C61.42 222.46 101.42 186.13 171 177" fill="none" stroke="#d6604d" stroke-width="2"/>
+	<text x="98" y="217.41" fill="#2166ac" font-family="Verdana" font-size="12">0,N</text>
+	<g>
+		<path d="M180 152 a14 14 90 0 1 14 14 V177 h-46 V166 a14 14 90 0 1 14 -14" fill="#f4a582" stroke="#f4a582" stroke-width="0"/>
+		<path d="M194 177 v11 a14 14 90 0 1 -14 14 H162 a14 14 90 0 1 -14 -14 V177 H46" fill="#fddbc7" stroke="#fddbc7" stroke-width="0"/>
+		<rect x="148" y="152" width="46" height="50" fill="none" rx="14" stroke="#d6604d" stroke-width="2"/>
+		<line x1="148" y1="177" x2="194" y2="177" stroke="#d6604d" stroke-width="1"/>
+		<text x="155" y="169.75" fill="#000" font-family="Verdana" font-size="12">jouer</text>
+	</g>
+</g>
+
+<!-- Association avoir en ami -->
+<g>
+	<path d="M51 286 C88.33 252.67 128.33 252.67 171 286" fill="none" stroke="#d6604d" stroke-width="2"/>
+	<text x="98" y="280" fill="#2166ac" font-family="Verdana" font-size="12">0,N</text>
+	<path d="M51 286 C88.33 319.33 128.33 319.33 171 286" fill="none" stroke="#d6604d" stroke-width="2"/>
+	<text x="98" y="301" fill="#2166ac" font-family="Verdana" font-size="12">1,N</text>
+	<g>
+		<path d="M202 261 a14 14 90 0 1 14 14 V286 h-90 V275 a14 14 90 0 1 14 -14" fill="#f4a582" stroke="#f4a582" stroke-width="0"/>
+		<path d="M216 286 v11 a14 14 90 0 1 -14 14 H140 a14 14 90 0 1 -14 -14 V286 H90" fill="#fddbc7" stroke="#fddbc7" stroke-width="0"/>
+		<rect x="126" y="261" width="90" height="50" fill="none" rx="14" stroke="#d6604d" stroke-width="2"/>
+		<line x1="126" y1="286" x2="216" y2="286" stroke="#d6604d" stroke-width="1"/>
+		<text x="133" y="278.75" fill="#000" font-family="Verdana" font-size="12">avoir en ami</text>
+	</g>
+</g>
+
+<!-- Entity Match -->
+<g>
+	<g>
+		<rect x="9" y="9" width="84" height="25" fill="#92c5de" stroke="#92c5de" stroke-width="0" opacity="1"/>
+		<rect x="9" y="34" width="84" height="93" fill="#d1e5f0" stroke="#d1e5f0" stroke-width="0" opacity="1"/>
+		<rect x="9" y="9" width="84" height="118" fill="none" stroke="#4393c3" stroke-width="2" opacity="1"/>
+		<line x1="9" y1="34" x2="93" y2="34" stroke="#4393c3" stroke-width="1"/>
+	</g>
+	<text x="33" y="26.75" fill="#000" font-family="Verdana" font-size="12">Match</text>
+	<text x="14" y="51.8" fill="#000" font-family="Verdana" font-size="12">code_match</text>
+	<line x1="14" y1="54" x2="88" y2="54" stroke="#000" stroke-width="1"/>
+	<text x="14" y="68.8" fill="#000" font-family="Verdana" font-size="12">name</text>
+	<text x="14" y="85.8" fill="#000" font-family="Verdana" font-size="12">description</text>
+	<text x="14" y="102.8" fill="#000" font-family="Verdana" font-size="12">event date</text>
+	<text x="14" y="119.8" fill="#000" font-family="Verdana" font-size="12">confirmed</text>
+</g>
+
+<!-- Entity Sport -->
+<g>
+	<g>
+		<rect x="239" y="17" width="78" height="25" fill="#92c5de" stroke="#92c5de" stroke-width="0" opacity="1"/>
+		<rect x="239" y="42" width="78" height="77" fill="#d1e5f0" stroke="#d1e5f0" stroke-width="0" opacity="1"/>
+		<rect x="239" y="17" width="78" height="102" fill="none" stroke="#4393c3" stroke-width="2" opacity="1"/>
+		<line x1="239" y1="42" x2="317" y2="42" stroke="#4393c3" stroke-width="1"/>
+	</g>
+	<text x="261" y="34.75" fill="#000" font-family="Verdana" font-size="12">Sport</text>
+	<text x="244" y="59.8" fill="#000" font-family="Verdana" font-size="12">code_sport</text>
+	<line x1="244" y1="62" x2="312" y2="62" stroke="#000" stroke-width="1"/>
+	<text x="244" y="76.8" fill="#000" font-family="Verdana" font-size="12">name</text>
+	<text x="244" y="93.8" fill="#000" font-family="Verdana" font-size="12">description</text>
+	<text x="244" y="110.8" fill="#000" font-family="Verdana" font-size="12">picture url</text>
+</g>
+
+<!-- Entity Player -->
+<g>
+	<g>
+		<rect x="9" y="227" width="84" height="25" fill="#92c5de" stroke="#92c5de" stroke-width="0" opacity="1"/>
+		<rect x="9" y="252" width="84" height="93" fill="#d1e5f0" stroke="#d1e5f0" stroke-width="0" opacity="1"/>
+		<rect x="9" y="227" width="84" height="118" fill="none" stroke="#4393c3" stroke-width="2" opacity="1"/>
+		<line x1="9" y1="252" x2="93" y2="252" stroke="#4393c3" stroke-width="1"/>
+	</g>
+	<text x="32" y="244.75" fill="#000" font-family="Verdana" font-size="12">Player</text>
+	<text x="14" y="269.8" fill="#000" font-family="Verdana" font-size="12">code_player</text>
+	<line x1="14" y1="272" x2="88" y2="272" stroke="#000" stroke-width="1"/>
+	<text x="14" y="286.8" fill="#000" font-family="Verdana" font-size="12">pseudo</text>
+	<text x="14" y="303.8" fill="#000" font-family="Verdana" font-size="12">name</text>
+	<text x="14" y="320.8" fill="#000" font-family="Verdana" font-size="12">email</text>
+	<text x="14" y="337.8" fill="#000" font-family="Verdana" font-size="12">password</text>
+</g>
+</svg>
