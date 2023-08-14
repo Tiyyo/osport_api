@@ -84,3 +84,13 @@ Bonus :
 
 ### [Figma](https://www.figma.com/file/iscZuzxtxFLezgHNrOi2E1/Untitled?type=design&node-id=9-2&mode=design&t=H0gntgd6xWjKuWgj-0) 
 
+## Se repérer dans les commits
+
+:zap: = Minor correction / fast debug \
+:construction: = Work in progress \
+:tada: = New feature \
+:card_file_box: = Datas or contents updated \
+:hammer: = Corrections / debug \
+:memo: = Readme / Code comments / Documentations \
+:rotating_light: = Security \
+:sparkles: = Clean code
