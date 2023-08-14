@@ -1,114 +1,226 @@
 <?xml version="1.0" encoding="utf-8"?>
-<svg width="326" height="354" viewBox="0 0 326 354" xmlns="http://www.w3.org/2000/svg">
-<rect id="frame" x="0" y="0" width="326" height="354" fill="#f7f7f7" stroke="none" stroke-width="0"/>
+<svg width="569" height="465" viewBox="0 0 569 465" xmlns="http://www.w3.org/2000/svg">
+<rect id="frame" x="0" y="0" width="569" height="465" fill="#f7f7f7" stroke="none" stroke-width="0"/>
 
-<!-- Association posseder -->
-<g>
-	<line x1="278" y1="68" x2="171" y2="68" stroke="#d6604d" stroke-width="2"/>
-	<text x="212" y="85" fill="#2166ac" font-family="Verdana" font-size="12">0,N</text>
-	<line x1="51" y1="68" x2="171" y2="68" stroke="#d6604d" stroke-width="2"/>
-	<text x="98" y="60" fill="#2166ac" font-family="Verdana" font-size="12">1,1</text>
+<!-- Association JOUER -->
+<g class="page_0_a2479c50 diagram_page" visibility="visible">
+	<line x1="299" y1="77" x2="203" y2="77" stroke="#d6604d" stroke-width="2"/>
+	<text x="239" y="94" fill="#2166ac" font-family="Verdana" font-size="12">1,N</text>
+	<line x1="203" y1="221" x2="203" y2="77" stroke="#d6604d" stroke-width="2"/>
+	<text x="208" y="162" fill="#2166ac" font-family="Verdana" font-size="12">0,N</text>
 	<g>
-		<path d="M192 43 a14 14 90 0 1 14 14 V68 h-70 V57 a14 14 90 0 1 14 -14" fill="#f4a582" stroke="#f4a582" stroke-width="0"/>
-		<path d="M206 68 v11 a14 14 90 0 1 -14 14 H150 a14 14 90 0 1 -14 -14 V68 H70" fill="#fddbc7" stroke="#fddbc7" stroke-width="0"/>
-		<rect x="136" y="43" width="70" height="50" fill="none" rx="14" stroke="#d6604d" stroke-width="2"/>
-		<line x1="136" y1="68" x2="206" y2="68" stroke="#d6604d" stroke-width="1"/>
-		<text x="144" y="60.75" fill="#000" font-family="Verdana" font-size="12">posseder</text>
+		<path d="M217 52 a14 14 90 0 1 14 14 V77 h-56 V66 a14 14 90 0 1 14 -14" fill="#f4a582" stroke="#f4a582" stroke-width="0"/>
+		<path d="M231 77 v11 a14 14 90 0 1 -14 14 H189 a14 14 90 0 1 -14 -14 V77 H56" fill="#fddbc7" stroke="#fddbc7" stroke-width="0"/>
+		<rect x="175" y="52" width="56" height="50" fill="none" rx="14" stroke="#d6604d" stroke-width="2"/>
+		<line x1="175" y1="77" x2="231" y2="77" stroke="#d6604d" stroke-width="1"/>
+		<text x="183" y="69.75" fill="#000" font-family="Verdana" font-size="12">JOUER</text>
 	</g>
 </g>
 
-<!-- Association créer -->
-<g>
-	<line x1="51" y1="68" x2="51" y2="177" stroke="#d6604d" stroke-width="2"/>
-	<text x="25" y="144" fill="#2166ac" font-family="Verdana" font-size="12">1,1</text>
-	<line x1="51" y1="286" x2="51" y2="177" stroke="#d6604d" stroke-width="2"/>
-	<text x="24" y="219" fill="#2166ac" font-family="Verdana" font-size="12">0,N</text>
+<!-- Association AVOIR2 -->
+<g class="page_0_a2479c50 diagram_page" visibility="visible">
+	<line x1="299" y1="77" x2="487" y2="77" stroke="#d6604d" stroke-width="2"/>
+	<text x="337" y="94" fill="#2166ac" font-family="Verdana" font-size="12">1,1</text>
+	<line x1="487" y1="221" x2="487" y2="77" stroke="#d6604d" stroke-width="2"/>
+	<text x="492" y="179" fill="#2166ac" font-family="Verdana" font-size="12">0,N</text>
 	<g>
-		<path d="M60 152 a14 14 90 0 1 14 14 V177 h-46 V166 a14 14 90 0 1 14 -14" fill="#f4a582" stroke="#f4a582" stroke-width="0"/>
-		<path d="M74 177 v11 a14 14 90 0 1 -14 14 H42 a14 14 90 0 1 -14 -14 V177 H46" fill="#fddbc7" stroke="#fddbc7" stroke-width="0"/>
-		<rect x="28" y="152" width="46" height="50" fill="none" rx="14" stroke="#d6604d" stroke-width="2"/>
-		<line x1="28" y1="177" x2="74" y2="177" stroke="#d6604d" stroke-width="1"/>
-		<text x="35" y="169.75" fill="#000" font-family="Verdana" font-size="12">créer</text>
+		<path d="M500 52 a14 14 90 0 1 14 14 V77 h-54 V66 a14 14 90 0 1 14 -14" fill="#f4a582" stroke="#f4a582" stroke-width="0"/>
+		<path d="M514 77 v11 a14 14 90 0 1 -14 14 H474 a14 14 90 0 1 -14 -14 V77 H54" fill="#fddbc7" stroke="#fddbc7" stroke-width="0"/>
+		<rect x="460" y="52" width="54" height="50" fill="none" rx="14" stroke="#d6604d" stroke-width="2"/>
+		<line x1="460" y1="77" x2="514" y2="77" stroke="#d6604d" stroke-width="1"/>
+		<text x="467" y="69.75" fill="#000" font-family="Verdana" font-size="12">AVOIR</text>
 	</g>
 </g>
 
-<!-- Association jouer -->
-<g>
-	<line x1="51" y1="68" x2="171" y2="177" stroke="#d6604d" stroke-width="2"/>
-	<text x="98" y="104.74" fill="#2166ac" font-family="Verdana" font-size="12">N,N</text>
-	<path d="M51 286 C61.42 222.46 101.42 186.13 171 177" fill="none" stroke="#d6604d" stroke-width="2"/>
-	<text x="98" y="217.41" fill="#2166ac" font-family="Verdana" font-size="12">0,N</text>
+<!-- Association AJOUTER_EN_AMI -->
+<g class="page_0_a2479c50 diagram_page" visibility="visible">
+	<path d="M203 221 C177.33 254.33 133.67 254.33 72 221" fill="none" stroke="#d6604d" stroke-width="2"/>
+	<text x="140" y="236" fill="#2166ac" font-family="Verdana" font-size="12">0,N</text>
+	<path d="M203 221 C177.33 187.67 133.67 187.67 72 221" fill="none" stroke="#d6604d" stroke-width="2"/>
+	<text x="140" y="215" fill="#2166ac" font-family="Verdana" font-size="12">0,N</text>
 	<g>
-		<path d="M180 152 a14 14 90 0 1 14 14 V177 h-46 V166 a14 14 90 0 1 14 -14" fill="#f4a582" stroke="#f4a582" stroke-width="0"/>
-		<path d="M194 177 v11 a14 14 90 0 1 -14 14 H162 a14 14 90 0 1 -14 -14 V177 H46" fill="#fddbc7" stroke="#fddbc7" stroke-width="0"/>
-		<rect x="148" y="152" width="46" height="50" fill="none" rx="14" stroke="#d6604d" stroke-width="2"/>
-		<line x1="148" y1="177" x2="194" y2="177" stroke="#d6604d" stroke-width="1"/>
-		<text x="155" y="169.75" fill="#000" font-family="Verdana" font-size="12">jouer</text>
+		<path d="M121 196 a14 14 90 0 1 14 14 V221 h-126 V210 a14 14 90 0 1 14 -14" fill="#f4a582" stroke="#f4a582" stroke-width="0"/>
+		<path d="M135 221 v11 a14 14 90 0 1 -14 14 H23 a14 14 90 0 1 -14 -14 V221 H126" fill="#fddbc7" stroke="#fddbc7" stroke-width="0"/>
+		<rect x="9" y="196" width="126" height="50" fill="none" rx="14" stroke="#d6604d" stroke-width="2"/>
+		<line x1="9" y1="221" x2="135" y2="221" stroke="#d6604d" stroke-width="1"/>
+		<text x="17" y="213.75" fill="#000" font-family="Verdana" font-size="12">AJOUTER_EN_AMI</text>
 	</g>
 </g>
 
-<!-- Association avoir en ami -->
-<g>
-	<path d="M51 286 C88.33 252.67 128.33 252.67 171 286" fill="none" stroke="#d6604d" stroke-width="2"/>
-	<text x="98" y="280" fill="#2166ac" font-family="Verdana" font-size="12">0,N</text>
-	<path d="M51 286 C88.33 319.33 128.33 319.33 171 286" fill="none" stroke="#d6604d" stroke-width="2"/>
-	<text x="98" y="301" fill="#2166ac" font-family="Verdana" font-size="12">1,N</text>
+<!-- Association CREER -->
+<g class="page_0_a2479c50 diagram_page" visibility="visible">
+	<line x1="299" y1="77" x2="299" y2="221" stroke="#d6604d" stroke-width="2"/>
+	<text x="304" y="162" fill="#2166ac" font-family="Verdana" font-size="12">1,1</text>
+	<line x1="203" y1="221" x2="299" y2="221" stroke="#d6604d" stroke-width="2"/>
+	<text x="244" y="238" fill="#2166ac" font-family="Verdana" font-size="12">0,N</text>
 	<g>
-		<path d="M202 261 a14 14 90 0 1 14 14 V286 h-90 V275 a14 14 90 0 1 14 -14" fill="#f4a582" stroke="#f4a582" stroke-width="0"/>
-		<path d="M216 286 v11 a14 14 90 0 1 -14 14 H140 a14 14 90 0 1 -14 -14 V286 H90" fill="#fddbc7" stroke="#fddbc7" stroke-width="0"/>
-		<rect x="126" y="261" width="90" height="50" fill="none" rx="14" stroke="#d6604d" stroke-width="2"/>
-		<line x1="126" y1="286" x2="216" y2="286" stroke="#d6604d" stroke-width="1"/>
-		<text x="133" y="278.75" fill="#000" font-family="Verdana" font-size="12">avoir en ami</text>
+		<path d="M313 196 a14 14 90 0 1 14 14 V221 h-56 V210 a14 14 90 0 1 14 -14" fill="#f4a582" stroke="#f4a582" stroke-width="0"/>
+		<path d="M327 221 v11 a14 14 90 0 1 -14 14 H285 a14 14 90 0 1 -14 -14 V221 H56" fill="#fddbc7" stroke="#fddbc7" stroke-width="0"/>
+		<rect x="271" y="196" width="56" height="50" fill="none" rx="14" stroke="#d6604d" stroke-width="2"/>
+		<line x1="271" y1="221" x2="327" y2="221" stroke="#d6604d" stroke-width="1"/>
+		<text x="279" y="213.75" fill="#000" font-family="Verdana" font-size="12">CREER</text>
 	</g>
 </g>
 
-<!-- Entity Match -->
-<g>
+<!-- Association DETENIR -->
+<g class="page_0_a2479c50 diagram_page" visibility="visible">
+	<line x1="299" y1="322" x2="394" y2="221" stroke="#d6604d" stroke-width="2"/>
+	<text x="330" y="304.59" fill="#2166ac" font-family="Verdana" font-size="12">0,N</text>
+	<line x1="487" y1="221" x2="394" y2="221" stroke="#d6604d" stroke-width="2"/>
+	<text x="434" y="238" fill="#2166ac" font-family="Verdana" font-size="12">1,N</text>
 	<g>
-		<rect x="9" y="9" width="84" height="25" fill="#92c5de" stroke="#92c5de" stroke-width="0" opacity="1"/>
-		<rect x="9" y="34" width="84" height="93" fill="#d1e5f0" stroke="#d1e5f0" stroke-width="0" opacity="1"/>
-		<rect x="9" y="9" width="84" height="118" fill="none" stroke="#4393c3" stroke-width="2" opacity="1"/>
-		<line x1="9" y1="34" x2="93" y2="34" stroke="#4393c3" stroke-width="1"/>
+		<path d="M415 196 a14 14 90 0 1 14 14 V221 h-70 V210 a14 14 90 0 1 14 -14" fill="#f4a582" stroke="#f4a582" stroke-width="0"/>
+		<path d="M429 221 v11 a14 14 90 0 1 -14 14 H373 a14 14 90 0 1 -14 -14 V221 H70" fill="#fddbc7" stroke="#fddbc7" stroke-width="0"/>
+		<rect x="359" y="196" width="70" height="50" fill="none" rx="14" stroke="#d6604d" stroke-width="2"/>
+		<line x1="359" y1="221" x2="429" y2="221" stroke="#d6604d" stroke-width="1"/>
+		<text x="367" y="213.75" fill="#000" font-family="Verdana" font-size="12">DETENIR</text>
 	</g>
-	<text x="33" y="26.75" fill="#000" font-family="Verdana" font-size="12">Match</text>
-	<text x="14" y="51.8" fill="#000" font-family="Verdana" font-size="12">code_match</text>
-	<line x1="14" y1="54" x2="88" y2="54" stroke="#000" stroke-width="1"/>
-	<text x="14" y="68.8" fill="#000" font-family="Verdana" font-size="12">name</text>
-	<text x="14" y="85.8" fill="#000" font-family="Verdana" font-size="12">description</text>
-	<text x="14" y="102.8" fill="#000" font-family="Verdana" font-size="12">event date</text>
-	<text x="14" y="119.8" fill="#000" font-family="Verdana" font-size="12">confirmed</text>
 </g>
 
-<!-- Entity Sport -->
-<g>
+<!-- Association POSSEDER -->
+<g class="page_0_a2479c50 diagram_page" visibility="visible">
+	<line x1="72" y1="414" x2="72" y2="322" stroke="#d6604d" stroke-width="2"/>
+	<text x="77" y="364" fill="#2166ac" font-family="Verdana" font-size="12" onmouseover="show_a2479c50(evt,'évalué')" onmouseout="hide_a2479c50(evt)" style="cursor: pointer;">0,N</text>
+	<path d="M203 221 C201.35 271.94 157.69 305.61 72 322" fill="none" stroke="#d6604d" stroke-width="2"/>
+	<text x="140" y="283.79" fill="#2166ac" font-family="Verdana" font-size="12" onmouseover="show_a2479c50(evt,'évaluante')" onmouseout="hide_a2479c50(evt)" style="cursor: pointer;">0,N</text>
 	<g>
-		<rect x="239" y="17" width="78" height="25" fill="#92c5de" stroke="#92c5de" stroke-width="0" opacity="1"/>
-		<rect x="239" y="42" width="78" height="77" fill="#d1e5f0" stroke="#d1e5f0" stroke-width="0" opacity="1"/>
-		<rect x="239" y="17" width="78" height="102" fill="none" stroke="#4393c3" stroke-width="2" opacity="1"/>
-		<line x1="239" y1="42" x2="317" y2="42" stroke="#4393c3" stroke-width="1"/>
+		<path d="M99 297 a14 14 90 0 1 14 14 V322 h-82 V311 a14 14 90 0 1 14 -14" fill="#f4a582" stroke="#f4a582" stroke-width="0"/>
+		<path d="M113 322 v11 a14 14 90 0 1 -14 14 H45 a14 14 90 0 1 -14 -14 V322 H82" fill="#fddbc7" stroke="#fddbc7" stroke-width="0"/>
+		<rect x="31" y="297" width="82" height="50" fill="none" rx="14" stroke="#d6604d" stroke-width="2"/>
+		<line x1="31" y1="322" x2="113" y2="322" stroke="#d6604d" stroke-width="1"/>
+		<text x="39" y="314.75" fill="#000" font-family="Verdana" font-size="12">POSSEDER</text>
 	</g>
-	<text x="261" y="34.75" fill="#000" font-family="Verdana" font-size="12">Sport</text>
-	<text x="244" y="59.8" fill="#000" font-family="Verdana" font-size="12">code_sport</text>
-	<line x1="244" y1="62" x2="312" y2="62" stroke="#000" stroke-width="1"/>
-	<text x="244" y="76.8" fill="#000" font-family="Verdana" font-size="12">name</text>
-	<text x="244" y="93.8" fill="#000" font-family="Verdana" font-size="12">description</text>
-	<text x="244" y="110.8" fill="#000" font-family="Verdana" font-size="12">picture url</text>
 </g>
 
-<!-- Entity Player -->
-<g>
+<!-- Association AVOIR -->
+<g class="page_0_a2479c50 diagram_page" visibility="visible">
+	<line x1="299" y1="322" x2="203" y2="322" stroke="#d6604d" stroke-width="2"/>
+	<text x="247" y="339" fill="#2166ac" font-family="Verdana" font-size="12">0,1</text>
+	<line x1="203" y1="221" x2="203" y2="322" stroke="#d6604d" stroke-width="2"/>
+	<text x="208" y="289" fill="#2166ac" font-family="Verdana" font-size="12">0,1</text>
 	<g>
-		<rect x="9" y="227" width="84" height="25" fill="#92c5de" stroke="#92c5de" stroke-width="0" opacity="1"/>
-		<rect x="9" y="252" width="84" height="93" fill="#d1e5f0" stroke="#d1e5f0" stroke-width="0" opacity="1"/>
-		<rect x="9" y="227" width="84" height="118" fill="none" stroke="#4393c3" stroke-width="2" opacity="1"/>
-		<line x1="9" y1="252" x2="93" y2="252" stroke="#4393c3" stroke-width="1"/>
+		<path d="M216 297 a14 14 90 0 1 14 14 V322 h-54 V311 a14 14 90 0 1 14 -14" fill="#f4a582" stroke="#f4a582" stroke-width="0"/>
+		<path d="M230 322 v11 a14 14 90 0 1 -14 14 H190 a14 14 90 0 1 -14 -14 V322 H54" fill="#fddbc7" stroke="#fddbc7" stroke-width="0"/>
+		<rect x="176" y="297" width="54" height="50" fill="none" rx="14" stroke="#d6604d" stroke-width="2"/>
+		<line x1="176" y1="322" x2="230" y2="322" stroke="#d6604d" stroke-width="1"/>
+		<text x="183" y="314.75" fill="#000" font-family="Verdana" font-size="12">AVOIR</text>
 	</g>
-	<text x="32" y="244.75" fill="#000" font-family="Verdana" font-size="12">Player</text>
-	<text x="14" y="269.8" fill="#000" font-family="Verdana" font-size="12">code_player</text>
-	<line x1="14" y1="272" x2="88" y2="272" stroke="#000" stroke-width="1"/>
-	<text x="14" y="286.8" fill="#000" font-family="Verdana" font-size="12">pseudo</text>
-	<text x="14" y="303.8" fill="#000" font-family="Verdana" font-size="12">name</text>
-	<text x="14" y="320.8" fill="#000" font-family="Verdana" font-size="12">email</text>
-	<text x="14" y="337.8" fill="#000" font-family="Verdana" font-size="12">password</text>
 </g>
+
+<!-- Association POSSEDER2 -->
+<g class="page_0_a2479c50 diagram_page" visibility="visible">
+	<line x1="487" y1="221" x2="487" y2="414" stroke="#d6604d" stroke-width="2"/>
+	<text x="492" y="272" fill="#2166ac" font-family="Verdana" font-size="12">1,N</text>
+	<line x1="72" y1="414" x2="487" y2="414" stroke="#d6604d" stroke-width="2"/>
+	<text x="115" y="431" fill="#2166ac" font-family="Verdana" font-size="12">0,N</text>
+	<g>
+		<path d="M514 389 a14 14 90 0 1 14 14 V414 h-82 V403 a14 14 90 0 1 14 -14" fill="#f4a582" stroke="#f4a582" stroke-width="0"/>
+		<path d="M528 414 v11 a14 14 90 0 1 -14 14 H460 a14 14 90 0 1 -14 -14 V414 H82" fill="#fddbc7" stroke="#fddbc7" stroke-width="0"/>
+		<rect x="446" y="389" width="82" height="50" fill="none" rx="14" stroke="#d6604d" stroke-width="2"/>
+		<line x1="446" y1="414" x2="528" y2="414" stroke="#d6604d" stroke-width="1"/>
+		<text x="454" y="406.75" fill="#000" font-family="Verdana" font-size="12">POSSEDER</text>
+	</g>
+</g>
+
+<!-- Entity EVENT -->
+<g class="page_0_a2479c50 diagram_page" visibility="visible">
+	<g>
+		<rect x="266" y="9" width="66" height="25" fill="#92c5de" stroke="#92c5de" stroke-width="0" opacity="1"/>
+		<rect x="266" y="34" width="66" height="111" fill="#d1e5f0" stroke="#d1e5f0" stroke-width="0" opacity="1"/>
+		<rect x="266" y="9" width="66" height="136" fill="none" stroke="#4393c3" stroke-width="2" opacity="1"/>
+		<line x1="266" y1="34" x2="332" y2="34" stroke="#4393c3" stroke-width="1"/>
+	</g>
+	<text x="279" y="26.75" fill="#000" font-family="Verdana" font-size="12">EVENT</text>
+	<text x="271" y="51.8" fill="#000" font-family="Verdana" font-size="12">ref</text>
+	<line x1="271" y1="54" x2="288" y2="54" stroke="#000" stroke-width="1"/>
+	<text x="271" y="68.8" fill="#000" font-family="Verdana" font-size="12">date</text>
+	<text x="271" y="85.8" fill="#000" font-family="Verdana" font-size="12">location</text>
+	<text x="271" y="102.8" fill="#000" font-family="Verdana" font-size="12">duration</text>
+	<text x="271" y="119.8" fill="#000" font-family="Verdana" font-size="12">nb_team</text>
+	<text x="271" y="136.8" fill="#000" font-family="Verdana" font-size="12">status</text>
+</g>
+
+<!-- Entity USER -->
+<g class="page_0_a2479c50 diagram_page" visibility="visible">
+	<g>
+		<rect x="167" y="170" width="72" height="25" fill="#92c5de" stroke="#92c5de" stroke-width="0" opacity="1"/>
+		<rect x="167" y="195" width="72" height="77" fill="#d1e5f0" stroke="#d1e5f0" stroke-width="0" opacity="1"/>
+		<rect x="167" y="170" width="72" height="102" fill="none" stroke="#4393c3" stroke-width="2" opacity="1"/>
+		<line x1="167" y1="195" x2="239" y2="195" stroke="#4393c3" stroke-width="1"/>
+	</g>
+	<text x="186" y="187.75" fill="#000" font-family="Verdana" font-size="12">USER</text>
+	<text x="172" y="212.8" fill="#000" font-family="Verdana" font-size="12">ref</text>
+	<line x1="172" y1="215" x2="189" y2="215" stroke="#000" stroke-width="1"/>
+	<text x="172" y="229.8" fill="#000" font-family="Verdana" font-size="12">username</text>
+	<text x="172" y="246.8" fill="#000" font-family="Verdana" font-size="12">email</text>
+	<text x="172" y="263.8" fill="#000" font-family="Verdana" font-size="12">password</text>
+</g>
+
+<!-- Entity SPORT -->
+<g class="page_0_a2479c50 diagram_page" visibility="visible">
+	<g>
+		<rect x="461" y="187" width="52" height="25" fill="#92c5de" stroke="#92c5de" stroke-width="0" opacity="1"/>
+		<rect x="461" y="212" width="52" height="43" fill="#d1e5f0" stroke="#d1e5f0" stroke-width="0" opacity="1"/>
+		<rect x="461" y="187" width="52" height="68" fill="none" stroke="#4393c3" stroke-width="2" opacity="1"/>
+		<line x1="461" y1="212" x2="513" y2="212" stroke="#4393c3" stroke-width="1"/>
+	</g>
+	<text x="466" y="204.75" fill="#000" font-family="Verdana" font-size="12">SPORT</text>
+	<text x="466" y="229.8" fill="#000" font-family="Verdana" font-size="12">ref</text>
+	<line x1="466" y1="232" x2="483" y2="232" stroke="#000" stroke-width="1"/>
+	<text x="466" y="246.8" fill="#000" font-family="Verdana" font-size="12">name</text>
+</g>
+
+<!-- Entity IMAGE -->
+<g class="page_0_a2479c50 diagram_page" visibility="visible">
+	<g>
+		<rect x="273" y="271" width="52" height="25" fill="#92c5de" stroke="#92c5de" stroke-width="0" opacity="1"/>
+		<rect x="273" y="296" width="52" height="77" fill="#d1e5f0" stroke="#d1e5f0" stroke-width="0" opacity="1"/>
+		<rect x="273" y="271" width="52" height="102" fill="none" stroke="#4393c3" stroke-width="2" opacity="1"/>
+		<line x1="273" y1="296" x2="325" y2="296" stroke="#4393c3" stroke-width="1"/>
+	</g>
+	<text x="279" y="288.75" fill="#000" font-family="Verdana" font-size="12">IMAGE</text>
+	<text x="278" y="313.8" fill="#000" font-family="Verdana" font-size="12">ref</text>
+	<line x1="278" y1="316" x2="295" y2="316" stroke="#000" stroke-width="1"/>
+	<text x="278" y="330.8" fill="#000" font-family="Verdana" font-size="12">url</text>
+	<text x="278" y="347.8" fill="#000" font-family="Verdana" font-size="12">key</text>
+	<text x="278" y="364.8" fill="#000" font-family="Verdana" font-size="12">size</text>
+</g>
+
+<!-- Entity SKILL -->
+<g class="page_0_a2479c50 diagram_page" visibility="visible">
+	<g>
+		<rect x="34" y="372" width="76" height="25" fill="#92c5de" stroke="#92c5de" stroke-width="0" opacity="1"/>
+		<rect x="34" y="397" width="76" height="59" fill="#d1e5f0" stroke="#d1e5f0" stroke-width="0" opacity="1"/>
+		<rect x="34" y="372" width="76" height="84" fill="none" stroke="#4393c3" stroke-width="2" opacity="1"/>
+		<line x1="34" y1="397" x2="110" y2="397" stroke="#4393c3" stroke-width="1"/>
+	</g>
+	<text x="54" y="389.75" fill="#000" font-family="Verdana" font-size="12">SKILL</text>
+	<text x="39" y="414.8" fill="#000" font-family="Verdana" font-size="12">ref</text>
+	<line x1="39" y1="417" x2="56" y2="417" stroke="#000" stroke-width="1"/>
+	<text x="39" y="431.8" fill="#000" font-family="Verdana" font-size="12">capacity_1</text>
+	<text x="39" y="448.8" fill="#000" font-family="Verdana" font-size="12">capacity_2</text>
+</g>
+
+<!-- Notes -->
+<script type="text/ecmascript">
+<![CDATA[
+	function show_a2479c50(evt, text) {
+		var pos = (evt.target.getAttribute("y") < 420) ? "bottom" : "top";
+		var note = document.getElementById(pos + "_note_a2479c50");
+		note.textContent = text;
+		note.setAttributeNS(null, "visibility", "visible");
+		document.getElementById(pos + "_overlay_a2479c50").setAttributeNS(null, "visibility", "visible");
+	}
+	function hide_a2479c50(evt) {
+		document.getElementById("top_note_a2479c50").setAttributeNS(null, "visibility", "hidden");
+		document.getElementById("top_overlay_a2479c50").setAttributeNS(null, "visibility", "hidden");
+		document.getElementById("bottom_note_a2479c50").setAttributeNS(null, "visibility", "hidden");
+		document.getElementById("bottom_overlay_a2479c50").setAttributeNS(null, "visibility", "hidden");
+	}
+]]>
+</script>
+<rect id="top_overlay_a2479c50" x="0" y="0" width="100%" height="40" fill="#b2182b" stroke-width="0" opacity="0.9" visibility="hidden"/>
+<text id="top_note_a2479c50" text-anchor="middle" x="284" y="24" fill="#f7f7f7" font-family="Verdana" font-size="14" visibility="hidden"></text>
+<rect id="bottom_overlay_a2479c50" x="0" y="425" width="100%" height="40" fill="#b2182b" stroke-width="0" opacity="0.9" visibility="hidden"/>
+<text id="bottom_note_a2479c50" text-anchor="middle" x="284" y="449" fill="#f7f7f7" font-family="Verdana" font-size="14" visibility="hidden"></text>
 </svg>
