@@ -16,6 +16,7 @@ Master, Lead Dev Front, Project Manager)
 
 - UserStories
 - MCD (Guillaume & Steeve)
+- Wireframes
 
 ## Jour 2 - 14/08/2023
 
@@ -25,9 +26,11 @@ Master, Lead Dev Front, Project Manager)
 - Intêret d'utiliser MongoDB ou PostgreSQL pour gérer la BDD (possible nécessité d'avoir une table contenant d'autre table) ??
 - Convention de nommage des commits
 
+- Redéfinition de la page d'accueil, qui comprendra le chat, les dates des prochaines rencontres et autres informations (profil, historique des rencontres jouées)
+- Redéfinition de la page matchmaking, où il sera possible de selectionner les participants, et de les afficher sur un terrain virtuel (image de fond en fonction du sport)
+
 #### A faire :
 
 - Revue des UserStories proposées
 - Revue des MCD proposés
-- Wireframes
 - Dictionnaire de données
