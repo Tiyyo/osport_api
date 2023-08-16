@@ -1,6 +1,6 @@
 # O'Sport
 
-## Rôles du projet 
+## Rôles du projet
 
 - **Product Owner** : Steeve Matou
 - **Git Master/Lead Back** : Guillaume Jolibois
@@ -52,7 +52,7 @@ Dans une version 1, l'application comprendrait :
 - La possibilité de noter les joueurs (note de 1 à 10)
 - L'accés à l'historique des matchs disputés
 
-#### Bonus :
+### Bonus
 
 - Une authentification via Google (et/ou Apple)
 - Email de confirmation
@@ -83,7 +83,7 @@ Dans une version 1, l'application comprendrait :
 - Résultats
 - Chat
 
-## Liste des routes
+## Liste des routes FRONT
 
 - /
 - /login
@@ -95,11 +95,29 @@ Dans une version 1, l'application comprendrait :
 - /legal_mentions
 - /privacy_policy
 
+## Liste des routes BACK
+
+- GET /user/:id
+- GET /user_friends/:id
+- POST /user
+- PATCH /user/:id
+- PATCH /rate_user/:id
+- DELETE /user/:id
+
+- POST /user
+- PUT /user/:id
+
+- POST /event
+- PATCH /event/:id
+
+- GET /sport
+
 ## Wireframe
 
-### [Figma](https://www.figma.com/file/iscZuzxtxFLezgHNrOi2E1/Untitled?type=design&node-id=9-2&mode=design&t=H0gntgd6xWjKuWgj-0) 
+### [Figma](https://www.figma.com/file/iscZuzxtxFLezgHNrOi2E1/Untitled?type=design&node-id=9-2&mode=design&t=H0gntgd6xWjKuWgj-0)
 
 ### [Moqup - Desktop Version](https://app.moqups.com/cCk3iLfr4qXsS0zye6MKNCvcdlGhEQ7r/view/page/ad64222d5)
+
 ### [Moqup - Mobile Version](https://app.moqups.com/W7DPy5eEV1H5z1EvA04u3hCgxf7e6vlT/view/page/ad64222d5)
 
 ## Se repérer dans les commits
