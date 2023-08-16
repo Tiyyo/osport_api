@@ -89,9 +89,9 @@ Dans une version 1, l'application comprendrait :
 - /login
 - /signup
 - /:username
-  - /:username/history
+  - /:username/event_lists
   - /:username/friendlist
-  - /:username/matchmaking
+  - /:username/create_event
 - /legal_mentions
 - /privacy_policy
 
