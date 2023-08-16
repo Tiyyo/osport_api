@@ -3,7 +3,7 @@
 ## Rôles du projet 
 
 - **Product Owner** : Steeve Matou
-- **Git Master** : Guillaume Jolibois
+- **Git Master/Lead Back** : Guillaume Jolibois
 - **Lead Dev Front** : Thomas Gouel
 - **Project Manager** : Anthony Bourret
 
@@ -66,17 +66,14 @@ Bonus :
 ## Liste des routes
 
 - /
-- /profil
-  - /profil/:id
-    - /profil/:id/sport
-    - /profil/:id/history
-- /friendlist
-  - /friendlist/:id
-- /matchmaking
-  - /matchmaking/:id/résultats
-  - /matchmaking/:id/chat
-
-    PS : routes à revoir
+- /login
+- /signup
+- /:username
+  - /:username/history
+  - /:username/friendlist
+  - /:username/matchmaking
+- /legal_mentions
+- /privacy_policy
 
 ## Wireframe
 
