@@ -97,20 +97,16 @@ Dans une version 1, l'application comprendrait :
 
 ## Liste des routes BACK
 
-- GET /user/:id
-- GET /user_friends/:id
-- POST /user
-- PATCH /user/:id
-- PATCH /rate_user/:id
-- DELETE /user/:id
-
-- POST /user
-- PUT /user/:id
-
-- POST /event
-- PATCH /event/:id
-
-- GET /sport
+| ROUTE | GET | POST | PATCH | DELETE | DESCRIPTION |
+| :---: | :---: | :---: | :---: | :---: | :---: |
+| `/user` | ❌ | ✅ | ❌ | ❌ | |
+| `/user/:id` | ✅ | ✅ | ✅ | ✅ | |
+| `/user_friends/:id` | ✅ | ❌ | ❌ | ❌ | |
+| `/rate_user/:id` | ❌ | ❌ | ✅ | ❌ | |
+| `/event` | ❌ | ✅ | ❌ | ❌ | |
+| `/event/:id` | ❌ | ❌ | ✅ | ❌ | Here, after organizator validate the event, it generate teams and distribute players |
+| `/event/:id/:user_id/results` | ❌ | ❌ | ✅ | ❌ | After the end of the event, the organizator only can save results |
+| `/sport` | ✅ | ❌ | ❌ | ❌ | |
 
 ## Wireframe
 
