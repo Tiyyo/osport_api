@@ -1,6 +1,6 @@
 :
 JOUER, 1N EVENT, 0N USER
-EVENT : ref, date, location, duration, nb_team, status
+EVENT : ref, date, location, duration, nb_team, nb_max_participant, status
 :
 AVOIR2, 11 EVENT, 0N SPORT
 :
@@ -13,7 +13,7 @@ SPORT : ref, name
 
 POSSEDER, 0N LEVEL, 11 USER
 AVOIR, 01 IMAGE, 01 USER
-IMAGE : ref, url, key, size
+IMAGE : ref, url, key
 :
 :
 
