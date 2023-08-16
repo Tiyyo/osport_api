@@ -11,13 +11,13 @@ CREER, 11 EVENT, 0N USER
 DETENIR, 0N IMAGE, 1N SPORT
 SPORT : ref, name
 
-POSSEDER, 0N LEVEL, 11 USER
+POSSEDER, 0N LEVEL, 10 USER
 AVOIR, 01 IMAGE, 01 USER
 IMAGE : ref, url, key
 :
 :
 
-LEVEL : ref, rating, nb_review 
+LEVEL : ref, rating
 :
 :
 :
