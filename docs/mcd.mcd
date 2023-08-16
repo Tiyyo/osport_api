@@ -11,15 +11,16 @@ CREER, 11 EVENT, 0N USER
 DETENIR, 0N IMAGE, 1N SPORT
 SPORT : ref, name
 
-POSSEDER, 0N SKILL, 0N USER
+POSSEDER, 0N LEVEL, 11 USER
 AVOIR, 01 IMAGE, 01 USER
 IMAGE : ref, url, key, size
 :
 :
 
-SKILL : ref, capacity_1, capacity_2
+LEVEL : ref, rating, nb_review 
 :
 :
 :
-POSSEDER2, 1N SPORT, 0N SKILL
+POSSEDER2, 1N SPORT, 0N LEVEL
 :
+ 
