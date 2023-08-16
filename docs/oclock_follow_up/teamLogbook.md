@@ -12,7 +12,7 @@ Master, Lead Dev Front, Project Manager)
 - Ebauche de l'arborescence et des routes de l'application
 - Mise en place d'un outil de gestion : Trello
 
-#### A faire :
+### Jour 1 - A faire
 
 - UserStories
 - MCD (Guillaume & Steeve)
@@ -29,7 +29,7 @@ Master, Lead Dev Front, Project Manager)
 - Redéfinition de la page d'accueil, qui comprendra le chat, les dates des prochaines rencontres et autres informations (profil, historique des rencontres jouées)
 - Redéfinition de la page matchmaking, où il sera possible de selectionner les participants, et de les afficher sur un terrain virtuel (image de fond en fonction du sport)
 
-#### A faire :
+### Jour 2 - A faire
 
 - Revue des UserStories proposées
 - Revue des MCD proposés
@@ -43,4 +43,4 @@ Master, Lead Dev Front, Project Manager)
 - Basket : dribbling, strength, block, mid-range-shot, long-range-shot, vertical, acceleration
 
 - Revue des Wireframes en vue de modifications futures quand le front sera en cours d'élaboration
-- Modification des routes suite aux modifications d'organisation de la structure de l'app (Wireframe) 
+- Modification des routes suite aux modifications d'organisation de la structure de l'app (Wireframe)
