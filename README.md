@@ -74,14 +74,7 @@ Dans une version 1, l'application comprendrait :
 
 ## Arborescence de l'application
 
-- **Page d'accueil** :
-  - Page profil utilisateur (page affichée selon le sport)
-  - Historique
-- **Liste d'amis** :
-  - Evaluation des autres joueurs via leurs profils
-- **Matchmaking** :
-- Résultats
-- Chat
+### [Trello](https://www.figma.com/file/TBX27pwp27QdyIRzMbHJWE/OSport?type=design&node-id=44%3A2&mode=design&t=yfL0rgEu1itT30FB-1)
 
 ## Liste des routes FRONT
 
