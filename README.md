@@ -23,29 +23,49 @@ Après chaque événement, les participants pourront élire un MVP (Most Valuabl
 
 Tous sportifs, tous niveaux. Groupes d'amis voulant se réunir et garder un historique des matchs joués via une interface simple à utiliser, et permettre aux joueurs de s'évaluer entre eux. L'application permettra de générer deux équipes en fonction de la note des joueurs. Le résultat des matchs sera enregistré par l'oganisateur de l'événement.
 
-## Définitions des besoins
+## Besoins
+
+- L'utilisateur doit pouvoir créer un événement
+- L'utilisateur doit pouvoir ajouter/supprimer des amis à ses contacts
+- L'utilisateur peut accéder à son historique de matchs joués qui affiche les détails du match (participants, score, sport, date)
+- L'utilisateur peut accepter une invitation à un événément envoyée par un ami
+- L'utilisateur peut modifier ses informations de profil
+- L'utilisateur doit pouvoir communiquer via une messagerie avec les autres participants d'un événement
+- L'organisateur peut inviter ses amis à l'événement créé
+- L'organisateur doit pouvoir modifier l'événement
+- L'organisateur peut confirmer l'événément
+- L'organisateur de l'événement peut inscrire le score final
+
+## Fonctionnalités
 
 Dans une version 1, l'application comprendrait :
 
-- Une authentification via Google (et/ou Apple).
-- La possibilité pour l'utilisateur de gérer son profil.
-- Plusieurs sports possibles, avec à chaque fois des stats propres au sport choisi
-- La possibilité pour l'utilisateur de s'auto-évaluer sur plusieurs critères selon le sport.
-- L'ajout d'autres utilisateurs dans une liste d'amis.
-- La création d'événements.
-- L'envoi d'invitations aux événements.
-- La création d'une messagerie par événement.
-- La repartition des participants en équipes via  un algorithme (score global en unique paramètre).
-- La possibilité de noter les joueurs.
-- L'accés à l'historique des matchs disputés.
+- La possibilité pour l'utilisateur de s'enregistrer, modifier, supprimer ses informations de profil
+- Modifier sa photo de profil, son pseudo et mettre à jour son email
+- L'utilisateur doit pouvoir s'attribuer un niveau de base (débutant-intermediaire-confirmé) selon le sport
+- L'ajout d'autres utilisateurs dans une liste d'amis
+- La création, modification, confirmation et suppression d'événements
+- L'envoi d'invitations à l'événement aux contacts choisis
+- La création d'une messagerie par événement accessible pour tous les participants
+- La repartition des participants en équipes via  un algorithme (score global en unique paramètre pour avoir 2 équipes équilibrées)
+- Le niveau choisi par l'utilisateur correspond à une valeur numerique (débutant = 1 à 3, intermediare = 4 à 6, confirmé = 7 et +)
+- La possibilité de noter les joueurs (note de 1 à 10)
+- L'accés à l'historique des matchs disputés
 
-Bonus :
+#### Bonus :
 
-- Ajout un lien vers Google Agenda (et/ou Google Calendar) automatique.
-- Election MVP.
+- Une authentification via Google (et/ou Apple)
+- Email de confirmation
+- Ajout un lien vers Google Agenda automatique
+- Election MVP
+- Encart pour le prochain événement à venir
+- Liste d'attente lors d'un matchmaking (confirmé par l'organisateur)
+- Possibilité d'invitation à rejoindre l'application
+- Chat direct
 
 ## Technologies utilisées
 
+- TypeScript
 - React
 - PostgreSQL
 - NodeJS - Express
