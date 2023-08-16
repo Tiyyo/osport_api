@@ -35,13 +35,12 @@ Master, Lead Dev Front, Project Manager)
 - Revue des MCD proposés
 - Dictionnaire de données
 
-
 ## Jour 3 - 16/08/2023
 
 - Définition des bases de données relatives aux sports :
 
-    - Football : passing, pace, dribbling, shot, tackle, strenght
-    - Basket : dribbling, strength, block, mid-range-shot, long-range-shot, vertical, acceleration
+- Football : passing, pace, dribbling, shot, tackle, strenght
+- Basket : dribbling, strength, block, mid-range-shot, long-range-shot, vertical, acceleration
 
 - Revue des Wireframes en vue de modifications futures quand le front sera en cours d'élaboration
 - Modification des routes suite aux modifications d'organisation de la structure de l'app (Wireframe) 
