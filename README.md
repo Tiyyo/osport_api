@@ -2,10 +2,10 @@
 
 ## Rôles du projet 
 
-- **Product Owner** : Steeve M.
-- **Git Master** : Guillaume J.
-- **Lead Dev Front** : Thomas G.
-- **Project Manager** : Anthony B.
+- **Product Owner** : Steeve Matou
+- **Git Master** : Guillaume Jolibois
+- **Lead Dev Front** : Thomas Gouel
+- **Project Manager** : Anthony Bourret
 
 ## [Trello](https://trello.com/b/Nkp4wJJY/osport)
 
@@ -44,7 +44,6 @@ Bonus :
 - Ajout un lien vers Google Agenda (et/ou Google Calendar) automatique.
 - Election MVP.
 
-
 ## Technologies utilisées
 
 - React
@@ -56,29 +55,28 @@ Bonus :
 ## Arborescence de l'application
 
 - **Page d'accueil** :
-    - Page profil utilisateur (page affichée selon le sport)
-    - Historique
+  - Page profil utilisateur (page affichée selon le sport)
+  - Historique
 - **Liste d'amis** :
-    - Evaluation des autres joueurs via leurs profils
--  **Matchmaking** :
-    - Résultats
-    - Chat
+  - Evaluation des autres joueurs via leurs profils
+- **Matchmaking** :
+- Résultats
+- Chat
 
 ## Liste des routes
 
 - /
 - /profil
-    - /profil/:id
-        - /profil/:id/sport
-        - /profil/:id/history
+  - /profil/:id
+    - /profil/:id/sport
+    - /profil/:id/history
 - /friendlist
-    - /friendlist/:id
+  - /friendlist/:id
 - /matchmaking
-    - /matchmaking/résultats
-    - /matchmaking/chat
+  - /matchmaking/:id/résultats
+  - /matchmaking/:id/chat
 
     PS : routes à revoir
-
 
 ## Wireframe
 
