@@ -38,9 +38,18 @@ Master, Lead Dev Front, Project Manager)
 ## Jour 3 - 16/08/2023
 
 - Définition des bases de données relatives aux sports :
-
 - Football : passing, pace, dribbling, shot, tackle, strenght
 - Basket : dribbling, strength, block, mid-range-shot, long-range-shot, vertical, acceleration
-
 - Revue des Wireframes en vue de modifications futures quand le front sera en cours d'élaboration
 - Modification des routes suite aux modifications d'organisation de la structure de l'app (Wireframe)
+
+Après revision des besoins/fonctionnalités :
+
+- Revues des fonctionnalités chronophages, à integrer dans une V2 (chat direct, authentification Google)
+- Revues des composants en front à simplifier (remplissage du terrain au fur et à mesure de la séléction des participants, agenda enlevé)
+- Revue du systeme de note, avec une seule note globale
+
+- Schéma d'arborescence fait
+- Routes côté Backend définies
+
+## Jour 4 - 17/08/2023
