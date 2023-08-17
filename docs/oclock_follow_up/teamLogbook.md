@@ -43,13 +43,21 @@ Master, Lead Dev Front, Project Manager)
 - Revue des Wireframes en vue de modifications futures quand le front sera en cours d'élaboration
 - Modification des routes suite aux modifications d'organisation de la structure de l'app (Wireframe)
 
+## Jour 4 - 17/08/2023
+
 Après revision des besoins/fonctionnalités :
 
-- Revues des fonctionnalités chronophages, à integrer dans une V2 (chat direct, authentification Google)
-- Revues des composants en front à simplifier (remplissage du terrain au fur et à mesure de la séléction des participants, agenda enlevé)
-- Revue du systeme de note, avec une seule note globale
+- Suppression des fonctionnalités les plus chronophages, à integrer dans une V2 (chat direct, authentification Google, agenda)
+- Revues des composants en front à simplifier (remplissage du terrain au fur et à mesure de la séléction des participants et autres optimisations)
+- Revue du systeme de note, avec une seule note globale au lieu de plusiers skills.
+- Les notes attribuées donneront un niveau à l'utilisateur : 1 à 3 = débutant, 4 à 6 = intermédiaire, 7 et + = confirmé.
+- Les notes seront utilisées en back pour donner un niveau à l'utilisateur en front
+- L'utilisateur choisira son niveau et ne s'attribuera pas de note au départ
+- 2 sports conservés dans la V1 : Foot et Basket
+- Finalisation des user stories
 
-- Schéma d'arborescence fait
-- Routes côté Backend définies
-
-## Jour 4 - 17/08/2023
+- Schéma d'arborescence fait (Thomas)
+- Routes côté Backend définies (Steeve & Guillaume)
+- Wireframes Desktop & Mobile finalisés (Anthony)
+- Mise à jour du Trello, en séparant les tâches à effectuer (Guillaume & Anthony)
+- Connexion à un serveur AWS en vue d'un futur déploiement (Steeve & Thomas)
