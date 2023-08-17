@@ -69,6 +69,7 @@ Dans une version 1, l'application comprendrait :
 - React
 - PostgreSQL
 - NodeJS - Express
+- Prisma
 - Vitest
 - Zod
 
@@ -108,14 +109,16 @@ Dans une version 1, l'application comprendrait :
 | `/event/validate` | ❌ | ❌ | ✅ | ❌ | |
 | `/event/results` | ❌ | ❌ | ✅ | ❌ | After the end of the event, the organizator only can save results |
 | `/sport` | ✅ | ❌ | ❌ | ❌ | |
+| `/chat` | ❌ | ✅ | ❌ | ❌ | To send new message to the chat |
+| `/chat/:id` | ✅ | ❌ | ❌ | ❌ | To reload the chat, new players or chat messages |
 
-## Wireframe
-
-### [Figma](https://www.figma.com/file/iscZuzxtxFLezgHNrOi2E1/Untitled?type=design&node-id=9-2&mode=design&t=H0gntgd6xWjKuWgj-0)
+## Wireframes
 
 ### [Moqup - Desktop Version](https://app.moqups.com/cCk3iLfr4qXsS0zye6MKNCvcdlGhEQ7r/view/page/ad64222d5)
 
 ### [Moqup - Mobile Version](https://app.moqups.com/W7DPy5eEV1H5z1EvA04u3hCgxf7e6vlT/view/page/ad64222d5)
+
+### [Figma](https://www.figma.com/file/iscZuzxtxFLezgHNrOi2E1/Untitled?type=design&node-id=9-2&mode=design&t=H0gntgd6xWjKuWgj-0)
 
 ## Se repérer dans les commits
 
