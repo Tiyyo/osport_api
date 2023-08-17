@@ -92,13 +92,21 @@ Dans une version 1, l'application comprendrait :
 
 | ROUTE | GET | POST | PATCH | DELETE | DESCRIPTION |
 | :---: | :---: | :---: | :---: | :---: | :---: |
-| `/user` | ❌ | ✅ | ❌ | ❌ | |
-| `/user/:id` | ✅ | ✅ | ✅ | ✅ | |
+| `/signup` | ❌ | ✅ | ❌ | ❌ | Creation of the user and hash password |
+| `/signin` | ❌ | ✅ | ❌ | ❌ | Creation of a token to resend back to the front |
+| `/user/validate` | ✅ | ❌ | ❌ | ❌ | |
+| `/user/:id` | ✅ | ❌ | ✅ | ✅ | |
+| `/user?username=` | ✅ | ❌ | ❌ | ❌ | |
+| `/user/image` | ❌ | ❌ | ✅ | ❌ | |
+| `/user/sport` | ❌ | ❌ | ✅ | ❌ | |
 | `/user_friends/:id` | ✅ | ❌ | ❌ | ❌ | |
+| `/user_friends/send/:id` | ❌ | ✅ | ❌ | ❌ | |
+| `/user_friends/reject/:id` | ❌ | ✅ | ❌ | ❌ | |
+| `/user_friends/accept/:id` | ❌ | ✅ | ❌ | ❌ | |
 | `/rate_user/:id` | ❌ | ❌ | ✅ | ❌ | |
-| `/event` | ❌ | ✅ | ❌ | ❌ | |
-| `/event/:id` | ❌ | ❌ | ✅ | ❌ | Here, after organizator validate the event, it generate teams and distribute players |
-| `/event/:id/:user_id/results` | ❌ | ❌ | ✅ | ❌ | After the end of the event, the organizator only can save results |
+| `/event` | ❌ | ✅ | ✅ | ❌ | Here, after organizator validate the event, it generate teams and distribute players (for Patch) |
+| `/event/validate` | ❌ | ❌ | ✅ | ❌ | |
+| `/event/results` | ❌ | ❌ | ✅ | ❌ | After the end of the event, the organizator only can save results |
 | `/sport` | ✅ | ❌ | ❌ | ❌ | |
 
 ## Wireframe
