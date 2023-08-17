@@ -12,7 +12,7 @@ MAITRISER, 0N SPORT, 0N USER
 :
 AVOIR, 01 IMAGE, 01 USER
 
-EVENT : ref, date, location, duration, nb_team, nb_max_participant, status
+EVENT : ref, date, location, duration, nb_team, nb_max_participant, status, winner_team
 CREER, 11 EVENT, 0N USER
 USER : ref, username, email, password
 :
