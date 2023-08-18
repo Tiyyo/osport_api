@@ -106,6 +106,7 @@
 		<rect x="409" y="253" width="126" height="50" fill="none" rx="14" stroke="#d6604d" stroke-width="2"/>
 		<line x1="409" y1="278" x2="535" y2="278" stroke="#d6604d" stroke-width="1"/>
 		<text x="417" y="270.75" fill="#000" font-family="Verdana" font-size="12">AJOUTER_EN_AMI</text>
+		<text x="416" y="295.8" fill="#000" font-family="Verdana" font-size="12">status</text>
 	</g>
 </g>
 

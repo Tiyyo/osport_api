@@ -14,7 +14,7 @@ IMAGE (id INTEGER, title TEXT, url TEXT)
 EVENT_ON_USER (event_id INTEGER, user_id INTEGER, team INTEGER)
 
 <!-- Convertion : AJOUTER_EN_AMI, 0N USER, 0N USER -->
-USER_ON_FRIEND (user_ask_id INTEGER, user_friend_id INTEGER)
+USER_ON_FRIEND (user_ask_id INTEGER, user_friend_id INTEGER, status TEXT)
 
 <!-- Convertion : MAITRISER, 0N SPORT, 0N USER -->
 USER_ON_SPORT (user_sport_id INTEGER, sport_id INTEGER, rate INTEGER)

@@ -14,7 +14,7 @@ EVENT : ref, date, location, duration, nb_team, nb_max_participant, status, winn
 CREER, 11 EVENT, 0N USER
 USER : ref, username, email, password
 :
-AJOUTER_EN_AMI, 0N USER, 0N USER
+AJOUTER_EN_AMI, 0N USER, 0N USER: status
 
 :
 DISCUTER, 0N EVENT, 0N USER: message, date
