@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<svg width="544" height="447" viewBox="0 0 544 447" xmlns="http://www.w3.org/2000/svg">
-<rect id="frame" x="0" y="0" width="544" height="447" fill="#f7f7f7" stroke="none" stroke-width="0"/>
+<svg width="544" height="465" viewBox="0 0 544 465" xmlns="http://www.w3.org/2000/svg">
+<rect id="frame" x="0" y="0" width="544" height="465" fill="#f7f7f7" stroke="none" stroke-width="0"/>
 
 <!-- Association DETENIR -->
 <g>
@@ -44,6 +44,7 @@
 		<rect x="173" y="118" width="56" height="50" fill="none" rx="14" stroke="#d6604d" stroke-width="2"/>
 		<line x1="173" y1="143" x2="229" y2="143" stroke="#d6604d" stroke-width="1"/>
 		<text x="181" y="135.75" fill="#000" font-family="Verdana" font-size="12">JOUER</text>
+		<text x="180" y="160.8" fill="#000" font-family="Verdana" font-size="12">team</text>
 	</g>
 </g>
 
@@ -59,6 +60,7 @@
 		<rect x="261" y="118" width="84" height="50" fill="none" rx="14" stroke="#d6604d" stroke-width="2"/>
 		<line x1="261" y1="143" x2="345" y2="143" stroke="#d6604d" stroke-width="1"/>
 		<text x="269" y="135.75" fill="#000" font-family="Verdana" font-size="12">MAITRISER</text>
+		<text x="268" y="160.8" fill="#000" font-family="Verdana" font-size="12">rate</text>
 	</g>
 </g>
 
@@ -109,16 +111,18 @@
 
 <!-- Association DISCUTER -->
 <g>
-	<line x1="75" y1="278" x2="201" y2="413" stroke="#d6604d" stroke-width="2"/>
-	<text x="146" y="347.44" fill="#2166ac" font-family="Verdana" font-size="12">0,N</text>
-	<line x1="303" y1="278" x2="201" y2="413" stroke="#d6604d" stroke-width="2"/>
-	<text x="240" y="323.34" fill="#2166ac" font-family="Verdana" font-size="12">0,N</text>
+	<line x1="75" y1="278" x2="201" y2="422" stroke="#d6604d" stroke-width="2"/>
+	<text x="146" y="351.83" fill="#2166ac" font-family="Verdana" font-size="12">0,N</text>
+	<line x1="303" y1="278" x2="201" y2="422" stroke="#d6604d" stroke-width="2"/>
+	<text x="240" y="326.21" fill="#2166ac" font-family="Verdana" font-size="12">0,N</text>
 	<g>
 		<path d="M226 388 a14 14 90 0 1 14 14 V413 h-78 V402 a14 14 90 0 1 14 -14" fill="#f4a582" stroke="#f4a582" stroke-width="0"/>
-		<path d="M240 413 v11 a14 14 90 0 1 -14 14 H176 a14 14 90 0 1 -14 -14 V413 H78" fill="#fddbc7" stroke="#fddbc7" stroke-width="0"/>
-		<rect x="162" y="388" width="78" height="50" fill="none" rx="14" stroke="#d6604d" stroke-width="2"/>
+		<path d="M240 413 v29 a14 14 90 0 1 -14 14 H176 a14 14 90 0 1 -14 -14 V413 H78" fill="#fddbc7" stroke="#fddbc7" stroke-width="0"/>
+		<rect x="162" y="388" width="78" height="68" fill="none" rx="14" stroke="#d6604d" stroke-width="2"/>
 		<line x1="162" y1="413" x2="240" y2="413" stroke="#d6604d" stroke-width="1"/>
 		<text x="169" y="405.75" fill="#000" font-family="Verdana" font-size="12">DISCUTER</text>
+		<text x="169" y="430.8" fill="#000" font-family="Verdana" font-size="12">message</text>
+		<text x="169" y="447.8" fill="#000" font-family="Verdana" font-size="12">date</text>
 	</g>
 </g>
 

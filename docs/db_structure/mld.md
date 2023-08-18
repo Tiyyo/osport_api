@@ -17,10 +17,10 @@ EVENT_ON_USER (event_id INTEGER, user_id INTEGER, team INTEGER)
 USER_ON_FRIEND (user_ask_id INTEGER, user_friend_id INTEGER)
 
 <!-- Convertion : MAITRISER, 0N SPORT, 0N USER -->
-USER_ON_SPORT (user_sport_id INTEGER, sport_id INTEGER)
+USER_ON_SPORT (user_sport_id INTEGER, sport_id INTEGER, rate INTEGER)
 
 <!-- Convertion : DETENIR, 0N IMAGE, 1N SPORT -->
 SPORT_ON_IMAGE (image_id INTEGER, sport_image_id INTEGER)
 
 <!-- Convertion : DISCUTER, 0N EVENT, 0N USER -->
-EVENT_CHAT_ON_USER (user_event_id INTEGER, event_user_id INTEGER)
+EVENT_CHAT_ON_USER (user_event_id INTEGER, event_user_id INTEGER, message TEXT, date DATE)

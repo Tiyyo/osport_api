@@ -1,5 +1,3 @@
-# Conception Merise : MCD
-
 :
 SPORT : ref, name
 DETENIR, 0N IMAGE, 1N SPORT
@@ -7,8 +5,8 @@ DETENIR, 0N IMAGE, 1N SPORT
 IMAGE : ref,title ,url
 
 AVOIR2, 11 EVENT, 0N SPORT
-JOUER, 1N EVENT, 0N USER
-MAITRISER, 0N SPORT, 0N USER
+JOUER, 1N EVENT, 0N USER: team
+MAITRISER, 0N SPORT, 0N USER: rate
 :
 AVOIR, 01 IMAGE, 01 USER
 
@@ -19,6 +17,6 @@ USER : ref, username, email, password
 AJOUTER_EN_AMI, 0N USER, 0N USER
 
 :
-DISCUTER, 0N EVENT, 0N USER
+DISCUTER, 0N EVENT, 0N USER: message, date
 :
 :
