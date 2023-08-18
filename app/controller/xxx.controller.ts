@@ -7,5 +7,7 @@ const redis = new Redis()
 
 
 export default {
-    asyncxxx: async (req: Request, res: Response) => { }
+    async getOne(req: Request, res: Response) { }
 }
+
+
