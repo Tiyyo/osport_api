@@ -1,5 +1,5 @@
-import { prisma } from '../helpers/db.client'
+import { prisma } from '../helpers/db.client';
 
 export default {
 
-}
+};
