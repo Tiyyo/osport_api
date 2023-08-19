@@ -2,14 +2,17 @@
   "compilerOptions": {
 
     /* Language and Environment */
-    "target": "es2020",
+    "target": "ES2020",
+    "moduleResolution": "NodeNext",
 
     /* Modules */
+    "allowImportingTsExtensions": true,
 
     /* JavaScript Support */
     "allowJs": true,
     
     /* Emit */
+    "noEmit": true,
 
     /* Interop Constraints */
     "esModuleInterop": true,
