@@ -7,7 +7,7 @@ import logger from '../helpers/logger';
 import NotFoundError from '../helpers/errors/notFound.error';
 import UserInputError from '../helpers/errors/userInput.error';
 
-export const errorHandler = (error: any, _req: Request, res: Response, next: NextFunction) => {
+const errorHandler = (error: any, _req: Request, res: Response, next: NextFunction) => {
   if (error instanceof ValidationError) {
     logger.error(`${error.name} ${error.message}`);
     return res.status(error.status).json({
@@ -26,3 +26,5 @@ export const errorHandler = (error: any, _req: Request, res: Response, next: Nex
   logger.error('Unknow error' + ` ${error.message}`);
   return res.status(500).send({ error: error.message });
 };
+
+export default errorHandler;
