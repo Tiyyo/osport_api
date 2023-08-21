@@ -1,5 +1,4 @@
 import express, { Router } from 'express';
-import errorHandler from '../middleware/error.handler.ts';
 
 const router: Router = express.Router();
 
