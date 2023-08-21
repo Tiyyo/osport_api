@@ -13,7 +13,7 @@ const validateToken = (req: Request, _res: Response, next: NextFunction) => {
     [, token] = authHeaders.split(' ');
 
     verify(token, process.env.JWT_TOKEN_KEY as string, (err, decoded) => {
-      if (err) { throw new AuthorizationError('Unauthorized user'); }
+      if (err) throw new AuthorizationError('Unauthorized user');
       next();
     });
   }

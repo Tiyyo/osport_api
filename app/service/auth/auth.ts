@@ -30,7 +30,7 @@ export async function createUser(data: RegisterForm) {
 }
 
 export async function login(data: LoginForm):
-	Promise<{ accessToken: string; refreshToken: string }> {
+	Promise<{ accessToken: string; }> {
 	const { emailOrUsername, password } = data;
 
 	// set to 1 minute for testing
