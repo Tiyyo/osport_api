@@ -1,6 +1,9 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
+// Information note : Every 0N cardinalities cannot be optional list, it becomes a list and Prisma accept null value in it
+// Information note : type String? === String NOT NULL in SQL
+
 generator client {
   provider = "prisma-client-js"
 }
@@ -10,11 +13,123 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model user {
-  id        Int      @id @default(autoincrement())
-  email     String   @unique
-  username  String   @unique
-  password  String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+model User {
+  id                 Int                  @id @default(autoincrement())
+  email              String               @unique
+  username           String               @unique
+  password           String
+  createdAt          DateTime             @default(now())
+  updatedAt          DateTime?            @updatedAt
+  image              Image?               @relation(fields: [image_id], references: [id])
+  image_id           Int?
+  event              Event[]
+  event_on_user      Event_on_user[]
+  asked_to_be_friend User_on_friend[]     @relation("asked")
+  ask_friend         User_on_friend[]     @relation("asker")
+  User_on_sport      User_on_sport[]
+  Event_chat_on_user Event_chat_on_user[]
+}
+
+model Sport {
+  id             Int              @id @default(autoincrement())
+  name           String           @unique
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime?        @updatedAt
+  event          Event[]
+  User_on_sport  User_on_sport[]
+  Sport_on_image Sport_on_image[]
+}
+
+model Image {
+  id             Int              @id @default(autoincrement())
+  title          String
+  url            String
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime?        @updatedAt
+  user           User[]
+  Sport_on_image Sport_on_image[]
+}
+
+model Event {
+  id                 Int                  @id @default(autoincrement())
+  event_date         DateTime
+  location           String
+  duration           Int
+  nb_team            Int
+  nb_max_participant Int
+  status             String
+  winner_team        Int?
+  creator            User                 @relation(fields: [creator_id], references: [id])
+  creator_id         Int
+  sport              Sport                @relation(fields: [sport_id], references: [name])
+  sport_id           String
+  createdAt          DateTime             @default(now())
+  updatedAt          DateTime?            @updatedAt
+  event_on_user      Event_on_user[]
+  Event_chat_on_user Event_chat_on_user[]
+}
+
+// Players who particip to an event
+model Event_on_user {
+  event     Event     @relation(fields: [event_id], references: [id])
+  event_id  Int
+  user      User      @relation(fields: [user_id], references: [id])
+  user_id   Int
+  // Optional in pre-match only
+  team      Int?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime? @updatedAt
+
+  // To add a unique constraint on the couple event_id and user_id
+  @@id([event_id, user_id])
+}
+
+model User_on_friend {
+  asked     User      @relation("asked", fields: [asked_id], references: [id])
+  asked_id  Int
+  asker     User      @relation("asker", fields: [asker_id], references: [id])
+  asker_id  Int
+  // Enum to predefined status (ex: pending, accepted, declined) are not supported by SQLite and Microsoft SQL Server, so status is a string
+  status    String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime? @updatedAt
+
+  @@id([asked_id, asker_id])
+}
+
+// How much the user master the sport
+model User_on_sport {
+  user      User      @relation(fields: [user_id], references: [id])
+  user_id   Int
+  sport     Sport     @relation(fields: [sport_id], references: [id])
+  sport_id  Int
+  rate      Int
+  createdAt DateTime  @default(now())
+  updatedAt DateTime? @updatedAt
+
+  @@id([user_id, sport_id])
+}
+
+model Sport_on_image {
+  sport     Sport     @relation(fields: [sport_id], references: [id])
+  sport_id  Int
+  image     Image     @relation(fields: [image_id], references: [id])
+  image_id  Int
+  createdAt DateTime  @default(now())
+  updatedAt DateTime? @updatedAt
+
+  @@id([sport_id, image_id])
+}
+
+model Event_chat_on_user {
+  event     Event     @relation(fields: [event_id], references: [id])
+  event_id  Int
+  user      User      @relation(fields: [user_id], references: [id])
+  user_id   Int
+  message   String
+  date      DateTime
+  createdAt DateTime  @default(now())
+  updatedAt DateTime? @updatedAt
+
+  @@id([event_id, user_id])
 }
