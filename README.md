@@ -106,7 +106,7 @@ Dans une version 1, l'application comprendrait :
 | `/user_friends/accept/:id` | ❌ | ✅ | ❌ | ❌ | |
 | `/rate_user/:id` | ❌ | ❌ | ✅ | ❌ | |
 | `/event` | ❌ | ✅ | ✅ | ❌ | Here, after organizator validate the event, it generate teams and distribute players (for Patch) |
-| `/event/validate` | ❌ | ❌ | ✅ | ❌ | |
+| `/event/validate` | ❌ | ❌ | ✅ | ❌ | Generate balanced teams |
 | `/event/results` | ❌ | ❌ | ✅ | ❌ | After the end of the event, the organizator only can save results |
 | `/sport` | ✅ | ❌ | ❌ | ❌ | |
 | `/chat` | ❌ | ✅ | ❌ | ❌ | To send new message to the chat |
