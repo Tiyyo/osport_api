@@ -11,14 +11,14 @@
     "db:push": "prisma db push",
     "db:seed": "prisma db seed --preview-feature",
     "db:reset": "prisma migrate reset",
-    "test": "jest",
-    "xtest": "jest --verbose --runInBand --detectOpenHandles --forceExit"
+    "test": "vitest"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@prisma/client": "5.1.1",
+    "@vitest/coverage-v8": "^0.34.2",
     "dotenv": "^16.3.1",
     "eslint": "^8.47.0",
     "express": "^4.18.2",
@@ -26,6 +26,8 @@
     "morgan": "^1.10.0",
     "nodemon": "^3.0.1",
     "prisma-zod-generator": "^0.8.13",
+    "supertest": "^6.3.3",
+    "vitest": "^0.34.2",
     "winston": "^3.10.0",
     "winston-daily-rotate-file": "^4.7.1",
     "zod": "^3.22.1"
@@ -39,6 +41,7 @@
     "@types/jsonwebtoken": "^9.0.2",
     "@types/morgan": "^1.9.4",
     "@types/node": "^20.5.0",
+    "@types/supertest": "^2.0.12",
     "@typescript-eslint/eslint-plugin": "^6.4.0",
     "@typescript-eslint/parser": "^6.4.0",
     "eslint-config-airbnb": "^19.0.4",
@@ -48,7 +51,6 @@
     "prisma": "^5.1.1",
     "ts-jest": "^29.1.1",
     "ts-node": "^10.9.1",
-    "typescript": "^5.1.6",
-    "vitest": "^0.34.2"
+    "typescript": "^5.1.6"
   }
 }
