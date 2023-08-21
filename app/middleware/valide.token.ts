@@ -4,13 +4,13 @@ import AuthorizationError from '../helpers/errors/unauthorized.error.ts';
 
 const { verify } = jwt;
 
-export const validateToken = (req: Request, _res: Response, next: NextFunction) => {
+const validateToken = (req: Request, _res: Response, next: NextFunction) => {
   let token: string = '';
 
   const authHeaders = req.headers.Authorization || req.headers.authorization;
 
   if (authHeaders && typeof authHeaders === 'string' && authHeaders.startsWith('Bearer')) {
-    token = authHeaders.split(' ')[1];
+    [, token] = authHeaders.split(' ');
 
     verify(token, process.env.JWT_TOKEN_KEY as string, (err, decoded) => {
       if (err) { throw new AuthorizationError('Unauthorized user'); }
@@ -19,3 +19,5 @@ export const validateToken = (req: Request, _res: Response, next: NextFunction) 
   }
   if (!token) throw new AuthorizationError('Unauthorized user');
 };
+
+export default validateToken;

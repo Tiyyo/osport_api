@@ -15,7 +15,11 @@ const errorHandler = (error: any, _req: Request, res: Response, next: NextFuncti
     });
   }
 
-  if (error instanceof AuthorizationError || error instanceof ServerError || error instanceof DatabaseError || error instanceof NotFoundError || error instanceof UserInputError) {
+  if (error instanceof AuthorizationError
+    || error instanceof ServerError
+    || error instanceof DatabaseError
+    || error instanceof NotFoundError
+    || error instanceof UserInputError) {
     logger.error(`${error.name} ${error.message}`);
     return res.status(error.status).json({ error: error.userMessage });
   }
@@ -23,7 +27,9 @@ const errorHandler = (error: any, _req: Request, res: Response, next: NextFuncti
   if (res.app.get('env') !== 'development') {
     return res.status(500).send('Internal Server Error');
   }
-  logger.error('Unknow error' + ` ${error.message}`);
+  const unknowError = 'Unknow error';
+
+  logger.error(`${unknowError + error.message}`);
   return res.status(500).send({ error: error.message });
 };
 

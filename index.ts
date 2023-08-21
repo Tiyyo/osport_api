@@ -10,3 +10,4 @@ const server = createServer(app);
 server.listen(PORT, () => {
   logger.info(`Server is running on port ${PORT}`);
 });
+
