@@ -67,4 +67,4 @@ Après revision des besoins/fonctionnalités :
 - Début de l'intégration page Profile, problème avec daisyUI qui ne prenait pas en compte les changements de CSS pour un élément ni les thèmes choisis. Les 1er éléments sont créés. (Anthony)
 - Intégration page Login & Signup, et de la logique de connexion (useEffect), formulaire de connexion et d'inscription fait. Problème avec les sessions ajout de AuthProvider pour plus de sécurité. (Thomas)
 - Script pour mettre des users dans la BDD, authentification, ajout de règles sur ESLint (le projet ne démarrait plus, extensions non reconnues). (Steeve)
-- Intégration de Vitest, Diffèrentes configutaion ESLint. (Guillaume)
+- Intégration de Vitest, Diffèrentes configutaion ESLint. (Guillaume).
