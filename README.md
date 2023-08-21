@@ -96,6 +96,7 @@ Dans une version 1, l'application comprendrait :
 | `/signup` | ❌ | ✅ | ❌ | ❌ | Creation of the user and hash password |
 | `/signin` | ❌ | ✅ | ❌ | ❌ | Creation of a token to resend back to the front |
 | `/user/validate` | ✅ | ❌ | ❌ | ❌ | |
+| `/logout` | ❌ | ✅ | ❌ | ❌ | Invalidate token |
 | `/user/:id` | ✅ | ❌ | ✅ | ✅ | |
 | `/user?username=` | ✅ | ❌ | ❌ | ❌ | |
 | `/user/image` | ❌ | ❌ | ✅ | ❌ | |
