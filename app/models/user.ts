@@ -1,6 +1,6 @@
 import { Prisma } from '@prisma/client';
 import prisma from '../helpers/db.client.ts';
-import type { LoginForm } from '../@types/index.d.ts';
+import type { LoginForm } from '../@types/index.js';
 
 export default {
 	create: async (data: Prisma.userCreateInput) => {
