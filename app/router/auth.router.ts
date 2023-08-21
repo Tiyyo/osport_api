@@ -9,7 +9,9 @@ const {
 	register, signin, validate, logout,
 } = authController;
 
-// TODO add validation middleware
+// TODO add validation schema middleware
+// we need to ensure that the data is valid before reaching the controller
+// we use the same middleware throughout the app
 
 router.route('/signup')
 	.post(factory(register));

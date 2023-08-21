@@ -1,6 +1,10 @@
 import morgan, { StreamOptions } from 'morgan';
 import logger from '../helpers/logger.ts';
 
+// middleware to get some information about the request
+// and we log it using our logger
+// to help us debug the app
+
 const stream: StreamOptions = {
   write: (message) => logger.http(message),
 };

@@ -4,6 +4,7 @@ import 'winston-daily-rotate-file';
 
 const { createLogger } = winston;
 
+// colors is nice
 const levels = {
   error: 0,
   warn: 1,
@@ -18,6 +19,7 @@ const level = () => {
   return isDevelopment ? 'debug' : 'warn';
 };
 
+// colors is still nice
 const colors = {
   error: 'red',
   warn: 'yellow',
@@ -36,6 +38,7 @@ const format = winston.format.combine(
   ),
 );
 
+// just get the transport and store them on server with a daily rotation
 const transports = [
   new winston.transports.DailyRotateFile({
     filename: 'logs/combined-%DATE%.log',
