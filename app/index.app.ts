@@ -2,7 +2,7 @@ import express from 'express';
 // import cors, { CorsOptions } from 'cors';
 // import cookieParser from 'cookie-parser';
 // import router from './router/main.router';
-import accesHttp from './middleware/access.http';
+import accesHttp from './middleware/access.http.ts';
 // import * as url from 'url';
 
 // const dirname = url.fileURLToPath(new URL('.', import.meta.url));

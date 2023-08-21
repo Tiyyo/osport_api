@@ -1,11 +1,11 @@
 import { NextFunction, Request, Response } from 'express';
-import DatabaseError from '../helpers/errors/database.error';
-import ServerError from '../helpers/errors/server.error';
-import AuthorizationError from '../helpers/errors/unauthorized.error';
-import ValidationError from '../helpers/errors/validation.error';
-import logger from '../helpers/logger';
-import NotFoundError from '../helpers/errors/notFound.error';
-import UserInputError from '../helpers/errors/userInput.error';
+import DatabaseError from '../helpers/errors/database.error.ts';
+import ServerError from '../helpers/errors/server.error.ts';
+import AuthorizationError from '../helpers/errors/unauthorized.error.ts';
+import ValidationError from '../helpers/errors/validation.error.ts';
+import logger from '../helpers/logger.ts';
+import NotFoundError from '../helpers/errors/notFound.error.ts';
+import UserInputError from '../helpers/errors/userInput.error.ts';
 
 const errorHandler = (error: any, _req: Request, res: Response, next: NextFunction) => {
   if (error instanceof ValidationError) {

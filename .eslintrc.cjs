@@ -3,6 +3,7 @@ module.exports = {
   env: {
     browser: true,
     es2020: true,
+    node: true,
     "jest/globals": true
   },
   extends: [
@@ -11,10 +12,11 @@ module.exports = {
   ],
   ignorePatterns: ['.eslintrc.cjs'],
   parserOptions: {
-    project: `./tsconfig.json`,
+    project: `${__dirname}/tsconfig.json`,
   },
   plugins: ["jest"],
   rules: {
     'no-console': 'off',
+    'import/extensions': ["error", "ignorePackages"],
   },
 }

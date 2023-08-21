@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import { AnyZodObject, ZodError } from 'zod';
-import ServerError from '../helpers/errors/server.error';
-import ValidationError from '../helpers/errors/validation.error';
+import ServerError from '../helpers/errors/server.error.ts';
+import ValidationError from '../helpers/errors/validation.error.ts';
 
 export default (schema: AnyZodObject, canal: 'body' | 'params' | 'query') => async (request: Request, _res: Response, next: NextFunction) => {
   if (!schema) return next(new ServerError('No schema provided'));

@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
-import AuthorizationError from '../helpers/errors/unauthorized.error';
+import AuthorizationError from '../helpers/errors/unauthorized.error.ts';
 
 const { verify } = jwt;
 
