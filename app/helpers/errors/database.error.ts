@@ -1,5 +1,6 @@
 // import { Prisma } from "@prisma/client";
 
+/*eslint-disable */
 export default class DatabaseError extends Error {
   message: string;
 
@@ -39,3 +40,4 @@ export default class DatabaseError extends Error {
     this.status = 500;
   }
 }
+/* eslint-enable */

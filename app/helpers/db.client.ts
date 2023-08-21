@@ -1,21 +1,16 @@
+// https://www.prisma.io/docs/concepts/components/prisma-client/working-with-prismaclient/instantiate-prisma-client
+// We need to instantiate once thoughout the app
+// preventing multiple instances of Prisma Client in development
 import { PrismaClient } from '@prisma/client';
 
-let prisma: PrismaClient;
-declare global {
-  var __db: PrismaClient | undefined;
+interface CustomNodeJsGlobal {
+  prisma: PrismaClient;
 }
 
-if (process.env.NODE_ENV === 'production') {
-  prisma = new PrismaClient({
-  });
-  prisma.$connect();
-} else {
-  if (!global.__db) {
-    global.__db = new PrismaClient({
-    });
-    global.__db.$connect();
-  }
-  prisma = global.__db;
-}
+declare const global: CustomNodeJsGlobal;
 
-export { prisma };
+const prisma = global.prisma || new PrismaClient();
+
+if (process.env.NODE_ENV === 'development') global.prisma = prisma;
+
+export default prisma;
