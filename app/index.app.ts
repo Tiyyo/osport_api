@@ -1,8 +1,11 @@
 import express from 'express';
-import cors, { CorsOptions } from 'cors';
-import cookieParser from 'cookie-parser';
-import router from './router/main.router.ts';
+// import cors, { CorsOptions } from 'cors';
+// import cookieParser from 'cookie-parser';
+// import router from './router/main.router';
 import accesHttp from './middleware/access.http.ts';
+// import * as url from 'url';
+
+
 // const dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
 const app: express.Application = express();
@@ -19,6 +22,6 @@ app.use(cookieParser());
 
 // app.use(cors())
 
-app.use(router);
+// app.use(router);
 
 export default app;
