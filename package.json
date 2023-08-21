@@ -9,7 +9,7 @@
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "generate": "prisma generate",
     "db:push": "prisma db push",
-    "db:seed": "prisma db seed --preview-feature",
+    "db:seed": "prisma db seed",
     "db:reset": "prisma migrate reset",
     "test": "vitest"
   },
