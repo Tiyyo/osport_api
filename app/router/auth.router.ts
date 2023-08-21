@@ -6,7 +6,7 @@ import validateToken from '../middleware/validate.token.ts';
 const router: Router = express.Router();
 
 const {
-	register, signin, validate, logout,
+  register, signin, validate, logout,
 } = authController;
 
 // TODO add validation schema middleware
@@ -14,15 +14,15 @@ const {
 // we use the same middleware throughout the app
 
 router.route('/signup')
-	.post(factory(register));
+  .post(factory(register));
 
 router.route('/signin')
-	.post(factory(signin));
+  .post(factory(signin));
 
-router.route('user/validate')
-	.get(validateToken, factory(validate));
+router.route('/user/validate')
+  .get(validateToken, factory(validate));
 
 router.route('/logout')
-	.post(logout);
+  .post(logout);
 
 export default router;

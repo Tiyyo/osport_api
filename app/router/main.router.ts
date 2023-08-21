@@ -7,6 +7,12 @@ const router: Router = express.Router();
 
 router.use('/', authRouter);
 
+router.get('/healtcheck', (_req, res) => {
+  res.status(200).send({
+    message: 'Welcome to the API',
+  });
+});
+
 /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
 router.use((_req, _res, _next) => {
   throw new NotFoundError("Route doesn't exist");
