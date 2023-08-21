@@ -61,3 +61,10 @@ Après revision des besoins/fonctionnalités :
 - Wireframes Desktop & Mobile finalisés (Anthony)
 - Mise à jour du Trello, en séparant les tâches à effectuer (Guillaume & Anthony)
 - Connexion à un serveur AWS en vue d'un futur déploiement (Steeve & Thomas)
+
+## Jour 5 - 18/08/2023 (& week-end)
+
+- Début de l'intégration page Profile, problème avec daisyUI qui ne prenait pas en compte les changements de CSS pour un élément ni les thèmes choisis. Les 1er éléments sont créés. (Anthony)
+- Intégration page Login & Signup, et de la logique de connexion (useEffect), formulaire de connexion et d'inscription fait. Problème avec les sessions ajout de AuthProvider pour plus de sécurité. (Thomas)
+- Script pour mettre des users dans la BDD, authentification, ajout de règles sur ESLint (le projet ne démarrait plus, extensions non reconnues). (Steeve)
+- Intégration de Vitest, Diffèrentes configutaion ESLint. (Guillaume)
