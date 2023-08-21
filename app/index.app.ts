@@ -1,8 +1,8 @@
 import express from 'express';
-import cors, { CorsOptions } from 'cors';
-import cookieParser from 'cookie-parser';
-import router from './router/main.router';
-import accesHttp from './middleware/access.http';
+// import cors, { CorsOptions } from 'cors';
+// import cookieParser from 'cookie-parser';
+// import router from './router/main.router';
+import accesHttp from './middleware/access.http.ts';
 // import * as url from 'url';
 
 // const dirname = url.fileURLToPath(new URL('.', import.meta.url));
@@ -21,6 +21,6 @@ app.use(express.urlencoded({ extended: true }));
 
 // app.use(cors())
 
-app.use(router);
+// app.use(router);
 
 export default app;

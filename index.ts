@@ -1,7 +1,7 @@
 import { createServer } from 'http';
-import logger from './app/helpers/logger';
-import './app/helpers/env.load';
-import app from './app/index.app';
+import logger from './app/helpers/logger.ts';
+import './app/helpers/env.load.ts';
+import app from './app/index.app.ts';
 
 const PORT = process.env.PORT || 8080;
 
