@@ -7,3 +7,8 @@ export const canals = {
   params: 'params',
   query: 'query',
 } as const;
+
+export type LoginForm = {
+  emailOrUsername: string;
+  password: string;
+};
