@@ -17,6 +17,7 @@ module.exports = {
   plugins: ["jest"],
   rules: {
     'no-console': 'off',
+    '@typescript-eslint/indent': 'off',
     'import/extensions': ["error", "ignorePackages"],
   },
 }
