@@ -1,12 +1,9 @@
-import { Prisma } from '@prisma/client';
+import { Prisma, User } from '@prisma/client';
 import prisma from '../helpers/db.client.ts';
 import type { LoginForm } from '../@types/index.d.ts';
 
-// Exclude keys from user
-function exclude<User, Key extends keyof User>(
-  user: User,
-  keys: Key[]
-): Omit<User, Key> {
+// Exclude field(s) from user
+function exclude(user: User, keys: string[]) {
   return Object.fromEntries(
     Object.entries(user).filter(([key]) => !keys.includes(key))
   );
@@ -36,7 +33,7 @@ export default {
   },
 
   findOne: async (username: string) => {
-    const result = await prisma.user.findUnique({
+    const result: any = await prisma.user.findUnique({
       where: {
         username,
       },
