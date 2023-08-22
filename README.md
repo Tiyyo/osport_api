@@ -101,7 +101,7 @@ Dans une version 1, l'application comprendrait :
 | `/user?username=` | ✅ | ❌ | ❌ | ❌ | |
 | `/user/image` | ❌ | ❌ | ✅ | ❌ | |
 | `/user/sport` | ❌ | ❌ | ✅ | ❌ | |
-| `/user_friends/:id` | ✅ | ❌ | ❌ | ❌ | |
+| `/user_friends/:id` | ✅ | ❌ | ❌ | ❌ | Retrieve user friends and pending request |
 | `/user_friends/send` | ❌ | ✅ | ❌ | ❌ | |
 | `/user_friends/reject` | ❌ | ✅ | ❌ | ❌ | |
 | `/user_friends/accept` | ❌ | ✅ | ❌ | ❌ | |

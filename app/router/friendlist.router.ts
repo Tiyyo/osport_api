@@ -1,24 +1,30 @@
 import express, { Router } from 'express';
-// import factory from '../middleware/factory.controller.ts';
+import friendlist from '../controllers/friendlist.controller.ts';
+import factory from '../middleware/factory.controller.ts';
 // import validateSchema from '../middleware/schemas.validator.ts';
 // import canals from '../helpers/canals.ts';
 
 const router: Router = express.Router();
 
+const {
+  getFriends, sendFriendRequest, acceptFriendRequest, rejectFriendRequest,
+} = friendlist;
+
 // we need to ensure that the data is valid before reaching the controller
 // we use the same middleware throughout the app
 // canals represent which part of the request we want to validate
 
+// TODO add validation
 router.route('/user_friends/:id')
-  .get();
+  .get(factory(getFriends));
 
 router.route('/user_friends/send')
-  .post();
+  .post(factory(sendFriendRequest));
 
 router.route('/user_friends/accept')
-  .post();
+  .post(factory(acceptFriendRequest));
 
 router.route('/user_friends/reject')
-  .post();
+  .post(factory(rejectFriendRequest));
 
 export default router;
