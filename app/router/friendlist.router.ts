@@ -10,12 +10,15 @@ const router: Router = express.Router();
 // canals represent which part of the request we want to validate
 
 router.route('/user_friends/:id')
-  .post();
+  .get();
 
-router.route('/user_friends/send/')
+router.route('/user_friends/send')
   .post();
 
 router.route('/user_friends/accept')
+  .post();
+
+router.route('/user_friends/reject')
   .post();
 
 export default router;
