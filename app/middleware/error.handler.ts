@@ -7,7 +7,8 @@ import logger from '../helpers/logger.ts';
 import NotFoundError from '../helpers/errors/notFound.error.ts';
 import UserInputError from '../helpers/errors/userInput.error.ts';
 
-const errorHandler = (error: any, _req: Request, res: Response, next: NextFunction) => {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const errorHandler = (error: any, _req: Request, res: Response, _next: NextFunction) => {
   if (error instanceof ValidationError) {
     logger.error(`${error.name} ${error.message}`);
     return res.status(error.status).json({
@@ -32,5 +33,6 @@ const errorHandler = (error: any, _req: Request, res: Response, next: NextFuncti
   logger.error(`${unknowError + error.message}`);
   return res.status(500).send({ error: error.message });
 };
+// eslint-enable-next-line @typescript-eslint/no-unused-vars
 
 export default errorHandler;
