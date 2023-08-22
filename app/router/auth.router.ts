@@ -5,6 +5,7 @@ import validateToken from '../middleware/validate.token.ts';
 
 const router: Router = express.Router();
 
+// All methods listed in the controller
 const {
   register, signin, validate, logout,
 } = authController;

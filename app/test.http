@@ -1,0 +1,2 @@
+### Get one user
+GET http://localhost:5000/user?username=alice
