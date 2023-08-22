@@ -68,3 +68,10 @@ Après revision des besoins/fonctionnalités :
 - Intégration page Login & Signup, et de la logique de connexion (useEffect), formulaire de connexion et d'inscription fait. Problème avec les sessions ajout de AuthProvider pour plus de sécurité. (Thomas)
 - Script pour mettre des users dans la BDD, authentification, ajout de règles sur ESLint (le projet ne démarrait plus, extensions non reconnues). (Steeve)
 - Intégration de Vitest, Diffèrentes configutaion ESLint. (Guillaume).
+
+## Jour 6 - 21/08/2023
+
+- Intégration de la page /profile et du menu de navigation du site, mise en place de vitest (Anthony)
+- Intégration de la page login, stockage dans le local-storage (pour identifier l'user) via un hook (useLocaleStorage). Les données seront finalement stockées dans les cookies (Thomas)
+- Schema Prisma, définition des modèles, BDD Locale, création de user via faker. usercontroller pour la journée (Guillaume)
+- Authentification fonctionelle, ajout de la route pour se déconnecter. (Steeve)
