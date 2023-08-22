@@ -5,6 +5,8 @@ const redis = new Redis();
 const DEFAULT_EXPIRATION = 3600;
 
 // utility function to cache data
+// function has changed from Promise to async
+// need to be test before any use
 
 async function cacheOrGetCacheData(key: string, callback: any) {
   const cacheValue = await redis.get(key).catch((error) => {
