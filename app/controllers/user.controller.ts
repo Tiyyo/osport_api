@@ -6,10 +6,10 @@ export default {
   getUser: async (req: Request, res: Response) => {
     // data should be validated before reaching this point
     // factory controller will handle the error throwing in database or createUser function
-    const { username } = req.body;
+    const { emailOrUsername } = req.body;
 
     try {
-      const user = await UserModel.findTest(username);
+      const user = await UserModel.findOne(emailOrUsername);
       return res.json(user);
     } catch (error) {
       console.error(error);

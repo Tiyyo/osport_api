@@ -5,7 +5,7 @@ const mockUsers = [
 
 const create = async (data) => true;
 
-const findOne = async (data) => {
+const connect = async (data) => {
   function condition(entity: any) {
     return entity.email === data.emailOrUsername
 			|| entity.username === data.emailOrUsername;

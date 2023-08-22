@@ -8,7 +8,7 @@ const router: Router = express.Router();
 
 router.use('/', authRouter);
 
-router.use('/', userRouter);
+router.use('/user', userRouter);
 
 router.get('/healtcheck', (_req, res) => {
   res.status(200).send({
