@@ -6,13 +6,14 @@ export default {
     // data should be validated before reaching this point
     // factory controller will handle the error throwing in database or createUser function
     // so no need to extra validation here
-    const data = {
-      email: req.body.email,
-      username: req.body.username,
-      password: req.body.password,
-    };
+    // const data = {
+    //   email: req.body.email,
+    //   username: req.body.username,
+    //   password: req.body.password,
+    // };
+    const { email, username, password } = req.body;
 
-    await createUser(data);
+    await createUser({ email, username, password });
 
     res.status(201).json({ message: 'User created successfully' });
   },
