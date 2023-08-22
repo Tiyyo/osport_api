@@ -23,4 +23,14 @@ export default {
     await prisma.$disconnect();
     return result;
   },
+
+  findTest: async (username: string) => {
+    const result = await prisma.user.findUnique({
+      where: {
+        username,
+      },
+    });
+    await prisma.$disconnect();
+    return result;
+  },
 };

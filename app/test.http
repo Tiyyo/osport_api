@@ -1,2 +1,7 @@
 ### Get one user
-GET http://localhost:5000/user?username=alice
+GET http://localhost:5000/user
+Content-Type: application/json
+
+{
+  "username": "Alice"
+}

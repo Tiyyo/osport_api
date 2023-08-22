@@ -6,9 +6,8 @@ const router: Router = express.Router();
 
 // All methods listed in the controller
 const { getUser } = userController;
-console.log('hello there');
 
-router.route('/user?username=')
+router.route('/user')
   .get(factory(getUser));
 
 export default router;
