@@ -102,9 +102,9 @@ Dans une version 1, l'application comprendrait :
 | `/user/image` | ❌ | ❌ | ✅ | ❌ | |
 | `/user/sport` | ❌ | ❌ | ✅ | ❌ | |
 | `/user_friends/:id` | ✅ | ❌ | ❌ | ❌ | |
-| `/user_friends/send/:id` | ❌ | ✅ | ❌ | ❌ | |
-| `/user_friends/reject/:id` | ❌ | ✅ | ❌ | ❌ | |
-| `/user_friends/accept/:id` | ❌ | ✅ | ❌ | ❌ | |
+| `/user_friends/send` | ❌ | ✅ | ❌ | ❌ | |
+| `/user_friends/reject` | ❌ | ✅ | ❌ | ❌ | |
+| `/user_friends/accept` | ❌ | ✅ | ❌ | ❌ | |
 | `/rate_user/:id` | ❌ | ❌ | ✅ | ❌ | |
 | `/event` | ❌ | ✅ | ✅ | ❌ | Here, after organizator validate the event, it generate teams and distribute players (for Patch) |
 | `/event/validate` | ❌ | ❌ | ✅ | ❌ | |
