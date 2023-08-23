@@ -37,7 +37,7 @@ Promise<{ accessToken: string; }> {
   // set to an higher value after succed in testing
   const expireTimeAccess = '1m'; // '10 min
 
-  const user = await User.connect({ emailOrUsername, password });
+  const user = await User.findOne({ emailOrUsername, password });
 
   if (!user) throw new UserInputError('Wrong credentials');
 

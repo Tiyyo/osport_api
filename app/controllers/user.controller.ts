@@ -6,19 +6,14 @@ export default {
   getUser: async (req: Request, res: Response) => {
     // data should be validated before reaching this point
     // factory controller will handle the error throwing in database or createUser function
-    const { emailOrUsername } = req.body;
+    const { id } = req.body;
 
     try {
-      const user = await UserModel.findOne(emailOrUsername);
+      const user = await UserModel.getUserInfos(id);
       return res.json(user);
     } catch (error) {
       console.error(error);
-      if (error instanceof Error) {
-        return res.status(500).json({
-          message: 'Erreur interne 500',
-          error: error.message,
-        });
-      }
+      res.status(400);
     }
 
     return res.status(201).json({ message: 'You get the user you asked' });
@@ -29,18 +24,11 @@ export default {
 
     try {
       const user = await UserModel.patchImage(id, imageUrl);
-      return res.json(user);
+      return res.status(200).json({ message: 'The user has been updated', user });
     } catch (error) {
       console.error(error);
-      if (error instanceof Error) {
-        return res.status(500).json({
-          message: 'Erreur interne 500',
-          error: error.message,
-        });
-      }
+      return res.status(400);
     }
-
-    return res.status(201).json({ message: 'You get the user you asked' });
   },
 
 };

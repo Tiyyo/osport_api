@@ -2,7 +2,7 @@ import { Prisma, User } from '@prisma/client';
 import prisma from '../helpers/db.client.ts';
 import type { LoginForm } from '../@types/index.d.ts';
 
-// Exclude field(s) way
+// Exclude field(s) way -> recommanded, faster and more adapted for scalabled apps
 function exclude(user: User, keys: string[]) {
   return Object.fromEntries(
     Object.entries(user).filter(([key]) => !keys.includes(key)),
@@ -19,7 +19,7 @@ export default {
     return result;
   },
 
-  connect: async (data: LoginForm) => {
+  findOne: async (data: LoginForm) => {
     const result = await prisma.user.findFirst({
       where: {
         OR: [
@@ -32,29 +32,48 @@ export default {
     return result;
   },
 
-  findOne: async (username: string) => {
-    const result = await prisma.user.findUnique({
+  getUserInfos: async (id: number) => {
+    const user: any = await prisma.user.findUnique({
       where: {
-        username,
+        id,
+      },
+      include: {
+        image: true,
       },
     });
 
-    if (!result) throw new Error('User not found');
+    if (!user) throw new Error('User not found');
 
-    const userTargetExclude = exclude(result, ['id', 'password', 'createdAt', 'updatedAt']);
+    const userFiltered = exclude(
+      user,
+      [
+        'password',
+        'email',
+        'image_id',
+        'createdAt',
+        'updatedAt',
+        'image',
+      ],
+    );
+
+    const imageUrl = user.image?.url || null;
+
+    const result = {
+      ...userFiltered,
+      imageUrl,
+    };
+
     await prisma.$disconnect();
-    return userTargetExclude;
+    return result;
   },
 
   patchImage: async (id: number, imageUrl: any) => {
     // existingUser check if user already has an image
     const existingUser = await prisma.user.findUnique({
       where: { id },
-      select: { image_id: true, username: true },
     });
-    // exinstinUser will return { image_id: 2 } if yes and { image_id: null } if not
 
-    if (existingUser) {
+    if (!existingUser) throw new Error('User not found');
       // If the user already has an image, it searchs in image table and updates the url
       if (existingUser.image_id) {
         await prisma.image.update({
@@ -84,20 +103,35 @@ export default {
           },
         });
       }
-    }
 
-    const userWithUpdatedImage = await prisma.user.findUnique({
+    const userUpdated = await prisma.user.findUnique({
       where: { id },
-      select: {
-        email: true,
-        username: true,
-        image: {
-          select: { url: true },
-        },
+      include: {
+        image: true,
       },
     });
 
+    if (!userUpdated) throw new Error('User not found');
+
+    const userUpdatedFiltered = exclude(
+      userUpdated,
+      [
+        'password',
+        'email',
+        'image_id',
+        'createdAt',
+        'updatedAt',
+        'image',
+      ],
+    );
+
+    const result = {
+      ...userUpdatedFiltered,
+      imageTitle: userUpdated.image?.title,
+      imageUrl,
+    };
+
     await prisma.$disconnect();
-    return userWithUpdatedImage;
+    return result;
   },
 };

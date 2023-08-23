@@ -12,11 +12,15 @@ const router: Router = express.Router();
 // All methods listed in the controller
 const { getUser, updateImage } = userController;
 
-// GET -> user
+// GET -> /user
 router.route('/')
   .get(factory(getUser));
 
-// PATCH -> user/image
+// DELETE -> /user
+// router.route('/')
+//   .delete(factory(deleteUser));
+
+// PATCH -> /user/image
 router.route('/image')
   .patch(factory(updateImage));
 
