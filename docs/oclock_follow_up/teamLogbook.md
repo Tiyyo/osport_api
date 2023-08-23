@@ -75,3 +75,12 @@ Après revision des besoins/fonctionnalités :
 - Intégration de la page login, stockage dans le local-storage (pour identifier l'user) via un hook (useLocaleStorage). Les données seront finalement stockées dans les cookies (Thomas)
 - Schema Prisma, définition des modèles, BDD Locale, création de user via faker. usercontroller pour la journée (Guillaume)
 - Authentification fonctionelle, ajout de la route pour se déconnecter. (Steeve)
+
+## Jour 7 - 22/08/2023
+
+- Validation des features ajoutées hier, controller & router pour les demandes d'amis (modification des routes), implémentation Zod (Steeve)
+- Travail sur les routes /user (ajout de target pour cibler un user), travail sur les images des utilisateurs (Guillaume)
+- Integration de la page /contact, logique sur l'input search pour récuperer le username du contact à ajouter, ajout du header sur l'app (Anthony)
+- Continuation de la logique pour le login et signup (Thomas)
+
+## Jour 8 - 23/08/2023
