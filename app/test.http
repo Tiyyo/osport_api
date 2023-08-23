@@ -7,3 +7,13 @@ Content-Type: application/json
   "emailOrUsername": "Alice"
 }
 
+### Change the user profile picture
+// Doesn't work at this moment, it also had to changes association's table
+PATCH http://localhost:5000/user/image
+Content-Type: application/json
+
+{
+  "id": 3,
+  "imageUrl": 12
+}
+

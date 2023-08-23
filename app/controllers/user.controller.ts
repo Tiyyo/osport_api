@@ -24,4 +24,23 @@ export default {
     return res.status(201).json({ message: 'You get the user you asked' });
   },
 
+  updateImage: async (req: Request, res: Response) => {
+    const { id, imageUrl } = req.body;
+
+    try {
+      const user = await UserModel.patchImage(id, imageUrl);
+      return res.json(user);
+    } catch (error) {
+      console.error(error);
+      if (error instanceof Error) {
+        return res.status(500).json({
+          message: 'Erreur interne 500',
+          error: error.message,
+        });
+      }
+    }
+
+    return res.status(201).json({ message: 'You get the user you asked' });
+  },
+
 };

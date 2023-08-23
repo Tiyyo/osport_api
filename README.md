@@ -97,8 +97,8 @@ Dans une version 1, l'application comprendrait :
 | `/signin` | ❌ | ✅ | ❌ | ❌ | Creation of a token to resend back to the front |
 | `/user/validate` | ✅ | ❌ | ❌ | ❌ | |
 | `/logout` | ❌ | ✅ | ❌ | ❌ | Invalidate token |
-| `/user/:id` | ✅ | ❌ | ✅ | ✅ | |
-| `/user/target/:username` | ✅ | ❌ | ❌ | ❌ | We can't use basic /user/:id, we only want basic info to invite a friend by an user for exemple |
+| `/user` | ✅ | ❌ | ✅ | ✅ | |
+| `/user/target` | ✅ | ❌ | ❌ | ❌ | We can't use basic /user/:id, we only want basic info to invite a friend by an user for exemple |
 | `/user/image` | ❌ | ❌ | ✅ | ❌ | |
 | `/user/sport` | ❌ | ❌ | ✅ | ❌ | |
 | `/user_friends/:id` | ✅ | ❌ | ❌ | ❌ | |

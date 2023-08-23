@@ -5,12 +5,12 @@ import type { LoginForm } from '../@types/index.d.ts';
 // Exclude field(s) from user
 function exclude(user: User, keys: string[]) {
   return Object.fromEntries(
-    Object.entries(user).filter(([key]) => !keys.includes(key))
+    Object.entries(user).filter(([key]) => !keys.includes(key)),
   );
 }
 
 export default {
-  
+
   create: async (data: Prisma.UserCreateInput) => {
     const result = await prisma.user.create({
       data,
@@ -41,5 +41,19 @@ export default {
     const userTargetExclude = exclude(result, ['id', 'password', 'createdAt', 'updatedAt']);
     await prisma.$disconnect();
     return userTargetExclude;
+  },
+
+  patchImage: async (id: number, imageUrl: any) => {
+    const result = await prisma.user.update({
+      where: {
+        id,
+      },
+      data: {
+        image_id: imageUrl,
+      },
+    });
+
+    await prisma.$disconnect();
+    return result;
   },
 };
