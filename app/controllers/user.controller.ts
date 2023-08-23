@@ -1,11 +1,6 @@
 import { Request, Response } from 'express';
 import UserModel from '../models/user.ts';
-
-type AllowedUserUpdate = {
-  username?: string;
-  email?: string;
-  password?: string;
-};
+import type { AllowedUserUpdate } from '../@types/index.d.ts';
 
 // To block user who want to modify his own id, createdAt, updatedAt, or image_id
 const isAllowedUserUpdate = (data: any): data is AllowedUserUpdate => (

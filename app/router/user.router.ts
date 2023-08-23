@@ -33,4 +33,8 @@ router.route('/')
 router.route('/image')
   .patch(factory(updateImage));
 
+// PATCH -> /user/image
+router.route('/sport')
+  .get(factory(updateImage));
+
 export default router;

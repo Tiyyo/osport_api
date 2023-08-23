@@ -18,3 +18,9 @@ export type RegisterForm = {
   username: string;
   password: string;
 };
+
+export type AllowedUserUpdate = {
+  username?: string;
+  email?: string;
+  password?: string;
+};

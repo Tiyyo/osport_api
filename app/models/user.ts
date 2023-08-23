@@ -1,6 +1,6 @@
 import { Prisma, User } from '@prisma/client';
 import prisma from '../helpers/db.client.ts';
-import type { LoginForm } from '../@types/index.d.ts';
+import type { LoginForm, AllowedUserUpdate } from '../@types/index.d.ts';
 
 // Exclude field(s) way -> recommanded, faster and more adapted for scalable apps
 function exclude(user: User, keys: string[]) {
@@ -57,10 +57,12 @@ export default {
     );
 
     const imageUrl = user.image?.url || null;
+    const imageTitle = user.image?.title || null;
 
     const result = {
       ...userFiltered,
       imageUrl,
+      imageTitle,
     };
 
     await prisma.$disconnect();
@@ -145,14 +147,45 @@ export default {
     return user;
   },
 
-  updateUser: async (id: number, data: Prisma.UserUpdateInput) => {
-    const user = await prisma.user.update({
+  updateUser: async (id: number, data: AllowedUserUpdate) => {
+    await prisma.user.update({
       where: {
         id,
       },
       data,
     });
+
+    const userUpdated = await prisma.user.findUnique({
+      where: { id },
+      include: {
+        image: true,
+      },
+    });
+
+    if (!userUpdated) throw new Error('User not found');
+
+    const userFiltered = exclude(
+      userUpdated,
+      [
+        'password',
+        'email',
+        'image_id',
+        'createdAt',
+        'updatedAt',
+        'image',
+      ],
+    );
+
+    const imageUrl = userUpdated.image?.url || null;
+    const imageTitle = userUpdated.image?.title || null;
+
+    const result = {
+      ...userFiltered,
+      imageTitle,
+      imageUrl,
+    };
+
     await prisma.$disconnect();
-    return user;
+    return result;
   },
 };
