@@ -144,4 +144,15 @@ export default {
     await prisma.$disconnect();
     return user;
   },
+
+  updateUser: async (id: number, data: Prisma.UserUpdateInput) => {
+    const user = await prisma.user.update({
+      where: {
+        id,
+      },
+      data,
+    });
+    await prisma.$disconnect();
+    return user;
+  },
 };

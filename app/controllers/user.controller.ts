@@ -1,6 +1,19 @@
 import { Request, Response } from 'express';
 import UserModel from '../models/user.ts';
 
+type AllowedUserUpdate = {
+  username?: string;
+  email?: string;
+  password?: string;
+};
+
+// To block user who want to modify his own id, createdAt, updatedAt, or image_id
+const isAllowedUserUpdate = (data: any): data is AllowedUserUpdate => (
+  (data.username !== undefined && typeof data.username === 'string')
+  || (data.email !== undefined && typeof data.email === 'string')
+  || (data.password !== undefined && typeof data.password === 'string')
+);
+
 export default {
 
   getUser: async (req: Request, res: Response) => {
@@ -37,6 +50,23 @@ export default {
     try {
       await UserModel.deleteUser(id);
       return res.status(200).json({ message: 'The user has been deleted' });
+    } catch (error) {
+      console.error(error);
+      return res.status(400);
+    }
+  },
+
+  updateUser: async (req: Request, res: Response) => {
+    const { id } = req.body;
+    const { data }: { data: AllowedUserUpdate } = req.body;
+
+    if (!isAllowedUserUpdate(data)) {
+      return res.status(400).json({ message: 'Invalid data provided' });
+    }
+
+    try {
+      const user = await UserModel.updateUser(id, data);
+      return res.status(200).json({ message: 'The user has been updated', user });
     } catch (error) {
       console.error(error);
       return res.status(400);
