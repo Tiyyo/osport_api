@@ -2,7 +2,7 @@ import { Prisma, User } from '@prisma/client';
 import prisma from '../helpers/db.client.ts';
 import type { LoginForm } from '../@types/index.d.ts';
 
-// Exclude field(s) way -> recommanded, faster and more adapted for scalabled apps
+// Exclude field(s) way -> recommanded, faster and more adapted for scalable apps
 function exclude(user: User, keys: string[]) {
   return Object.fromEntries(
     Object.entries(user).filter(([key]) => !keys.includes(key)),
@@ -133,5 +133,15 @@ export default {
 
     await prisma.$disconnect();
     return result;
+  },
+
+  deleteUser: async (id: number) => {
+    const user = await prisma.user.delete({
+      where: {
+        id,
+      },
+    });
+    await prisma.$disconnect();
+    return user;
   },
 };

@@ -10,15 +10,15 @@ const router: Router = express.Router();
 // PATCH -> user/sport
 
 // All methods listed in the controller
-const { getUser, updateImage } = userController;
+const { getUser, updateImage, deleteUser } = userController;
 
 // GET -> /user
 router.route('/')
   .get(factory(getUser));
 
 // DELETE -> /user
-// router.route('/')
-//   .delete(factory(deleteUser));
+router.route('/')
+  .delete(factory(deleteUser));
 
 // PATCH -> /user/image
 router.route('/image')

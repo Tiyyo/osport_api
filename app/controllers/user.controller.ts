@@ -31,4 +31,16 @@ export default {
     }
   },
 
+  deleteUser: async (req: Request, res: Response) => {
+    const { id } = req.body;
+
+    try {
+      await UserModel.deleteUser(id);
+      return res.status(200).json({ message: 'The user has been deleted' });
+    } catch (error) {
+      console.error(error);
+      return res.status(400);
+    }
+  },
+
 };
