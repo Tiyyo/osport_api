@@ -93,19 +93,7 @@ Dans une version 1, l'application comprendrait :
 
 | ROUTE | GET | POST | PATCH | DELETE | DESCRIPTION |
 | :---: | :---: | :---: | :---: | :---: | :---: |
-| `/signup` | ❌ | ✅ | ❌ | ❌ | Creation of the user and hash password |
-| `/signin` | ❌ | ✅ | ❌ | ❌ | Creation of a token to resend back to the front |
-| `/user/validate` | ✅ | ❌ | ❌ | ❌ | |
-| `/logout` | ❌ | ✅ | ❌ | ❌ | Invalidate token |
-| `/user/:id` | ✅ | ❌ | ✅ | ✅ | |
-| `/user?username=` | ✅ | ❌ | ❌ | ❌ | |
-| `/user/image` | ❌ | ❌ | ✅ | ❌ | |
-| `/user/sport` | ❌ | ❌ | ✅ | ❌ | |
-| `/user_friends/:id` | ✅ | ❌ | ❌ | ❌ | Retrieve user friends and pending request |
-| `/user_friends/send` | ❌ | ✅ | ❌ | ❌ | |
-| `/user_friends/reject` | ❌ | ✅ | ❌ | ❌ | |
-| `/user_friends/accept` | ❌ | ✅ | ❌ | ❌ | |
-| `/rate_user/:id` | ❌ | ❌ | ✅ | ❌ | |
+|zap
 | `/event` | ❌ | ✅ | ✅ | ❌ | Here, after organizator validate the event, it generate teams and distribute players (for Patch) |
 | `/event/validate` | ❌ | ❌ | ✅ | ❌ | |
 | `/event/results` | ❌ | ❌ | ✅ | ❌ | After the end of the event, the organizator only can save results |
