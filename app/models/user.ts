@@ -1,6 +1,5 @@
 import { Prisma } from '@prisma/client';
 import prisma from '../helpers/db.client.ts';
-import type { LoginForm } from '../@types/index.js';
 
 export default {
   create: async (data: Prisma.userCreateInput) => {
@@ -10,12 +9,12 @@ export default {
     await prisma.$disconnect();
     return result;
   },
-  findOne: async (data: LoginForm) => {
+  findOne: async (data: Prisma.userWhereInput) => {
     const result = await prisma.user.findFirst({
       where: {
         OR: [
-          { email: data.emailOrUsername },
-          { username: data.emailOrUsername },
+          { email: data.email },
+          { username: data.username },
         ],
       },
     });
