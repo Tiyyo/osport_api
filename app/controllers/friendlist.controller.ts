@@ -4,13 +4,36 @@ import NotFoundError from '../helpers/errors/notFound.error.ts';
 
 export default {
   // get all friends of a user with pending or accepted status
-  getFriends: async (req: Request, res: Response) => {
+  getPendingRequestSent: async (req: Request, res: Response) => {
     // get the user id from the request
     // get the friends of the user
     // return the friends
+    //  ask frontend for an array of students
+    const userId = req.params.id; // this is a string
+    const status = 'pending';
+
+    const friends = await Friends.find(Number(userId), status);
+
+    res.status(200).json({ message: 'Friends retrieved successfully', friends });
+  },
+  getAcceptedFriends: async (req: Request, res: Response) => {
+    // get the user id from the request
+    // get the friends of the user
+    // return the friends
+    //  ask frontend for an array of students
+    const userId = req.params.id; // this is a string
+    const status = 'accepted';
+
+    const friends = await Friends.find(Number(userId), status);
+
+    res.status(200).json({ message: 'Friends retrieved successfully', friends });
+  },
+  getPendingRequestReceived: async (req: Request, res: Response) => {
+    // get the user id from the request
+    // return the friends request to accept or reject
     const userId = req.params.id; // this is a string
 
-    const friends = await Friends.findByUserId(Number(userId));
+    const friends = await Friends.findManyRequest(Number(userId));
 
     res.status(200).json({ message: 'Friends retrieved successfully', friends });
   },

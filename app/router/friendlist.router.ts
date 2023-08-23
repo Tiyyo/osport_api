@@ -7,7 +7,12 @@ import factory from '../middleware/factory.controller.ts';
 const router: Router = express.Router();
 
 const {
-  getFriends, sendFriendRequest, acceptFriendRequest, rejectFriendRequest,
+  getPendingRequestSent,
+  getPendingRequestReceived,
+  getAcceptedFriends,
+  sendFriendRequest,
+  acceptFriendRequest,
+  rejectFriendRequest,
 } = friendlist;
 
 // we need to ensure that the data is valid before reaching the controller
@@ -15,8 +20,14 @@ const {
 // canals represent which part of the request we want to validate
 
 // TODO add validation
-router.route('/user_friends/:id')
-  .get(factory(getFriends));
+router.route('/user_friends/sent/:id')
+  .get(factory(getPendingRequestSent));
+
+router.route('/user_friends/accepted/:id')
+  .get(factory(getAcceptedFriends));
+
+router.route('/user_friends/pending/:id')
+  .get(factory(getPendingRequestReceived));
 
 router.route('/user_friends/send')
   .post(factory(sendFriendRequest));

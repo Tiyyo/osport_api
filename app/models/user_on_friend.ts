@@ -6,15 +6,24 @@ import NotFoundError from '../helpers/errors/notFound.error.ts';
 export default {
   // get all friends of an user
   // pending and accepted
-  findByUserId: async (userId: number) => {
+  find: async (userId: number, status: FriendRequestStatus) => {
     try {
       const result = await prisma.user_on_friend.findMany({
         where: {
           asker_id: userId,
-          status: { in: ['pending', 'accepted'] },
+          status,
         },
         include: {
-          asked: true,
+          asked: {
+            select: {
+              id: true,
+              username: true,
+              email: true,
+              image: true,
+              createdAt: true,
+              updatedAt: true,
+            },
+          },
         },
       });
       await prisma.$disconnect();
@@ -34,7 +43,42 @@ export default {
           status: 'pending',
         },
         include: {
-          asker: true,
+          asker: {
+            select: {
+              id: true,
+              username: true,
+              email: true,
+              image: true,
+              createdAt: true,
+              updatedAt: true,
+            },
+          },
+        },
+      });
+      await prisma.$disconnect();
+      return result;
+    } catch (error: any) {
+      throw new DatabaseError(error.message, 'user_on_friend', error);
+    }
+  },
+  findManyRequest: async (userId: number) => {
+    try {
+      const result = await prisma.user_on_friend.findMany({
+        where: {
+          asked_id: userId,
+          status: 'pending',
+        },
+        include: {
+          asker: {
+            select: {
+              id: true,
+              username: true,
+              email: true,
+              image: true,
+              createdAt: true,
+              updatedAt: true,
+            },
+          },
         },
       });
       await prisma.$disconnect();
