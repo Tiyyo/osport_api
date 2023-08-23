@@ -2,6 +2,7 @@ import prisma from '../helpers/db.client.ts';
 import type { FriendRequestStatus } from '../@types/index.js';
 import DatabaseError from '../helpers/errors/database.error.ts';
 import NotFoundError from '../helpers/errors/notFound.error.ts';
+import exclude from '../utils/excludeFiled.ts';
 
 export default {
   // get all friends of an user
@@ -14,21 +15,15 @@ export default {
           status,
         },
         include: {
-          asked: {
-            select: {
-              id: true,
-              username: true,
-              email: true,
-              image: true,
-              createdAt: true,
-              updatedAt: true,
-            },
-          },
+          asked: true,
         },
       });
       await prisma.$disconnect();
       if (result.length === 0) throw new NotFoundError('No friends found');
-      return result;
+
+      const data = result.map((friend) => ({ ...friend, asked: exclude(friend.asked, ['password']) }));
+
+      return data;
     } catch (error: any) {
       throw new DatabaseError(error.message, 'user_on_friend', error);
     }
@@ -43,20 +38,15 @@ export default {
           status: 'pending',
         },
         include: {
-          asker: {
-            select: {
-              id: true,
-              username: true,
-              email: true,
-              image: true,
-              createdAt: true,
-              updatedAt: true,
-            },
-          },
+          asker: true,
         },
       });
       await prisma.$disconnect();
-      return result;
+      if (!result) throw new NotFoundError('No pending request found');
+
+      const data = { ...result, asker: exclude(result.asker, ['password']) };
+
+      return data;
     } catch (error: any) {
       throw new DatabaseError(error.message, 'user_on_friend', error);
     }
@@ -69,20 +59,15 @@ export default {
           status: 'pending',
         },
         include: {
-          asker: {
-            select: {
-              id: true,
-              username: true,
-              email: true,
-              image: true,
-              createdAt: true,
-              updatedAt: true,
-            },
-          },
+          asker: true,
         },
       });
       await prisma.$disconnect();
-      return result;
+      if (!result) throw new NotFoundError('No pending request found');
+
+      const data = result.map((friend) => ({ ...friend, asker: exclude(friend.asker, ['password']) }));
+
+      return data;
     } catch (error: any) {
       throw new DatabaseError(error.message, 'user_on_friend', error);
     }
