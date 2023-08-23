@@ -4,17 +4,13 @@ import factory from '../middleware/factory.controller.ts';
 
 const router: Router = express.Router();
 
-// Routes to do
-// GET + PATCH + DELETE -> /user
-// PATCH -> user/image
-// PATCH -> user/sport
-
 // All methods listed in the controller
 const {
   getUser,
   updateImage,
   deleteUser,
   updateUser,
+  getSports,
 } = userController;
 
 // GET -> /user
@@ -33,8 +29,8 @@ router.route('/')
 router.route('/image')
   .patch(factory(updateImage));
 
-// PATCH -> /user/image
+// GET -> /user/sport
 router.route('/sport')
-  .get(factory(updateImage));
+  .get(factory(getSports));
 
 export default router;

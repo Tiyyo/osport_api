@@ -99,7 +99,7 @@ Dans une version 1, l'application comprendrait :
 | `/logout` | ❌ | ✅ | ❌ | ❌ | Invalidate token |
 | `/user` | ✅ | ❌ | ✅ | ✅ | |
 | `/user/image` | ❌ | ❌ | ✅ | ❌ | |
-| `/user/sport` | ❌ | ❌ | ✅ | ❌ | User_on_sport |
+| `/user/sport` | ✅ | ❌ | ❌ | ❌ | User_on_sport |
 | `/user_friends/:id` | ✅ | ❌ | ❌ | ❌ | |
 | `/user_friends/send/:id` | ❌ | ✅ | ❌ | ❌ | |
 | `/user_friends/reject/:id` | ❌ | ✅ | ❌ | ❌ | |

@@ -33,6 +33,7 @@ export default {
   },
 
   getUserInfos: async (id: number) => {
+    // We find the user with the id provided by the front
     const user: any = await prisma.user.findUnique({
       where: {
         id,
@@ -42,8 +43,10 @@ export default {
       },
     });
 
+    // We check if the id is in our database
     if (!user) throw new Error('User not found');
 
+    // We exclude all datas that front doesn't need, the image will be added later
     const userFiltered = exclude(
       user,
       [
@@ -56,9 +59,12 @@ export default {
       ],
     );
 
+    // If the user doesn't have an image, we set the url and title to null to be
+    // displayed on the json response
     const imageUrl = user.image?.url || null;
     const imageTitle = user.image?.title || null;
 
+    // We construct the response with all datas needed
     const result = {
       ...userFiltered,
       imageUrl,
@@ -75,36 +81,38 @@ export default {
       where: { id },
     });
 
+    // We check if the id is in our database
     if (!existingUser) throw new Error('User not found');
-      // If the user already has an image, it searchs in image table and updates the url
-      if (existingUser.image_id) {
-        await prisma.image.update({
-          where: {
-            id: existingUser.image_id,
-          },
-          data: {
-            url: imageUrl,
-          },
-        });
 
-      // If not, it create a new row in image table and use the id generated to put it in user table
-      } else {
-        const newImage = await prisma.image.create({
-          data: {
-            title: `avatar-${existingUser.username}`,
-            url: imageUrl,
-          },
-        });
+    // If the user already has an image, it searchs in image table and updates the url
+    if (existingUser.image_id) {
+      await prisma.image.update({
+        where: {
+          id: existingUser.image_id,
+        },
+        data: {
+          url: imageUrl,
+        },
+      });
 
-        await prisma.user.update({
-          where: {
-            id,
-          },
-          data: {
-            image_id: newImage.id,
-          },
-        });
-      }
+    // If not, it create a new row in image table and use the id generated to put it in user table
+    } else {
+      const newImage = await prisma.image.create({
+        data: {
+          title: `avatar-${existingUser.username}`,
+          url: imageUrl,
+        },
+      });
+
+      await prisma.user.update({
+        where: {
+          id,
+        },
+        data: {
+          image_id: newImage.id,
+        },
+      });
+    }
 
     const userUpdated = await prisma.user.findUnique({
       where: { id },
@@ -113,10 +121,11 @@ export default {
       },
     });
 
-    if (!userUpdated) throw new Error('User not found');
-
+    // We already checked if the id from user is in our database, so we indicate
+    // we are sure that userUpdated is not null (typescript)
+    // Now we exclude all datas that front doesn't need, the image will be added later
     const userUpdatedFiltered = exclude(
-      userUpdated,
+      userUpdated!,
       [
         'password',
         'email',
@@ -127,9 +136,10 @@ export default {
       ],
     );
 
+    // We construct the response with all datas needed
     const result = {
       ...userUpdatedFiltered,
-      imageTitle: userUpdated.image?.title,
+      imageTitle: userUpdated!.image?.title,
       imageUrl,
     };
 
@@ -138,16 +148,35 @@ export default {
   },
 
   deleteUser: async (id: number) => {
-    const user = await prisma.user.delete({
+    const existingUser = await prisma.user.findFirst({
       where: {
         id,
       },
     });
+
+    // We check if the id is in our database
+    if (!existingUser) throw new Error('User not found');
+
+    await prisma.user.delete({
+      where: {
+        id,
+      },
+    });
+
     await prisma.$disconnect();
-    return user;
+    return id;
   },
 
   updateUser: async (id: number, data: AllowedUserUpdate) => {
+    const existingUser = await prisma.user.findFirst({
+      where: {
+        id,
+      },
+    });
+
+    // We check if the id is in our database
+    if (!existingUser) throw new Error('User not found');
+
     await prisma.user.update({
       where: {
         id,
@@ -162,10 +191,10 @@ export default {
       },
     });
 
-    if (!userUpdated) throw new Error('User not found');
-
+    // We already checked if the id from user is in our database, so we indicate
+    // we are sure that userUpdated is not null (typescript)
     const userFiltered = exclude(
-      userUpdated,
+      userUpdated!,
       [
         'password',
         'email',
@@ -176,9 +205,12 @@ export default {
       ],
     );
 
-    const imageUrl = userUpdated.image?.url || null;
-    const imageTitle = userUpdated.image?.title || null;
+    // If the user doesn't have an image, we set the url and title to null to be
+    // displayed on the json response
+    const imageUrl = userUpdated!.image?.url || null;
+    const imageTitle = userUpdated!.image?.title || null;
 
+    // We construct the response with all datas needed
     const result = {
       ...userFiltered,
       imageTitle,
@@ -187,5 +219,50 @@ export default {
 
     await prisma.$disconnect();
     return result;
+  },
+
+  getSports: async (id: number) => {
+    const existingUser = await prisma.user.findFirst({
+      where: {
+        id,
+      },
+    });
+
+    // We check if the id is in our database
+    if (!existingUser) throw new Error('User not found');
+
+    const sportsMastered = await prisma.user_on_sport.findMany({
+      where: {
+        user_id: id,
+      },
+      include: {
+        sport: true,
+      },
+    });
+
+    if (!sportsMastered) throw new Error('The user does not master any sport at this moment');
+
+    const sportsFiltered = sportsMastered.map((sport: any) => {
+      const sportFiltred = exclude(
+        sport,
+        [
+          'user_id',
+          'sport_id',
+          'createdAt',
+          'updatedAt',
+          'sport',
+        ],
+      );
+
+      const sportName = sport.sport.name;
+      const sportRate = sportFiltred.rate;
+
+      // For every sport the user master, we create an object with the sport
+      // name and the rate the user has
+      return { sportName, sportRate };
+    });
+
+    await prisma.$disconnect();
+    return sportsFiltered;
   },
 };

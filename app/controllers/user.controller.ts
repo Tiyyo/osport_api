@@ -35,7 +35,7 @@ export default {
       return res.status(200).json({ message: 'The user has been updated', user });
     } catch (error) {
       console.error(error);
-      return res.status(400);
+      return res.status(400).json({ message: 'An error occured while updating the user image' });
     }
   },
 
@@ -43,11 +43,11 @@ export default {
     const { id } = req.body;
 
     try {
-      await UserModel.deleteUser(id);
-      return res.status(200).json({ message: 'The user has been deleted' });
+      const deletedUser = await UserModel.deleteUser(id);
+      return res.status(200).json({ message: `${deletedUser} has been deleted` });
     } catch (error) {
       console.error(error);
-      return res.status(400);
+      return res.status(400).json({ message: 'An error occured while deleting the user' });
     }
   },
 
@@ -62,6 +62,22 @@ export default {
     try {
       const user = await UserModel.updateUser(id, data);
       return res.status(200).json({ message: 'The user has been updated', user });
+    } catch (error) {
+      console.error(error);
+      return res.status(400).json({ message: 'An error occured while updating the user' });
+    }
+  },
+
+  getSports: async (req: Request, res: Response) => {
+    const { id } = req.body;
+
+    if (typeof id !== 'number') {
+      return res.status(400).json({ message: 'Invalid data provided' });
+    }
+
+    try {
+      const sports = await UserModel.getSports(id);
+      return res.status(200).json({ message: 'Sport(s) that the user master', sports });
     } catch (error) {
       console.error(error);
       return res.status(400);
