@@ -98,9 +98,8 @@ Dans une version 1, l'application comprendrait :
 | `/user/validate` | ✅ | ❌ | ❌ | ❌ | |
 | `/logout` | ❌ | ✅ | ❌ | ❌ | Invalidate token |
 | `/user` | ✅ | ❌ | ✅ | ✅ | |
-| `/user/target` | ✅ | ❌ | ❌ | ❌ | We can't use basic /user/:id, we only want basic info to invite a friend by an user for exemple |
 | `/user/image` | ❌ | ❌ | ✅ | ❌ | |
-| `/user/sport` | ❌ | ❌ | ✅ | ❌ | |
+| `/user/sport` | ❌ | ❌ | ✅ | ❌ | User_on_sport |
 | `/user_friends/:id` | ✅ | ❌ | ❌ | ❌ | |
 | `/user_friends/send/:id` | ❌ | ✅ | ❌ | ❌ | |
 | `/user_friends/reject/:id` | ❌ | ✅ | ❌ | ❌ | |
