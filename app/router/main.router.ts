@@ -1,11 +1,13 @@
 import express, { Router } from 'express';
 import errorHandler from '../middleware/error.handler.ts';
 import authRouter from './auth.router.ts';
+import messageRouter from './message.router.ts';
 import NotFoundError from '../helpers/errors/notFound.error.ts';
 
 const router: Router = express.Router();
 
 router.use('/', authRouter);
+router.use('/message', messageRouter);
 
 router.get('/test', (_req, res) => {
   res.status(200).send({
