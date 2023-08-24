@@ -27,7 +27,7 @@ const errorHandler = (error: any, _req: Request, res: Response, _next: NextFunct
 
   if (error instanceof UserInputError) return res.status(200).json({ error: error.userMessage });
 
-  if (error instanceof ValidationError) return res.status(200).json({ error: error.fieldErrors });
+  if (error instanceof ValidationError) return res.status(200).json({ error: error.userMessage });
 
   if (res.app.get('env') !== 'development') {
     return res.status(500).send('Internal Server Error');
