@@ -16,73 +16,45 @@ export default {
     // data should be validated before reaching this point
     // factory controller will handle the error throwing in database or createUser function
     const { id } = req.body;
-
-    try {
-      const user = await UserModel.getUserInfos(id);
-      return res.json(user);
-    } catch (error) {
-      console.error(error);
-      res.status(400);
-    }
-
-    return res.status(201).json({ message: 'You get the user you asked' });
+    const user = await UserModel.getUserInfos(id);
+    return res.status(200).json({ message: 'User informations : ', user });
   },
 
   updateImage: async (req: Request, res: Response) => {
     const { id, imageUrl } = req.body;
-
-    try {
-      const user = await UserModel.patchImage(id, imageUrl);
-      return res.status(200).json({ message: 'The user has been updated', user });
-    } catch (error) {
-      console.error(error);
-      return res.status(400).json({ message: 'An error occured while updating the user image' });
-    }
+    const user = await UserModel.patchImage(id, imageUrl);
+    return res.status(200).json({ message: 'The user has been updated', user });
   },
 
   deleteUser: async (req: Request, res: Response) => {
     const { id } = req.body;
-
-    try {
-      const deletedUser = await UserModel.deleteUser(id);
-      return res.status(200).json({ message: `${deletedUser} has been deleted` });
-    } catch (error) {
-      console.error(error);
-      return res.status(400).json({ message: 'An error occured while deleting the user' });
-    }
+    const deletedUser = await UserModel.deleteUser(id);
+    return res.status(200).json({ message: `${deletedUser} has been deleted` });
   },
 
   updateUser: async (req: Request, res: Response) => {
     const { id } = req.body;
     const { data }: { data: AllowedUserUpdate } = req.body;
 
+    // Will be replaced with later Zod validation
     if (!isAllowedUserUpdate(data)) {
       return res.status(400).json({ message: 'Invalid data provided' });
     }
 
-    try {
-      const user = await UserModel.updateUser(id, data);
-      return res.status(200).json({ message: 'The user has been updated', user });
-    } catch (error) {
-      console.error(error);
-      return res.status(400).json({ message: 'An error occured while updating the user' });
-    }
+    const user = await UserModel.updateUser(id, data);
+    return res.status(200).json({ message: 'The user has been updated', user });
   },
 
   getSports: async (req: Request, res: Response) => {
     const { id } = req.body;
 
+    // Will be replaced with later Zod validation
     if (typeof id !== 'number') {
       return res.status(400).json({ message: 'Invalid data provided' });
     }
 
-    try {
-      const sports = await UserOnSport.getSports(id);
-      return res.status(200).json({ message: 'Sport(s) that the user master', sports });
-    } catch (error) {
-      console.error(error);
-      return res.status(400);
-    }
+    const sports = await UserOnSport.getSports(id);
+    return res.status(200).json({ message: 'Sport(s) that the user master', sports });
   },
 
 };
