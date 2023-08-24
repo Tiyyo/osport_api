@@ -84,3 +84,8 @@ Après revision des besoins/fonctionnalités :
 - Continuation de la logique pour le login et signup (Thomas)
 
 ## Jour 8 - 23/08/2023
+
+- Integration des pages event-list, edit-profile, create-event(en cours). Refonte du menu et mise en place d'un header. Probleme sur l'affichage d'un composant avec des avatars (sur create_event) (Anthony)
+- Page signup fonctionelle, page login en cours (Thomas)
+- Routes user terminées (modifier les infos, delete user, modifier avatar, liste des sports) (Guillaume)
+- Script ajouté pour avoir un admin (fictif), création des relations (Steeve)
