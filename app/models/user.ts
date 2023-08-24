@@ -1,13 +1,7 @@
-import { Prisma, User } from '@prisma/client';
+import { Prisma } from '@prisma/client';
 import prisma from '../helpers/db.client.ts';
-import type { LoginForm, AllowedUserUpdate } from '../@types/index.d.ts';
-
-// Exclude field(s) way -> recommanded, faster and more adapted for scalable apps
-function exclude(user: User, keys: string[]) {
-  return Object.fromEntries(
-    Object.entries(user).filter(([key]) => !keys.includes(key)),
-  );
-}
+import type { AllowedUserUpdate } from '../@types/index.d.ts';
+import exclude from '../utils/exclude.fields.ts';
 
 export default {
 
@@ -18,13 +12,12 @@ export default {
     await prisma.$disconnect();
     return result;
   },
-
-  findOne: async (data: LoginForm) => {
+  findOne: async (data: Prisma.UserWhereInput) => {
     const result = await prisma.user.findFirst({
       where: {
         OR: [
-          { email: data.emailOrUsername },
-          { username: data.emailOrUsername },
+          { email: data.email },
+          { username: data.username },
         ],
       },
     });

@@ -6,7 +6,7 @@ import ServerError from '../../helpers/errors/server.error.ts';
 import UserInputError from '../../helpers/errors/userInput.error.ts';
 import createAccesToken from '../../helpers/token/create.access.ts';
 
-export async function createUser(data: RegisterForm) {
+export async function createUser(data: RegisterForm): Promise<boolean> {
   const { email, username, password } = data;
   const saltRounds = 10;
 
@@ -30,20 +30,23 @@ export async function createUser(data: RegisterForm) {
 }
 
 export async function login(data: LoginForm):
-Promise<{ accessToken: string; }> {
-  const { emailOrUsername, password } = data;
+  Promise<{ accessToken: string; }> {
+  const { username, password } = data;
 
   // set to 1 minute for testing
   // set to an higher value after succed in testing
   const expireTimeAccess = '1m'; // '10 min
 
-  const user = await User.findOne({ emailOrUsername, password });
+  const user = await User.findOne({ username, password });
 
   if (!user) throw new UserInputError('Wrong credentials');
 
   if (!await bcrypt.compare(password, user.password)) throw new UserInputError("Password didn't match", 'wrong credentials');
 
-  const accessToken = createAccesToken(expireTimeAccess, { userId: user.id });
+  const accessToken = createAccesToken(
+    expireTimeAccess,
+    { userId: user.id, username: user.username },
+  );
 
   return { accessToken };
 }
