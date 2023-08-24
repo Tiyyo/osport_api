@@ -31,13 +31,13 @@ export async function createUser(data: RegisterForm) {
 
 export async function login(data: LoginForm):
   Promise<{ accessToken: string; }> {
-  const { emailOrUsername, password } = data;
+  const { username, password } = data;
 
   // set to 1 minute for testing
   // set to an higher value after succed in testing
   const expireTimeAccess = '1m'; // '10 min
 
-  const user = await User.findOne({ emailOrUsername, password });
+  const user = await User.findOne({ username, password });
 
   if (!user) throw new UserInputError('Wrong credentials');
 
