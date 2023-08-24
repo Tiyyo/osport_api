@@ -18,3 +18,16 @@ export type RegisterForm = {
   username: string;
   password: string;
 };
+
+export type Player = {
+  id: number;
+  rating: number;
+};
+
+export type TeamGeneratorConfig = {
+  participants: number;
+  ids: number[];
+  values: number[];
+  team1: Player[];
+  team2: Player[];
+};
