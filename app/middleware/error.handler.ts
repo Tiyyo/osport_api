@@ -20,10 +20,14 @@ const errorHandler = (error: any, _req: Request, res: Response, _next: NextFunct
     || error instanceof ServerError
     || error instanceof DatabaseError
     || error instanceof NotFoundError
-    || error instanceof UserInputError) {
+  ) {
     logger.error(`${error.name} ${error.message}`);
     return res.status(error.status).json({ error: error.userMessage });
   }
+
+  if (error instanceof UserInputError) return res.status(200).json({ error: error.userMessage });
+
+  if (error instanceof ValidationError) return res.status(200).json({ error: error.fieldErrors });
 
   if (res.app.get('env') !== 'development') {
     return res.status(500).send('Internal Server Error');

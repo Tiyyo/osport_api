@@ -97,10 +97,9 @@ Dans une version 1, l'application comprendrait :
 | `/signin` | ❌ | ✅ | ❌ | ❌ | Creation of a token to resend back to the front |
 | `/user/validate` | ✅ | ❌ | ❌ | ❌ | |
 | `/logout` | ❌ | ✅ | ❌ | ❌ | Invalidate token |
-| `/user/:id` | ✅ | ❌ | ✅ | ✅ | |
-| `/user?username=` | ✅ | ❌ | ❌ | ❌ | |
+| `/user` | ✅ | ❌ | ✅ | ✅ | |
 | `/user/image` | ❌ | ❌ | ✅ | ❌ | |
-| `/user/sport` | ❌ | ❌ | ✅ | ❌ | |
+| `/user/sport` | ✅ | ❌ | ❌ | ❌ | User_on_sport |
 | `/user_friends/:id` | ✅ | ❌ | ❌ | ❌ | |
 | `/user_friends/send/:id` | ❌ | ✅ | ❌ | ❌ | |
 | `/user_friends/reject/:id` | ❌ | ✅ | ❌ | ❌ | |

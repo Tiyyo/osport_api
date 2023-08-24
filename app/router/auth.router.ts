@@ -9,6 +9,7 @@ import canals from '../helpers/canals.ts';
 
 const router: Router = express.Router();
 
+// All methods listed in the controller
 const {
   register, signin, validate, logout,
 } = authController;
