@@ -13,4 +13,9 @@ export type RegisterForm = {
   password: string;
 };
 
+export type AllowedUserUpdate = {
+  username?: string;
+  email?: string;
+  password?: string;
+};
 export type FriendRequestStatus = 'pending' | 'accepted' | 'rejected';

@@ -1,11 +1,13 @@
 import { Request, Response } from 'express';
 import Message from '../models/message.ts';
+import checkParams from '../utils/checkParams.ts';
 
 export default {
   getHistoric: async (req: Request, res: Response) => {
-    const { event_id } = req.params;
+    const { id } = req.params;
+    const event_id = checkParams(id);
 
-    const historic = await Message.findMany(+event_id);
+    const historic = await Message.findMany(event_id);
 
     res.status(200).json({ data: historic, message: 'Historic retrieved successfully' });
   },
@@ -25,15 +27,17 @@ export default {
   },
   destroyOne: async (req: Request, res: Response) => {
     const { id } = req.params;
+    const checkedId = checkParams(id);
 
-    await Message.destroyOne(+id);
+    await Message.destroyOne(checkedId);
 
     res.status(204).json({ message: 'Message deleted successfully' });
   },
   destroyMany: async (req: Request, res: Response) => {
-    const { id: event_id } = req.params;
+    const { id } = req.params;
+    const event_id = checkParams(id);
 
-    await Message.destroyMany(+event_id);
+    await Message.destroyMany(event_id);
 
     res.status(204).json({ message: 'Historic deleted successfully' });
   },

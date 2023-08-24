@@ -8,23 +8,23 @@ import canals from '../helpers/canals.ts';
 
 const router: Router = express.Router();
 
-const { } = messageController
+const {
+  getHistoric, create, update, destroyOne, destroyMany,
+} = messageController;
 
 // we need to ensure that the data is valid before reaching the controller
 // we use the same middleware throughout the app
 // canals represent which part of the request we want to validate
 
 router.route('/chat')
-  .post(validateSchema(createMessage, canals.body), factory());
-  .patch(validateSchema(updateMessage, canals.body), factory());
+  .patch(validateSchema(updateMessage, canals.body), factory(update))
+  .post(validateSchema(createMessage, canals.body), factory(create));
 
 router.route('/chat/:id')
-  .delete(factory());
+  .delete(factory(destroyOne));
 
 router.route('/chat/event/:id')
-  .get(factory());
-  .delete (factory());
-
-
+  .get(factory(getHistoric))
+  .delete(factory(destroyMany));
 
 export default router;

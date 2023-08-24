@@ -55,7 +55,7 @@ model Event {
   event_date         DateTime
   location           String
   duration           Int
-  nb_team            Int
+  nb_team            Int                  @default(2)
   nb_max_participant Int
   status             String
   winner_team        Int?
