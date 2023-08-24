@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import UserModel from '../models/user.ts';
+import UserOnSport from '../models/user_on_sport.ts';
 import type { AllowedUserUpdate } from '../@types/index.d.ts';
 
 // To block user who want to modify his own id, createdAt, updatedAt, or image_id
@@ -76,7 +77,7 @@ export default {
     }
 
     try {
-      const sports = await UserModel.getSports(id);
+      const sports = await UserOnSport.getSports(id);
       return res.status(200).json({ message: 'Sport(s) that the user master', sports });
     } catch (error) {
       console.error(error);
