@@ -2,7 +2,6 @@ import prisma from '../helpers/db.client.ts';
 import type { FriendRequestStatus } from '../@types/index.js';
 import DatabaseError from '../helpers/errors/database.error.ts';
 import NotFoundError from '../helpers/errors/notFound.error.ts';
-import exclude from '../utils/excludeFiled.ts';
 
 export default {
   // get all friends of an user
@@ -15,13 +14,24 @@ export default {
           status,
         },
         include: {
-          asked: { include: { image: true } },
+          asked: true,
         },
       });
       await prisma.$disconnect();
       if (result.length === 0) throw new NotFoundError('No friends found');
 
-      const data = result.map((friend) => ({ ...friend, asked: exclude(friend.asked, ['password']) }));
+      const data = result.map((relation) => ({
+        asker_id: relation.asker_id,
+        status: relation.status,
+        created_at: relation.createdAt,
+        updated_at: relation.updatedAt,
+        friend: {
+          id: relation.asked.id,
+          email: relation.asked.email,
+          username: relation.asked.username,
+          avatar: relation.asked.image_id,
+        },
+      }));
 
       return data;
     } catch (error: any) {
@@ -46,9 +56,18 @@ export default {
       await prisma.$disconnect();
       if (!result) throw new NotFoundError('No pending request found');
 
-      (result.asker).delete('password');
-
-      // const data = { ...result, asker: exclude(result.asker, ['password']) };
+      const data = {
+        friend_id: result.asker_id,
+        status: result.status,
+        created_at: result.createdAt,
+        updated_at: result.updatedAt,
+        user: {
+          id: result.asker.id,
+          email: result.asker.email,
+          username: result.asker.username,
+          avatar: result.asker.image_id,
+        },
+      };
 
       return data;
     } catch (error: any) {
@@ -69,7 +88,18 @@ export default {
       await prisma.$disconnect();
       if (!result) throw new NotFoundError('No pending request found');
 
-      const data = result.map((friend) => ({ ...friend, asker: exclude(friend.asker, ['password']) }));
+      const data = result.map((relation) => ({
+        user_id: relation.asked_id,
+        status: relation.status,
+        created_at: relation.createdAt,
+        updated_at: relation.updatedAt,
+        friend: {
+          id: relation.asker.id,
+          email: relation.asker.email,
+          username: relation.asker.username,
+          avatar: relation.asker.image_id,
+        },
+      }));
 
       return data;
     } catch (error: any) {
