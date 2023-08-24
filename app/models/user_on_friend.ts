@@ -15,7 +15,7 @@ export default {
           status,
         },
         include: {
-          asked: true,
+          asked: { include: { image: true } },
         },
       });
       await prisma.$disconnect();
@@ -46,7 +46,9 @@ export default {
       await prisma.$disconnect();
       if (!result) throw new NotFoundError('No pending request found');
 
-      const data = { ...result, asker: exclude(result.asker, ['password']) };
+      (result.asker).delete('password');
+
+      // const data = { ...result, asker: exclude(result.asker, ['password']) };
 
       return data;
     } catch (error: any) {
