@@ -1,5 +1,4 @@
 import type { Player, TeamGeneratorConfig } from '../@types/index.js';
-import ServerError from '../helpers/errors/server.error.ts';
 import logger from '../helpers/logger.ts';
 
 // disable completly rule for this file
@@ -18,8 +17,8 @@ export async function generateBalancedTeam() {
   console.info('Algo has started');
   console.time('Algo time start');
 
-  // need a function to gather all the gb_rating of the profiles
-  // with event_id
+  // need a function to gather all the users rating with an
+  // event_id as parameter
 
   const team_1: Player[] = [];
   const team_2: Player[] = [];
