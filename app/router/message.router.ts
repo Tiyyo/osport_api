@@ -1,10 +1,10 @@
 import express, { Router } from 'express';
 import messageController from '../controllers/message.controller.ts';
 import factory from '../middleware/factory.controller.ts';
-import validateSchema from '../middleware/schemas.validator.ts';
-import createMessage from '../schemas/message/createMessage.ts';
-import updateMessage from '../schemas/message/updateMessage.ts';
-import canals from '../helpers/canals.ts';
+// import validateSchema from '../middleware/schemas.validator.ts';
+// import createMessage from '../schemas/message/createMessage.ts';
+// import updateMessage from '../schemas/message/updateMessage.ts';
+// import canals from '../helpers/canals.ts';
 
 const router: Router = express.Router();
 
@@ -17,8 +17,14 @@ const {
 // canals represent which part of the request we want to validate
 
 router.route('/')
-  .post(validateSchema(createMessage, canals.body), factory(create))
-  .patch(validateSchema(updateMessage, canals.body), factory(update));
+  .post(
+    // validateSchema(createMessage, canals.body), // destactive for testing
+    factory(create),
+  )
+  .patch(
+    // validateSchema(updateMessage, canals.body), // destactive for testing
+    factory(update),
+  );
 
 router.route('/:id')
   .delete(factory(destroyOne));

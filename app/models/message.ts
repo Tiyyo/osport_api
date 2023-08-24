@@ -18,9 +18,27 @@ export default {
     try {
       const result = await prisma.event_chat_on_user.findMany({
         where: { event_id },
+        orderBy: { createdAt: 'asc' },
+        include: {
+          user: true,
+        },
       });
       await prisma.$disconnect();
-      return result;
+
+      const historic = result.map((message) => ({
+        id: message.id,
+        event_id: message.event_id,
+        message: message.message,
+        created_at: message.createdAt,
+        updated_at: message.updatedAt,
+        user: {
+          id: message.user.id,
+          username: message.user.username,
+          avatar: message.user.image_id,
+        },
+      }));
+
+      return historic;
     } catch (error: any) {
       throw new DatabaseError(error.message, 'message', error);
     }

@@ -129,7 +129,6 @@ model Event_chat_on_user {
   user      User      @relation(fields: [user_id], references: [id])
   user_id   Int
   message   String
-  date      DateTime
   createdAt DateTime  @default(now())
   updatedAt DateTime? @updatedAt
 }

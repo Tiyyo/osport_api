@@ -9,19 +9,31 @@ export default {
 
     const historic = await Message.findMany(event_id);
 
-    res.status(200).json({ data: historic, message: 'Historic retrieved successfully' });
+    res.status(200).json({ message: 'Historic retrieved successfully', data: historic });
   },
   create: async (req: Request, res: Response) => {
     const { event_id, user_id, message } = req.body;
 
-    await Message.create({ event_id, user_id, message });
+    console.log(event_id, user_id, message);
+
+    // just for testing
+    const event_id_testing = checkParams(event_id);
+    const user_id_testing = checkParams(user_id);
+
+    // when model is ready, we will
+    // check if user is in the list of participants
+
+    await Message.create({ event_id: event_id_testing, user_id: user_id_testing, message });
 
     res.status(201).json({ message: 'Message created successfully' });
   },
   update: async (req: Request, res: Response) => {
     const { id, message } = req.body;
 
-    await Message.update(id, message);
+    // just for testing
+    const checkedId = checkParams(id);
+
+    await Message.update(checkedId, message);
 
     res.status(204).json({ message: 'Message updated successfully' });
   },
