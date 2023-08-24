@@ -8,7 +8,7 @@ export default class ValidationError extends Error {
   constructor(message: string, fieldErrors: Record<string, string>) {
     super(message);
     this.message = message;
-    this.status = 404;
+    this.status = 400;
     this.fieldErrors = fieldErrors;
     this.name = 'ValidationError';
   }
