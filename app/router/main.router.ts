@@ -7,7 +7,7 @@ const router: Router = express.Router();
 
 router.use('/', authRouter);
 
-router.get('/healtcheck', (_req, res) => {
+router.get('/test', (_req, res) => {
   res.status(200).send({
     message: 'Welcome to the API',
   });
