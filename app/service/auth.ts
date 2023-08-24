@@ -1,10 +1,10 @@
 import bcrypt from 'bcrypt';
-import User from '../../models/user.ts';
-import { LoginForm, RegisterForm } from '../../@types/index.js';
-import DatabaseError from '../../helpers/errors/database.error.ts';
-import ServerError from '../../helpers/errors/server.error.ts';
-import UserInputError from '../../helpers/errors/userInput.error.ts';
-import createAccesToken from '../../helpers/token/create.access.ts';
+import User from '../models/user.ts';
+import { LoginForm, RegisterForm } from '../@types/index.js';
+import DatabaseError from '../helpers/errors/database.error.ts';
+import ServerError from '../helpers/errors/server.error.ts';
+import UserInputError from '../helpers/errors/userInput.error.ts';
+import createAccesToken from '../helpers/token/create.access.ts';
 
 export async function createUser(data: RegisterForm) {
   const { email, username, password } = data;
@@ -30,7 +30,7 @@ export async function createUser(data: RegisterForm) {
 }
 
 export async function login(data: LoginForm):
-Promise<{ accessToken: string; }> {
+  Promise<{ accessToken: string; }> {
   const { emailOrUsername, password } = data;
 
   // set to 1 minute for testing
