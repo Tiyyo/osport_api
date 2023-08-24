@@ -9,8 +9,6 @@ import canals from '../helpers/canals.ts';
 
 const router: Router = express.Router();
 
-console.log('coucou');
-
 // All methods listed in the controller
 const {
   register, signin, validate, logout,

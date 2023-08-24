@@ -33,7 +33,12 @@ export default {
         id,
       },
       include: {
-        image: true,
+        image: {
+          select: {
+            url: true,
+            title: true,
+          },
+        },
       },
     });
 
@@ -49,24 +54,11 @@ export default {
         'image_id',
         'createdAt',
         'updatedAt',
-        'image',
       ],
     );
 
-    // If the user doesn't have an image, we set the url and title to null to be
-    // displayed on the json response
-    const imageUrl = user.image?.url || null;
-    const imageTitle = user.image?.title || null;
-
-    // We construct the response with all datas needed
-    const result = {
-      ...userFiltered,
-      imageUrl,
-      imageTitle,
-    };
-
     await prisma.$disconnect();
-    return result;
+    return userFiltered;
   },
 
   patchImage: async (id: number, imageUrl: any) => {
@@ -85,6 +77,7 @@ export default {
           id: existingUser.image_id,
         },
         data: {
+          title: `avatar-${existingUser.username}`,
           url: imageUrl,
         },
       });
@@ -111,7 +104,12 @@ export default {
     const userUpdated = await prisma.user.findUnique({
       where: { id },
       include: {
-        image: true,
+        image: {
+          select: {
+            url: true,
+            title: true,
+          },
+        },
       },
     });
 
@@ -126,19 +124,11 @@ export default {
         'image_id',
         'createdAt',
         'updatedAt',
-        'image',
       ],
     );
 
-    // We construct the response with all datas needed
-    const result = {
-      ...userUpdatedFiltered,
-      imageTitle: userUpdated!.image?.title,
-      imageUrl,
-    };
-
     await prisma.$disconnect();
-    return result;
+    return userUpdatedFiltered;
   },
 
   deleteUser: async (id: number) => {
@@ -158,7 +148,7 @@ export default {
     });
 
     await prisma.$disconnect();
-    return id;
+    return true;
   },
 
   updateUser: async (id: number, data: AllowedUserUpdate) => {
@@ -181,7 +171,12 @@ export default {
     const userUpdated = await prisma.user.findUnique({
       where: { id },
       include: {
-        image: true,
+        image: {
+          select: {
+            url: true,
+            title: true,
+          },
+        },
       },
     });
 
@@ -195,24 +190,11 @@ export default {
         'image_id',
         'createdAt',
         'updatedAt',
-        'image',
       ],
     );
 
-    // If the user doesn't have an image, we set the url and title to null to be
-    // displayed on the json response
-    const imageUrl = userUpdated!.image?.url || null;
-    const imageTitle = userUpdated!.image?.title || null;
-
-    // We construct the response with all datas needed
-    const result = {
-      ...userFiltered,
-      imageTitle,
-      imageUrl,
-    };
-
     await prisma.$disconnect();
-    return result;
+    return userFiltered;
   },
 
 };

@@ -18,17 +18,6 @@ Content-Type: application/json
   }
 }
 
-### Update one user
-PATCH http://localhost:5000/user
-Content-Type: application/json
-
-{
-  "id": 4,
-  "data": {
-    "email": "Jacky"
-  }
-}
-
 ### Delete one user
 DELETE http://localhost:5000/user
 Content-Type: application/json
