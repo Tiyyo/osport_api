@@ -2,7 +2,7 @@ import express, { Router } from 'express';
 import errorHandler from '../middleware/error.handler.ts';
 import authRouter from './auth.router.ts';
 import NotFoundError from '../helpers/errors/notFound.error.ts';
-import { generateBalancedTeam } from '../service/teams/generateTeam.ts';
+import { generateBalancedTeam } from '../service/generateTeam.ts';
 
 const router: Router = express.Router();
 

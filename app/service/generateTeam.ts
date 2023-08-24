@@ -1,6 +1,6 @@
-import type { Player, TeamGeneratorConfig } from '../../@types/index.d.ts';
-import ServerError from '../../helpers/errors/server.error.ts';
-import logger from '../../helpers/logger.ts';
+import type { Player, TeamGeneratorConfig } from '../@types/index.js';
+import ServerError from '../helpers/errors/server.error.ts';
+import logger from '../helpers/logger.ts';
 
 // disable completly rule for this file
 // eslint doesnt know that function are hoisted in js ...
@@ -45,7 +45,8 @@ export async function generateBalancedTeam() {
 
 export function divideInTeam(config: TeamGeneratorConfig) {
 
-  if (config.participants % 2 !== 0) throw new ServerError('participants must be an even number');
+  if (config.participants % 2 !== 0) return { error: 'participants must be even' };
+
 
   const value_team_1 = getTeamValue(config.team1);
   const value_team_2 = getTeamValue(config.team2);

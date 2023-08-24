@@ -3,7 +3,7 @@ import prisma from '../helpers/db.client.ts';
 import type { LoginForm } from '../@types/index.js';
 
 export default {
-  create: async (data: Prisma.userCreateInput) => {
+  create: async (data: Prisma.UserCreateInput) => {
     const result = await prisma.user.create({
       data,
     });

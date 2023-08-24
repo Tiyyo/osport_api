@@ -8,8 +8,8 @@ import {
   getPlayerObject,
   divideInTeam,
   generateBalancedTeam,
-} from '../../../service/teams/generateTeam.ts';
-import ServerError from '../../../helpers/errors/server.error.ts';
+} from '../../service/generateTeam.ts';
+import ServerError from '../../helpers/errors/server.error.ts';
 
 describe('getMaxIndex', () => {
   test('should return the index of the max value', () => {
@@ -71,6 +71,18 @@ const mockConfig = {
 };
 
 describe('divideInTeam', () => {
+  test('should return an object with error prop when particpants are not even', () => {
+    const mockConfig3 = {
+      team1: [],
+      team2: [],
+      ids: [1, 2, 3],
+      values: [5, 7, 1],
+      participants: 3,
+    };
+    const result = divideInTeam(mockConfig3);
+
+    expect(result).toHaveProperty('error');
+  });
   test('should return an object with the two teams', () => {
     expect(typeof divideInTeam(mockConfig)).toBe('object');
     expect(divideInTeam(mockConfig)).toHaveProperty('team_1');
@@ -86,8 +98,5 @@ describe('divideInTeam', () => {
     };
     const result = divideInTeam(mockConfig2);
     expect(result.team_1.length).toEqual(result.team_2.length);
-  });
-  test('should throw an server error if participants are not event', () => {
-    expect(divideInTeam({ ...mockConfig, participants: 5 })).toThrowError(new ServerError('participants must be an even number'));
   });
 });
