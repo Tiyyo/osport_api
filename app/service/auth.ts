@@ -1,6 +1,6 @@
 import bcrypt from 'bcrypt';
-import User from '../models/user.ts';
-import { LoginForm, RegisterForm } from '../@types/index.js';
+import User from '../../models/user.ts';
+import { LoginForm, RegisterForm } from '../@types/index.d.ts';
 import DatabaseError from '../helpers/errors/database.error.ts';
 import ServerError from '../helpers/errors/server.error.ts';
 import UserInputError from '../helpers/errors/userInput.error.ts';
