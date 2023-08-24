@@ -8,13 +8,12 @@ export default {
     // get the user id from the request
     // get the friends of the user
     // return the friends
-    //  ask frontend for an array of students
     const userId = req.params.id; // this is a string
     const status = 'pending';
 
     const friends = await Friends.find(Number(userId), status);
 
-    res.status(200).json({ message: 'Friends retrieved successfully', friends });
+    res.status(200).json({ message: 'Friends retrieved successfully', data: friends });
   },
   getAcceptedFriends: async (req: Request, res: Response) => {
     // get the user id from the request
@@ -26,7 +25,7 @@ export default {
 
     const friends = await Friends.find(Number(userId), status);
 
-    res.status(200).json({ message: 'Friends retrieved successfully', friends });
+    res.status(200).json({ message: 'Friends retrieved successfully', data: friends });
   },
   getPendingRequestReceived: async (req: Request, res: Response) => {
     // get the user id from the request
@@ -35,7 +34,7 @@ export default {
 
     const friends = await Friends.findManyRequest(Number(userId));
 
-    res.status(200).json({ message: 'Friends retrieved successfully', friends });
+    res.status(200).json({ message: 'Friends retrieved successfully', data: friends });
   },
   // send a friend request to a user
   sendFriendRequest: async (req: Request, res: Response) => {

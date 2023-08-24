@@ -35,7 +35,9 @@ export default {
         where: {
           asked_id: userId,
           asker_id: userToAdd,
-          status: 'pending',
+          status: {
+            in: ['pending', 'accepted'],
+          },
         },
         include: {
           asker: true,
