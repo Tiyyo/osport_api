@@ -16,14 +16,14 @@ const {
 // we use the same middleware throughout the app
 // canals represent which part of the request we want to validate
 
-router.route('/chat')
-  .patch(validateSchema(updateMessage, canals.body), factory(update))
-  .post(validateSchema(createMessage, canals.body), factory(create));
+router.route('/')
+  .post(validateSchema(createMessage, canals.body), factory(create))
+  .patch(validateSchema(updateMessage, canals.body), factory(update));
 
-router.route('/chat/:id')
+router.route('/:id')
   .delete(factory(destroyOne));
 
-router.route('/chat/event/:id')
+router.route('/event/:id')
   .get(factory(getHistoric))
   .delete(factory(destroyMany));
 

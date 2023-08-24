@@ -9,7 +9,7 @@ const router: Router = express.Router();
 
 router.use('/', authRouter);
 router.use('/user', userRouter);
-router.use('/message', messageRouter);
+router.use('/chat', messageRouter);
 
 router.get('/test', (_req, res) => {
   res.status(200).send({
