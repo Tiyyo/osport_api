@@ -14,12 +14,12 @@ export default (key: string) => async (
     const cacheValue = await Cache.get(paramsKey);
     if (req.method === 'GET' && cacheValue) {
       // not modfied
-      res.status(304).send(cacheValue);
+      return res.status(304).send(cacheValue);
     }
     req.body.cacheKey = paramsKey;
-    next();
+    return next();
   } catch (error) {
     logger.error(error);
-    next();
+    return next();
   }
 };
