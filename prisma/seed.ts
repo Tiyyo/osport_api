@@ -1,9 +1,28 @@
 import { faker } from '@faker-js/faker';
 import prisma from '../app/helpers/db.client.ts';
 import logger from '../app/helpers/logger.ts';
+import { createUser } from '../app/service/auth/auth.ts';
+import Friend from '../app/models/user_on_friend.ts';
 
 async function seed() {
   logger.info('Seeding started');
+
+  // DO NOT USE THIS IN PRODUCTION
+  const testAccount = {
+    username: 'admin',
+    email: 'admin@example.com',
+    password: 'admin',
+  };
+
+  await createUser(testAccount);
+
+  const admin = await prisma.user.findFirst({
+    where: { username: testAccount.username },
+  });
+
+  if (!admin) logger.error('Admin creation account failed');
+
+  // Seed user for testing use
 
   const usersToCreate = 10;
 
@@ -20,8 +39,25 @@ async function seed() {
   try {
     await Promise.all(queries);
   } catch (error) {
-    logger.error('Seeding failed');
+    logger.error('Seeding user failed');
     logger.error(error);
+  }
+
+  const user = await prisma.user.findMany();
+
+  const userIds = user.map((u) => u.id);
+
+  if (!admin) throw new Error('Can\t add relation to admin account');
+
+  const friendQueries = arrIteration.map((_, index) => Friend.create({
+    askerId: admin.id,
+    askedId: userIds[index + 1],
+  }));
+
+  try {
+    await Promise.all(friendQueries);
+  } catch (error) {
+    logger.error('Seeding friend failed');
   }
   logger.info('Seeding finished');
 }
