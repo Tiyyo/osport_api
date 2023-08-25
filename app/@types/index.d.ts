@@ -31,3 +31,5 @@ export type TeamGeneratorConfig = {
   team1: Player[];
   team2: Player[];
 };
+
+export type Levels = 'beginner' | 'intermediate' | 'advanced';

@@ -1,7 +1,7 @@
 import { faker } from '@faker-js/faker';
 import prisma from '../app/helpers/db.client.ts';
 import logger from '../app/helpers/logger.ts';
-import { createUser } from '../app/service/auth/auth.ts';
+import { createUser } from '../app/service/auth.ts';
 import Friend from '../app/models/user_on_friend.ts';
 
 async function seed() {
@@ -50,13 +50,14 @@ async function seed() {
   if (!admin) throw new Error('Can\t add relation to admin account');
 
   const friendQueries = arrIteration.map((_, index) => Friend.create({
-    askerId: admin.id,
-    askedId: userIds[index + 1],
+    asker_id: admin.id,
+    asked_id: userIds[index + 1],
   }));
 
   try {
     await Promise.all(friendQueries);
   } catch (error) {
+    console.log(error);
     logger.error('Seeding friend failed');
   }
   logger.info('Seeding finished');

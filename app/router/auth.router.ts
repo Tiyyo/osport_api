@@ -9,14 +9,9 @@ import canals from '../helpers/canals.ts';
 
 const router: Router = express.Router();
 
-// All methods listed in the controller
 const {
   register, signin, validate, logout,
 } = authController;
-
-// we need to ensure that the data is valid before reaching the controller
-// we use the same middleware throughout the app
-// canals represent which part of the request we want to validate
 
 router.route('/signup')
   .post(validateSchema(createUserSchema, canals.body), factory(register));

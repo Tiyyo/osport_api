@@ -2,14 +2,19 @@ import { Prisma } from '@prisma/client';
 import prisma from '../helpers/db.client.ts';
 import type { AllowedUserUpdate } from '../@types/index.d.ts';
 import exclude from '../utils/exclude.fields.ts';
+import DatabaseError from '../helpers/errors/database.error.ts';
 
 export default {
   create: async (data: Prisma.UserCreateInput) => {
-    const result = await prisma.user.create({
-      data,
-    });
-    await prisma.$disconnect();
-    return result;
+    try {
+      const result = await prisma.user.create({
+        data,
+      });
+      await prisma.$disconnect();
+      return result;
+    } catch (error: any) {
+      throw new DatabaseError(error.message, 'user', error);
+    }
   },
   findOne: async (data: Prisma.UserWhereInput) => {
     const result = await prisma.user.findFirst({
@@ -23,7 +28,6 @@ export default {
     await prisma.$disconnect();
     return result;
   },
-
   getUserInfos: async (id: number) => {
     // We find the user with the id provided by the front
     const user: any = await prisma.user.findUnique({

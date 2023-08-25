@@ -3,9 +3,6 @@ import jwt from 'jsonwebtoken';
 import AuthorizationError from '../helpers/errors/unauthorized.error.ts';
 
 const { verify } = jwt;
-// simpe middleware to validate the token
-// we only check for the token validity
-// and pass the decoded token to the next middleware
 
 const validateToken = (req: Request, _res: Response, next: NextFunction) => {
   let token: string = '';

@@ -22,7 +22,7 @@ export default {
           id: user.user.id,
           username: user.user.username,
           email: user.user.email,
-          avatar: user.user.image_id,
+          avatar: user.user.image_url,
         },
       }));
       return data;

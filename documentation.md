@@ -29,6 +29,10 @@ Once you have created your database, you can execute `npm run generate` followed
 
 ## Controllers
 
+### General behavior
+
+This module encapsulates the fundamental behavior of receiving client requests and delivering the corresponding responses. It serves as a foundational structure for handling various operations within the application.
+
 ### Authentification
 
   This module handles user registration, signin, validation, and logout processes.
@@ -36,7 +40,7 @@ Once you have created your database, you can execute `npm run generate` followed
 #### Register
   Registers a new user with the provided email, username, and password. The password is hashed using bcrypt and stored in the database.
 
-Endpoint: `POST /register`
+Endpoint: `POST /signup`
 
 ##### Request Body
 
@@ -349,6 +353,105 @@ Status Code : `201 Created`
 }
 ```
 
+#### Get Accepted friend requests
+Endpoint: `GET /user_friends/accepted/:id`
+
+Retrieves accepted friends of a user.
+
+##### Response
+
+Status Code : `200 Ok`
+
+```json
+{
+  "id": 1,
+  "email": "john.doe@example.com"	
+}
+```
+
+#### Get friends request received
+Endpoint: `GET /user_friends/pending/:id`
+
+Retrieves pending friend requests received by a user.
+
+##### Response
+
+Status Code : `200 Ok`
+
+```json
+{
+  "id": 1,
+  "email": "john.doe@example.com"	
+}
+```
+
+#### Send friend request
+Endpoint: `POST /user_friends/send`
+
+Sends a friend request to a user.
+
+##### Request Body
+
+```json
+{
+  "userId": 1,
+  "friendId": 2 
+}
+```
+
+##### Response
+
+Status Code : `201 Created`
+
+
+```json
+{ "message": "Friend request sent successfully" }
+```
+
+#### Accept friend request
+Endpoint: `PATCH /user_friends/accept`
+
+Accept a friend request.
+
+##### Request Body
+
+```json
+{
+  "userId": 1,
+  "friendId": 2 
+}
+```
+
+##### Response
+
+Status Code : `204 No Content`
+
+```json
+{ "message": "Friend request accepted successfully" }
+```
+
+#### Accept friend request
+Endpoint: `PATCH /user_friends/reject`
+
+Accept a friend request.
+
+##### Request Body
+
+```json
+{
+  "userId": 1,
+  "friendId": 2 
+}
+```
+
+##### Response
+
+Status Code : `204 No Content`
+
+```json
+{ "message": "Friend request rejected successfully" }
+```
+
 </br>
 </br>
 
@@ -607,5 +710,99 @@ Status Code : `204 No Content`
 </br>
 </br>
 
-.
+## Routers
+
+### Routers Structure
+
+Each Router module configures the routing for entity-related endpoints in the application. It defines routes that correspond to various message operations, such as creating, updating, and deleting messages.
+
+### Middlewares Integration
+
+- The `validateSchema` middleware is utilized to ensure that the request data adheres to predefined schemas. It performs validation based on schemas and the specified `canals` object, which indicates which part of the request to validate.
+
+```typescript
+export default (schema: AnyZodObject, 
+      canal: 'body' | 'params' | 'query') => async (
+      req: Request,
+      _res: Response, 
+      next: NextFunction) => {
+
+  if (!schema) next(new ServerError('No schema provided'));
+
+  try {
+    await schema.parseAsync(req[canal]);
+    next();
+  } catch (error) {
+    if (error instanceof ZodError) {
+      const fieldErros: Record<string, string> = {};
+      error.issues.forEach((e) => {
+        fieldErros[e.path[0]] = e.message;
+      });
+      next(new ValidationError('Schema is not valid', fieldErros));
+    }
+    next(error);
+  }
+}
+```
+
+- Incorporating the `factory` middleware with every controller involves encapsulating their operations within a try-catch block. This setup is designed to catch exceptions that might arise during the execution process. When exceptions occur, they are then handed over to the `ErrorHandler` middleware, which has the expertise to manage a variety of error scenarios
+
+```typescript
+export default (controller: Controller) => (
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      await controller(req, res, next);
+    } catch (err) {
+      next(err);
+    }
+  });
+```
+
+- The `cache` middleware is used to cache the response of a request. It is employed for endpoints that are expected to return the same response for a given period of time. This approach helps to reduce the number of requests made to the server, thereby improving performance.
+
+```typescript
+export default (key: string) => async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  if (!key) next();
+  let paramsKey = key;
+  if (req.params.id) paramsKey = key + req.params.id;
+  try {
+    const cacheValue = await Cache.get(paramsKey);
+    if (req.method === 'GET' && cacheValue) {
+      return res.status(304).send(cacheValue);
+    }
+    req.body.cacheKey = paramsKey;
+    return next();
+  } catch (error) {
+    logger.error(error);
+    return next();
+  }
+};
+```
+
+We use this utility class to cache data or invalidate cached data.
+Cache need to be invalidate on update or delete.
+
+```typescript
+export default class Cache {
+  static DEFAULT_EXPIRATION = 300; // 5 minutes
+
+  static async get(key: string) {
+    const cacheValue = await redis.get(key);
+    return cacheValue ? JSON.parse(cacheValue) : null;
+  }
+
+  static async set(key: string, data: any, expiration: number = Cache.DEFAULT_EXPIRATION) {
+    redis.set(key, JSON.stringify(data), 'EX', expiration);
+  }
+
+  static async del(keys: string[]) {
+    redis.del(keys);
+  }
+}
+```
+### Purpose
 

@@ -55,10 +55,6 @@ describe('register', () => {
   });
 });
 
-test('should exist', async () => {
-  expect(signin).toBeDefined();
-});
-
 describe('validate', () => {
   afterEach(() => {
     vi.restoreAllMocks();

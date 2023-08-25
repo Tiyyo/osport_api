@@ -17,13 +17,13 @@ export default {
     // factory controller will handle the error throwing in database or createUser function
     const { id } = req.body;
     const user = await UserModel.getUserInfos(Number(id));
-    return res.status(200).json({ message: 'User informations : ', user });
+    return res.status(200).json({ message: 'User informations : ', data: user });
   },
 
   updateImage: async (req: Request, res: Response) => {
     const { id, imageUrl } = req.body;
     const user = await UserModel.patchImage(id, imageUrl);
-    return res.status(200).json({ message: 'The user has been updated', user });
+    return res.status(200).json({ message: 'The user has been updated', data: user });
   },
 
   deleteUser: async (req: Request, res: Response) => {
@@ -42,7 +42,7 @@ export default {
     }
 
     const user = await UserModel.updateUser(id, data);
-    return res.status(200).json({ message: 'The user has been updated', user });
+    return res.status(200).json({ message: 'The user has been updated', data: user });
   },
 
   getSports: async (req: Request, res: Response) => {
@@ -54,7 +54,7 @@ export default {
     }
 
     const sports = await UserOnSport.getSports(id);
-    return res.status(200).json({ message: 'Sport(s) that the user master', sports });
+    return res.status(200).json({ message: 'Sport(s) that the user master', data: sports });
   },
 
 };

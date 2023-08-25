@@ -6,7 +6,7 @@ CREATE TABLE "User" (
     "password" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3),
-    "image_id" INTEGER,
+    "image_url" TEXT,
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")
 );
@@ -38,7 +38,7 @@ CREATE TABLE "Event" (
     "event_date" TIMESTAMP(3) NOT NULL,
     "location" TEXT NOT NULL,
     "duration" INTEGER NOT NULL,
-    "nb_team" INTEGER NOT NULL,
+    "nb_team" INTEGER NOT NULL DEFAULT 2,
     "nb_max_participant" INTEGER NOT NULL,
     "status" TEXT NOT NULL,
     "winner_team" INTEGER,
@@ -54,6 +54,7 @@ CREATE TABLE "Event" (
 CREATE TABLE "Event_on_user" (
     "event_id" INTEGER NOT NULL,
     "user_id" INTEGER NOT NULL,
+    "status" TEXT NOT NULL DEFAULT 'pending',
     "team" INTEGER,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3),
@@ -76,7 +77,7 @@ CREATE TABLE "User_on_friend" (
 CREATE TABLE "User_on_sport" (
     "user_id" INTEGER NOT NULL,
     "sport_id" INTEGER NOT NULL,
-    "rate" INTEGER NOT NULL,
+    "rating" INTEGER NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3),
 
@@ -95,14 +96,14 @@ CREATE TABLE "Sport_on_image" (
 
 -- CreateTable
 CREATE TABLE "Event_chat_on_user" (
+    "id" SERIAL NOT NULL,
     "event_id" INTEGER NOT NULL,
     "user_id" INTEGER NOT NULL,
     "message" TEXT NOT NULL,
-    "date" TIMESTAMP(3) NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3),
 
-    CONSTRAINT "Event_chat_on_user_pkey" PRIMARY KEY ("event_id","user_id")
+    CONSTRAINT "Event_chat_on_user_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateIndex
@@ -114,8 +115,14 @@ CREATE UNIQUE INDEX "User_username_key" ON "User"("username");
 -- CreateIndex
 CREATE UNIQUE INDEX "Sport_name_key" ON "Sport"("name");
 
+-- CreateIndex
+CREATE UNIQUE INDEX "Image_title_key" ON "Image"("title");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Image_url_key" ON "Image"("url");
+
 -- AddForeignKey
-ALTER TABLE "User" ADD CONSTRAINT "User_image_id_fkey" FOREIGN KEY ("image_id") REFERENCES "Image"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "User" ADD CONSTRAINT "User_image_url_fkey" FOREIGN KEY ("image_url") REFERENCES "Image"("url") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Event" ADD CONSTRAINT "Event_creator_id_fkey" FOREIGN KEY ("creator_id") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

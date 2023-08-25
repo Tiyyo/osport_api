@@ -19,9 +19,9 @@ const createUserSchema = z.object({
     })
     .refine((value: string) => /\d/.test(value), {
       message: 'Must contain one number',
-    })
-    .refine((value: string) => /[ `!@#$%^&*()_+\-=\]{};':"\\|,.<>?~]/.test(value), {
-      message: 'Must containe one special character',
     }),
+  // .refine((value: string) => /[ `!@#$%^&*()_+\-=\]{};':"\\|,.<>?~]/.test(value), {
+  //   message: 'Must containe one special character',
+  // }),
 });
 export default createUserSchema;

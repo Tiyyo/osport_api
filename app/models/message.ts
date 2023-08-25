@@ -13,7 +13,17 @@ export default {
       throw new DatabaseError(error.message, 'message', error);
     }
   },
-  // retrieve an historic
+  findOne: async (id: number) => {
+    try {
+      const result = await prisma.event_chat_on_user.findFirst({
+        where: { id },
+      });
+      await prisma.$disconnect();
+      return result;
+    } catch (error: any) {
+      throw new DatabaseError(error.message, 'message', error);
+    }
+  },
   findMany: async (event_id: number) => {
     try {
       const result = await prisma.event_chat_on_user.findMany({
@@ -34,7 +44,7 @@ export default {
         user: {
           id: message.user.id,
           username: message.user.username,
-          avatar: message.user.image_id,
+          avatar: message.user.image_url,
         },
       }));
 
@@ -65,7 +75,6 @@ export default {
       throw new DatabaseError(error.message, 'message', error);
     }
   },
-  // delete the full historc of a chat event
   destroyMany: async (event_id: number) => {
     try {
       await prisma.event_chat_on_user.deleteMany({

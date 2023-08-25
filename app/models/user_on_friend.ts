@@ -4,8 +4,6 @@ import DatabaseError from '../helpers/errors/database.error.ts';
 import NotFoundError from '../helpers/errors/notFound.error.ts';
 
 export default {
-  // get all friends of an user
-  // pending and accepted
   find: async (userId: number, status: FriendRequestStatus) => {
     try {
       const result = await prisma.user_on_friend.findMany({
@@ -29,7 +27,7 @@ export default {
           id: relation.asked.id,
           email: relation.asked.email,
           username: relation.asked.username,
-          avatar: relation.asked.image_id,
+          avatar: relation.asked.image_url,
         },
       }));
 
@@ -38,7 +36,6 @@ export default {
       throw new DatabaseError(error.message, 'user_on_friend', error);
     }
   },
-  // fidn pending request
   findRequest: async (userId: number, userToAdd: number) => {
     try {
       const result = await prisma.user_on_friend.findFirst({
@@ -65,7 +62,7 @@ export default {
           id: result.asker.id,
           email: result.asker.email,
           username: result.asker.username,
-          avatar: result.asker.image_id,
+          avatar: result.asker.image_url,
         },
       };
 
@@ -97,7 +94,7 @@ export default {
           id: relation.asker.id,
           email: relation.asker.email,
           username: relation.asker.username,
-          avatar: relation.asker.image_id,
+          avatar: relation.asker.image_url,
         },
       }));
 
@@ -106,19 +103,17 @@ export default {
       throw new DatabaseError(error.message, 'user_on_friend', error);
     }
   },
-  // create a pending friend request fro only 1 sides of the relationship
-  create: async ({ askerId, askedId }: Record<string, number>) => {
+  create: async ({ asker_id, asked_id }: Record<string, number>) => {
     const result = await prisma.user_on_friend.create({
       data: {
-        asker_id: askerId,
-        asked_id: askedId,
+        asker_id,
+        asked_id,
         status: 'pending',
       },
     });
     await prisma.$disconnect();
     return result;
   },
-  // update the status of the friend request
   update: async (askerId: number, askedId: number, status: FriendRequestStatus) => {
     const firstQuery = prisma.user_on_friend.update({
       where: {
