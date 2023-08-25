@@ -4,7 +4,6 @@ import type { AllowedUserUpdate } from '../@types/index.d.ts';
 import exclude from '../utils/exclude.fields.ts';
 
 export default {
-
   create: async (data: Prisma.UserCreateInput) => {
     const result = await prisma.user.create({
       data,
@@ -12,7 +11,6 @@ export default {
     await prisma.$disconnect();
     return result;
   },
-
   findOne: async (data: Prisma.UserWhereInput) => {
     const result = await prisma.user.findFirst({
       where: {
@@ -82,7 +80,7 @@ export default {
         },
       });
 
-    // If not, it create a new row in image table and use the id generated to put it in user table
+      // If not, it create a new row in image table and use the id generated to put it in user table
     } else {
       const newImage = await prisma.image.create({
         data: {

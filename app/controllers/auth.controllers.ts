@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { createUser, login } from '../service/auth/auth.ts';
+import { createUser, login } from '../service/auth.ts';
 
 export default {
   register: async (req: Request, res: Response) => {
@@ -25,7 +25,7 @@ export default {
 
     // maybe find a random string to use as a key
     res.cookie('accessToken', accessToken, {
-      httpOnly: true, sameSite: 'none', secure: true, maxAge: 24 * 60 * 60 + 1000,
+      httpOnly: true, sameSite: 'none', secure: true, maxAge: 24 * 60 * 60 * 1000,
     });
 
     res.status(200).json({ message: 'User logged in successfully' });
