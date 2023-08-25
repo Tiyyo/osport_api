@@ -123,14 +123,12 @@ model Sport_on_image {
 }
 
 model Event_chat_on_user {
+  id        Int       @id @default(autoincrement())  
   event     Event     @relation(fields: [event_id], references: [id])
   event_id  Int
   user      User      @relation(fields: [user_id], references: [id])
   user_id   Int
   message   String
-  date      DateTime
   createdAt DateTime  @default(now())
   updatedAt DateTime? @updatedAt
-
-  @@id([event_id, user_id])
 }
