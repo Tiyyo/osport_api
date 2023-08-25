@@ -89,3 +89,10 @@ Après revision des besoins/fonctionnalités :
 - Page signup fonctionelle, page login en cours (Thomas)
 - Routes user terminées (modifier les infos, delete user, modifier avatar, liste des sports) (Guillaume)
 - Script ajouté pour avoir un admin (fictif), création des relations (Steeve)
+
+## Jour 9 - 24/08/2023
+
+- Integration de la page create-event, event (en cours), création du composant Chat (Anthony)
+- Amelioration des données faker, routes création event (Guillaume)
+- Controller, Route pour les events, patch sur la DB, Gestion d'erreur, Algo Pour generer les equipes, Controller, routes et modeles pour les messages (Steeve)
+- Page login terminée (Thomas)
