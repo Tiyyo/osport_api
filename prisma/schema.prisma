@@ -20,8 +20,8 @@ model User {
   password           String
   createdAt          DateTime             @default(now())
   updatedAt          DateTime?            @updatedAt
-  image              Image?               @relation(fields: [image_id], references: [id])
-  image_id           Int?
+  image              Image?               @relation(fields: [image_url], references: [url])
+  image_url          String?
   event              Event[]
   event_on_user      Event_on_user[]
   asked_to_be_friend User_on_friend[]     @relation("asked")
@@ -42,8 +42,8 @@ model Sport {
 
 model Image {
   id             Int              @id @default(autoincrement())
-  title          String
-  url            String
+  title          String           @unique
+  url            String           @unique
   createdAt      DateTime         @default(now())
   updatedAt      DateTime?        @updatedAt
   user           User[]
@@ -75,6 +75,7 @@ model Event_on_user {
   event_id  Int
   user      User      @relation(fields: [user_id], references: [id])
   user_id   Int
+  status    String    @default("pending")
   // Optional in pre-match only
   team      Int?
   createdAt DateTime  @default(now())
@@ -103,7 +104,7 @@ model User_on_sport {
   user_id   Int
   sport     Sport     @relation(fields: [sport_id], references: [id])
   sport_id  Int
-  rate      Int
+  rating    Int
   createdAt DateTime  @default(now())
   updatedAt DateTime? @updatedAt
 
