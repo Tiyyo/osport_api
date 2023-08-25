@@ -75,6 +75,7 @@ model Event_on_user {
   event_id  Int
   user      User      @relation(fields: [user_id], references: [id])
   user_id   Int
+  status    String    @default("pending")
   // Optional in pre-match only
   team      Int?
   createdAt DateTime  @default(now())
