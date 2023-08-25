@@ -6,7 +6,6 @@ import ServerError from '../helpers/errors/server.error.ts';
 import UserInputError from '../helpers/errors/userInput.error.ts';
 import createAccesToken from '../helpers/token/create.access.ts';
 
-
 export async function createUser(data: RegisterForm): Promise<boolean> {
 
   const { email, username, password } = data;
@@ -49,7 +48,6 @@ export async function login(data: LoginForm):
     expireTimeAccess,
     { userId: user.id },
   );
-
 
   return { accessToken };
 }

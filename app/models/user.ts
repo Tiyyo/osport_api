@@ -11,7 +11,6 @@ export default {
     await prisma.$disconnect();
     return result;
   },
-
   findOne: async (data: Prisma.UserWhereInput) => {
     const result = await prisma.user.findFirst({
       where: {

@@ -12,10 +12,11 @@ import ValidationError from '../helpers/errors/validation.error.ts';
 // if the schema is not valid it throws a ValidationError
 // else it calls the next middleware
 
-export default (schema: AnyZodObject, canal: 'body' | 'params' | 'query') => async (request: Request, _res: Response, next: NextFunction) => {
+export default (schema: AnyZodObject, canal: 'body' | 'params' | 'query') => async (req: Request, _res: Response, next: NextFunction) => {
   if (!schema) next(new ServerError('No schema provided'));
+
   try {
-    await schema.parseAsync(request[canal]);
+    await schema.parseAsync(req[canal]);
     next();
   } catch (error) {
     if (error instanceof ZodError) {

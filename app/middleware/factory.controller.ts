@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import type { Controller } from '../@types/index.d.ts';
 
+
 // factory design pattern
 // it returns a middleware function
 
@@ -12,4 +13,3 @@ export default (controller: Controller) => (
       next(err);
     }
   });
-
