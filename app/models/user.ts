@@ -4,7 +4,6 @@ import type { AllowedUserUpdate } from '../@types/index.d.ts';
 import exclude from '../utils/exclude.fields.ts';
 
 export default {
-
   create: async (data: Prisma.UserCreateInput) => {
     const result = await prisma.user.create({
       data,
