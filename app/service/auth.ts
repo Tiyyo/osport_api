@@ -1,13 +1,12 @@
 import bcrypt from 'bcrypt';
-import User from '../../models/user.ts';
-import { LoginForm, RegisterForm } from '../@types/index.d.ts';
+import User from '../models/user.ts';
+import type { LoginForm, RegisterForm } from '../@types/index.d.ts';
 import DatabaseError from '../helpers/errors/database.error.ts';
 import ServerError from '../helpers/errors/server.error.ts';
 import UserInputError from '../helpers/errors/userInput.error.ts';
 import createAccesToken from '../helpers/token/create.access.ts';
 
 export async function createUser(data: RegisterForm): Promise<boolean> {
-
   const { email, username, password } = data;
   const saltRounds = 10;
 

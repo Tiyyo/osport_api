@@ -1,5 +1,5 @@
 import express, { Router } from 'express';
-import participantController from '../controllers/participants.controller.ts';
+import participantController from '../controllers/participant.controller.ts';
 import factory from '../middleware/factory.controller.ts';
 // import validateSchema from '../middleware/schemas.validator.ts';
 // import canals from '../helpers/canals.ts';
