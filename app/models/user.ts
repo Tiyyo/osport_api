@@ -59,7 +59,7 @@ export default {
     return userFiltered;
   },
 
-  patchImage: async (id: number, imageUrl: any) => {
+  patchImage: async (id: number, imageUrl: string) => {
     // existingUser check if user already has an image
     const existingUser = await prisma.user.findUnique({
       where: { id },
@@ -69,10 +69,11 @@ export default {
     if (!existingUser) throw new Error('User not found');
 
     // If the user already has an image, it searchs in image table and updates the url
-    if (existingUser.image_id) {
+
+    if (existingUser.image_url) { // image_id doesnt exist anymore
       await prisma.image.update({
         where: {
-          id: existingUser.image_id,
+          url: existingUser.image_url,
         },
         data: {
           title: `avatar-${existingUser.username}`,
@@ -94,7 +95,7 @@ export default {
           id,
         },
         data: {
-          image_id: newImage.id,
+          image_url: newImage.url,
         },
       });
     }
@@ -119,7 +120,6 @@ export default {
       [
         'password',
         'email',
-        'image_id',
         'createdAt',
         'updatedAt',
       ],
@@ -185,7 +185,6 @@ export default {
       [
         'password',
         'email',
-        'image_id',
         'createdAt',
         'updatedAt',
       ],

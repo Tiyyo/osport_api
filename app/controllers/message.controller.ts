@@ -14,8 +14,6 @@ export default {
   create: async (req: Request, res: Response) => {
     const { event_id, user_id, message } = req.body;
 
-    console.log(event_id, user_id, message);
-
     // just for testing
     const event_id_testing = checkParams(event_id);
     const user_id_testing = checkParams(user_id);

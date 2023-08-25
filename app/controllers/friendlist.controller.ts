@@ -13,6 +13,8 @@ export default {
 
     const friends = await Friends.find(Number(userId), status);
 
+    console.log(friends);
+
     res.status(200).json({ message: 'Friends retrieved successfully', data: friends });
   },
   getAcceptedFriends: async (req: Request, res: Response) => {

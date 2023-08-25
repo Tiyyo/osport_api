@@ -16,7 +16,7 @@ export default {
     // data should be validated before reaching this point
     // factory controller will handle the error throwing in database or createUser function
     const { id } = req.body;
-    const user = await UserModel.getUserInfos(id);
+    const user = await UserModel.getUserInfos(Number(id));
     return res.status(200).json({ message: 'User informations : ', user });
   },
 

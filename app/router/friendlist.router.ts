@@ -20,22 +20,22 @@ const {
 // canals represent which part of the request we want to validate
 
 // TODO add validation
-router.route('/user_friends/sent/:id')
+router.route('/sent/:id')
   .get(factory(getPendingRequestSent));
 
-router.route('/user_friends/accepted/:id')
+router.route('/accepted/:id')
   .get(factory(getAcceptedFriends));
 
-router.route('/user_friends/pending/:id')
+router.route('/pending/:id')
   .get(factory(getPendingRequestReceived));
 
-router.route('/user_friends/send')
+router.route('/send')
   .post(factory(sendFriendRequest));
 
-router.route('/user_friends/accept')
+router.route('/accept')
   .post(factory(acceptFriendRequest));
 
-router.route('/user_friends/reject')
+router.route('/reject')
   .post(factory(rejectFriendRequest));
 
 export default router;
