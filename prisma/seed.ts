@@ -4,9 +4,9 @@ import logger from '../app/helpers/logger.ts';
 import { createUser } from '../app/service/auth.ts';
 import Friend from '../app/models/user_on_friend.ts';
 
-// function getRandomInt(min: number, max: number) {
-//   return Math.floor(Math.random() * (Math.floor(max) - Math.ceil(min)) + Math.ceil(min));
-// }
+function getRandomInt(min: number, max: number) {
+  return Math.floor(Math.random() * (Math.floor(max) - Math.ceil(min)) + Math.ceil(min));
+}
 
 async function seed() {
   logger.info('Seeding started');
@@ -50,7 +50,6 @@ async function seed() {
           title: faker.lorem.sentence(),
         },
       },
-
     },
   }));
 
@@ -66,7 +65,7 @@ async function seed() {
 
   const userIds = user.map((u) => u.id);
 
-  if (!admin) throw new Error('Can\t add relation to admin account');
+  if (!admin) throw new Error('Can\'t add relation to admin account');
 
   const friendQueries = arrIteration.map((_, index) => Friend.create({
     asker_id: admin.id,
@@ -78,34 +77,55 @@ async function seed() {
   } catch (error) {
     logger.error('Seeding friend failed');
   }
+  const testData = {
+    date: faker.date.future(),
+    location: faker.location.city(),
+    duration: 60,
+    nb_max_participant: 10,
+    user_id: admin.id,
+    sport_id: 1,
+  };
 
-  // await prisma.event.create({
-  //   data: {
-  //     date: faker.date.future(),
-  //     location: faker.location.city(),
-  //     duration: 60,
-  //     nb_max_participant: 10,
-  //     creator_id: admin.id,
-  //     sport_id: 1,
-  //   },
-  // });
-  // const numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  console.log(testData);
+  try {
+    await prisma.event.create({
+      data: {
+        date: testData.date,
+        location: testData.location,
+        duration: 60,
+        nb_max_participant: 10,
+        creator: {
+          connect: { id: testData.user_id },
+        },
+        sport: {
+          connect: {
+            id: 1,
+          },
+        },
+      },
+    });
+  } catch (error) {
+    console.log(error);
+    console.log('event is failling');
+  }
 
-  // function randomRating(id: number) {
-  //   const dataRating = numbers.map((n) => ({
-  //     user_id: id,
-  //     sport_id: getRandomInt(1, 3),
-  //     rating: getRandomInt(1, 11),
-  //     rater_id: n + 1,
-  //   }));
-  //   return dataRating;
-  // }
+  const numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
-  // const datas = numbers.map((n) => randomRating(n + 1));
+  function randomRating(id: number) {
+    const dataRating = numbers.map((n) => ({
+      user_id: id,
+      sport_id: getRandomInt(1, 3),
+      rating: getRandomInt(1, 11),
+      rater_id: n + 1,
+    }));
+    return dataRating;
+  }
 
-  // await prisma.user_on_sport.createMany({
-  //   data: datas.flat(),
-  // });
+  const datas = numbers.map((n) => randomRating(n + 1));
+
+  await prisma.user_on_sport.createMany({
+    data: datas.flat(),
+  });
 
   logger.info('Seeding finished');
 }
@@ -117,4 +137,3 @@ seed()
   }).finally(async () => {
     await prisma.$disconnect();
   });
-

@@ -336,6 +336,63 @@ Otherwise the gb_rating will be the average of all the ratings
 </br>
 </br>
 
+### Rating
+
+This module handles operations related to rating user on sports
+
+#### Post your own rating
+
+Endpoint: `POST /user/sport`
+
+User can post his own rating for a sport
+
+
+##### Request Body
+
+```json
+{
+    "user_id": 2, // Number
+    "sport_id": 1, // Number
+    "rating": "Advanced" // " Beginner" | "Intermediate" | "Advanced"
+}
+```
+
+##### Response
+
+Status Code : `201 Created`
+
+#### User rating other users
+
+Endpoint: `PATCH /user/sport`
+
+User can rate other users on sports
+
+Note : user_id always refers to the user who received the rating
+Note : rating can't go below 1 and above 10
+
+##### Request Body
+
+```json
+{
+    "user_id": 2, // Number
+    "sport_id": 1, // Number
+    "rating": 4 // Number
+    "rater_id": 3 // Number
+}
+```
+
+##### Response
+
+Status Code : `200 Ok`
+
+```json
+{
+     "message": "Rating updated "
+}
+```
+
+
+
 
 
 

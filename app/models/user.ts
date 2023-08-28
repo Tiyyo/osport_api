@@ -64,7 +64,6 @@ export default {
       throw new DatabaseError(error.message, 'user', error);
     }
   },
-
   updateUser: async (id: number, data: AllowedUserUpdate) => {
     try {
       const result = await prisma.user.update({

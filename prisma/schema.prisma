@@ -32,10 +32,10 @@ model User {
 }
 
 model Sport {
-  id             Int              @id @default(autoincrement())
-  name           String           @unique
-  created_at      DateTime         @default(now())
-  updated_at      DateTime?        @updatedAt
+  id             Int               @id @default(autoincrement())
+  name           String            @unique
+  created_at     DateTime          @default(now())
+  updated_at     DateTime?         @updatedAt
   event          Event[]
   level          User_on_sport[]
   image          Sport_on_image[]
@@ -56,16 +56,16 @@ model Event {
   date               DateTime
   location           String
   duration           Int
-  nb_team            Int                  @default(2)
+  nb_team            Int                   @default(2)
   nb_max_participant Int
-  status             String               @default("open")
+  status             String                @default("open")
   winner_team        Int?
-  creator            User                 @relation(fields: [creator_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  creator            User                  @relation(fields: [creator_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   creator_id         Int
-  sport              Sport                @relation(fields: [sport_id], references: [name])
-  sport_id           String
-  created_at          DateTime             @default(now())
-  updated_at          DateTime?            @updatedAt
+  sport              Sport                 @relation(fields: [sport_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  sport_id            Int
+  created_at         DateTime             @default(now())
+  updated_at         DateTime?            @updatedAt
   event_on_user      Event_on_user[]
   Event_chat_on_user Event_chat_on_user[]
 }
@@ -109,19 +109,19 @@ model User_on_sport {
   rater     User      @relation("rater", fields: [rater_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
   rater_id  Int
   sport     Sport     @relation(fields: [sport_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  sport_id  Int
-  rating    Int
-  createdAt DateTime  @default(now())
-  updatedAt DateTime? @updatedAt
+  sport_id   Int
+  rating     Int
+  created_at DateTime  @default(now())
+  updated_at DateTime? @updatedAt
 
 
 }
 
 model Sport_on_image {
-  sport     Sport     @relation(fields: [sport_id], references: [id])
-  sport_id  Int
-  image     Image     @relation(fields: [image_id], references: [id])
-  image_id  Int
+  sport      Sport     @relation(fields: [sport_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  sport_id   Int
+  image      Image     @relation(fields: [image_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  image_id   Int
   created_at DateTime  @default(now())
   updated_at DateTime? @updatedAt
 
@@ -129,12 +129,12 @@ model Sport_on_image {
 }
 
 model Event_chat_on_user {
-  id        Int       @id @default(autoincrement())  
-  event     Event     @relation(fields: [event_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  event_id  Int
-  user      User      @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  user_id   Int
-  message   String
+  id         Int       @id @default(autoincrement())  
+  event      Event     @relation(fields: [event_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  event_id   Int
+  user       User      @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  user_id    Int
+  message    String
   created_at DateTime  @default(now())
   updated_at DateTime? @updatedAt
 }

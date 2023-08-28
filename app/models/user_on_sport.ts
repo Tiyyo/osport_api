@@ -1,5 +1,6 @@
 import prisma from '../helpers/db.client.ts';
 import DatabaseError from '../helpers/errors/database.error.ts';
+import UserInputError from '../helpers/errors/userInput.error.ts';
 
 type SportLevel = {
   name: string,
@@ -11,6 +12,16 @@ export default {
 
   addOwnSport: async (user_id: number, sport_id: number, rating: number) => {
     try {
+      const isExist = await prisma.user_on_sport.findFirst({
+        where: {
+          user_id,
+          sport_id,
+          rater_id: user_id,
+        },
+      });
+
+      if (isExist) throw new UserInputError('Sport already rated');
+
       const result = await prisma.user_on_sport.create({
         data: {
           user_id,
@@ -22,10 +33,11 @@ export default {
       await prisma.$disconnect();
       return result;
     } catch (error: any) {
+      if (error instanceof UserInputError) throw error;
       throw new DatabaseError(error.message, 'user_on_sport', error);
     }
   },
-  updateOwnSport: async (data: any) => {
+  updateSportRating: async (data: any) => {
     try {
       const result = await prisma.user_on_sport.update({
         where: {
