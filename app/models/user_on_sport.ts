@@ -62,8 +62,6 @@ export default {
     WHERE level.sport_id = 1 AND level.user_id = ${user_id} AND level.user_id <> level.rater_id
     GROUP BY sport.name`;
 
-      console.log(foot);
-
       const [basket]: SportLevel = await prisma.$queryRaw`
     SELECT sport.name ,
              (SUM(level.rating) + (SELECT rating
@@ -81,9 +79,10 @@ export default {
     GROUP BY sport.name`;
 
       const sports: SportLevel[] = [
-        { name: foot.name ?? 'Football', gb_rating: foot ? Number(foot.gb_rating) : null },
-        { name: basket.name ?? 'Basketball', gb_rating: basket ? Number(basket.gb_rating) : null },
+        { name: foot?.name ?? 'Football', gb_rating: foot ? Number(foot.gb_rating) : null },
+        { name: basket?.name ?? 'Basketball', gb_rating: basket ? Number(basket.gb_rating) : null },
       ];
+
       await prisma.$disconnect();
       return sports;
     } catch (error: any) {

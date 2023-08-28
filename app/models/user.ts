@@ -35,51 +35,34 @@ export default {
       throw new DatabaseError(error.message, 'user', error);
     }
   },
-  findById: async (id: number) => {
+  getUserInfos: async (id: number) => {
+    // We find the user with the id provided by the front
     try {
-      const result = await prisma.user.findUnique({
-        where: { id },
+      const user: any = await prisma.user.findUnique({
+        where: {
+          id,
+        },
       });
+
+      // We check if the id is in our database
+      if (!user) throw new NotFoundError('User not found');
+
+      // We exclude all datas that front doesn't need, the image will be added later
+      const userFiltered = exclude(
+        user,
+        [
+          'password',
+          'email',
+          'created_at',
+          'updated_at',
+        ],
+      );
+
       await prisma.$disconnect();
-      return result;
+      return userFiltered;
     } catch (error: any) {
       throw new DatabaseError(error.message, 'user', error);
     }
-  },
-
-  getUserInfos: async (id: number) => {
-    // We find the user with the id provided by the front
-    const user: any = await prisma.user.findUnique({
-      where: {
-        id,
-      },
-      include: {
-        image: {
-          select: {
-            url: true,
-            title: true,
-          },
-        },
-      },
-    });
-
-    // We check if the id is in our database
-    if (!user) throw new Error('User not found');
-
-    // We exclude all datas that front doesn't need, the image will be added later
-    const userFiltered = exclude(
-      user,
-      [
-        'password',
-        'email',
-        'image_url',
-        'createdAt',
-        'updatedAt',
-      ],
-    );
-
-    await prisma.$disconnect();
-    return userFiltered;
   },
 
   updateUser: async (id: number, data: AllowedUserUpdate) => {

@@ -199,11 +199,11 @@ Status Code : `200 Ok`
 
 ```json
 {
-  "user": {
-        "id": 4,
-        "username": "Johnny",
-        "imageUrl": "https://picsum.photos/200/300",
-        "imageTitle": "avatar-cool guy"
+    "message": "User informations : ",
+    "user": {
+        "id": 12,
+        "username": "Steeve",
+        "image_url": "/images/e9cae3ff922f054ce450d9e2e205bd0f4a71f73d19806c7d22626fa6fc1a87a3.jpeg"
     }
 }
 ```
@@ -219,32 +219,36 @@ Description
 ##### Request Body
 
 ```json
-{ "id": 4 }
+{ 
+"id": 4, // Number
+"email"?: "john.do@example.com", // String
+"username"?: "john", // String
+"password"?: "securePassword",  // String
+ }
 ```
 
 ##### Response
 
-Status code : `204 No content`
+Status code : `200 Ok`
 
 ```json
 {
-  "message": "The user has been updated",
-  "user": {
-        "id": 4,
-        "username": "Jacky",
-        "imageTitle": "avatar-cool guy",
-        "imageUrl": "https://picsum.photos/200/300"
+    "message": "User informations : ",
+    "user": {
+        "id": 12,
+        "username": "New Username",
+        "image_url": "/images/e9cae3ff922f054ce450d9e2e205bd0f4a71f73d19806c7d22626fa6fc1a87a3.jpeg"
     }
 }
 ```
 
 #### Delete User
 
-Endpoint: `DELETE /user`
+Endpoint: `DELETE /user/:id`
 
 Delete user information.
 
-##### Request Body
+##### Request 
 
 ```json
 { "id": 4 }
@@ -252,11 +256,11 @@ Delete user information.
 
 ##### Response
 
-Status code : `204 No content`
+Status code : `200 Ok`
 
 ```json
 {
-  "message": "4 has been deleted",
+  "message": "User has been deleted",
 }
 ```
 
@@ -268,10 +272,12 @@ Change the picture of the user
 
 ##### Request Body
 
+Note: The key with the image must be named "image"
+Otherwise the request will not work
 ```json
 {
 "id": 17,
-"imageUrl": "insaneurl"
+"image": "insaneurl"
 }
 ```
 
@@ -281,14 +287,13 @@ Status code : `200 Ok`
 
 ```json
 {
-  "message": "The user has been updated",
+    "message": "User informations : ",
     "user": {
-        "id": 17,
-        "username": "Danny",
-        "imageTitle": "avatar-Danny",
-        "imageUrl": "insaneurl",
+        "id": 12,
+        "username": "David",
+        "image_url": "New url linking to the server"
     }
-} 
+}
 ```
 
 #### Sport
@@ -300,7 +305,8 @@ Endpoint: `GET /user/sport`
 ##### Request Body
 
 ```json
-{ "id": 2 }
+{ "id": 2 } //  Number 
+
 ```
 
 ##### Response
@@ -312,15 +318,15 @@ Status code : `200 Ok`
     "message": "Sport(s) that the user master",
     "sports": [
         {
-        "sportName": "basket",
-        "sportRate": 3
+            "name": "Football",
+            "gb_rating": null
         },
         {
-        "sportName": "foot",
-        "sportRate": 5
+            "name": "Basketball",
+            "gb_rating": null
         }
     ]
-} 
+}
 ```
 
 </br>
