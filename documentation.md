@@ -313,6 +313,10 @@ Endpoint: `GET /user/sport`
 
 Status code : `200 Ok`
 
+if the user has not post his own rating for a sport and no user has rated him for this sport the gb_rating will be null
+if users have rated him for this sport but he has not rate himself the gb_ratin will be 0
+Otherwise the gb_rating will be the average of all the ratings
+
 ```json
 {
     "message": "Sport(s) that the user master",
@@ -809,6 +813,51 @@ export default class Cache {
     redis.del(keys);
   }
 }
+
 ```
+- The `upload` middleware is used to handle file uploads. It configures multer to store uploaded files in memory as buffers, allowing you to process the uploaded data without saving files to the filesystem. 
+
+```typescript
+const storage = multer.memoryStorage();
+const upload = multer({ storage });
+
+export default upload;
+```
+- The `validateUser` middleware is used to validate the user's token against 
+the body of the request. It is used to ensure that the user is authorized to perform the requested operation.
+
+```typescript
+const { verify } = jwt;
+
+const validateUser = async (req: Request, res: Response, next: NextFunction) => {
+  let token: string = '';
+  let userInfos: any = {};
+
+  if (req.cookies && req.cookies.accessToken) token = req.cookies.accessToken;
+
+  verify(token, process.env.JWT_TOKEN_KEY as string, (err, decoded) => {
+    if (err) next(new AuthorizationError('Unauthorized user'));
+    userInfos = decoded[0];
+  });
+  if (!userInfos) next(new AuthorizationError('Unauthorized user'));
+  const headersUserId = userInfos.userId;
+  const bodyUserId = req.body.id;
+
+  try {
+    const user = await User.getUserInfos(headersUserId);
+    if (headersUserId === bodyUserId && user?.id === bodyUserId) {
+      return next();
+    }
+    res.status(401).json({ error: 'Unauthorized' });
+  } catch (error) {
+    if (error instanceof NotFoundError) {
+      return res.status(401).json({ error: 'Unauthorized' });
+    }
+    return next(error);
+  }
+};
+```
+
+
 ### Purpose
 
