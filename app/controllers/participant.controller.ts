@@ -1,12 +1,16 @@
 import { Request, Response } from 'express';
 import UserOnEvent from '../models/user_on_event.ts';
 import checkParams from '../utils/checkParams.ts';
+// import Cache from '../service/cache.ts';
+// import { generateBalancedTeam } from '../service/generateTeam.ts';
 
 export default {
   getParticipants: async (req: Request, res: Response) => {
     const id = checkParams(req.params.id);
 
     const participants = await UserOnEvent.find(id);
+
+    // await Cache.set(req.body.cacheKey, participants);
 
     res.status(200).json({ message: 'Participant retrieved succesfully', data: participants });
   },

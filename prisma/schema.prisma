@@ -45,8 +45,8 @@ model Image {
   id             Int              @id @default(autoincrement())
   title          String           @unique
   url            String           @unique
-  created_at      DateTime         @default(now())
-  updated_at      DateTime?        @updatedAt
+  created_at     DateTime         @default(now())
+  updated_at     DateTime?        @updatedAt
   user           User[]
   sport          Sport_on_image[]
 }
