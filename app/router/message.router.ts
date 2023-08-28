@@ -19,6 +19,7 @@ router.route('/')
   )
   .patch(
     validateSchema(updateMessage, canals.body),
+    validateSchema(updateMessage, canals.body),
     factory(update),
   );
 
@@ -26,7 +27,10 @@ router.route('/:id')
   .delete(factory(destroyOne));
 
 router.route('/event/:id')
-  .get(factory(getHistoric))
+  .get(
+    // getCache('chat'),
+    factory(getHistoric),
+  )
   .delete(factory(destroyMany));
 
 export default router;

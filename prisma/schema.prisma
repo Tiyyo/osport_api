@@ -21,11 +21,17 @@ model User {
   created_at         DateTime             @default(now())
   updated_at         DateTime?            @updatedAt
   image              Image?               @relation(fields: [image_url], references: [url], onDelete: SetNull, onUpdate: Cascade)
+  created_at         DateTime             @default(now())
+  updated_at         DateTime?            @updatedAt
+  image              Image?               @relation(fields: [image_url], references: [url], onDelete: SetNull, onUpdate: Cascade)
   image_url          String?
   event              Event[]
   event_on_user      Event_on_user[]
   asked_to_be_friend User_on_friend[]     @relation("asked")
   ask_friend         User_on_friend[]     @relation("asker")
+  rating             User_on_sport[]      @relation("ratee")
+  rater              User_on_sport[]      @relation("rater")
+  message            Event_chat_on_user[]
   rating             User_on_sport[]      @relation("ratee")
   rater              User_on_sport[]      @relation("rater")
   message            Event_chat_on_user[]
@@ -54,12 +60,15 @@ model Image {
 model Event {
   id                 Int                  @id @default(autoincrement())
   date               DateTime
+  date               DateTime
   location           String
   duration           Int
   nb_team            Int                  @default(2)
   nb_max_participant Int
   status             String               @default("open")
+  status             String               @default("open")
   winner_team        Int?
+  creator            User                 @relation(fields: [creator_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   creator            User                 @relation(fields: [creator_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   creator_id         Int
   sport              Sport                @relation(fields: [sport_id], references: [name])
@@ -70,6 +79,7 @@ model Event {
   Event_chat_on_user Event_chat_on_user[]
 }
 
+// // Players who particip to an event
 // // Players who particip to an event
 model Event_on_user {
   event     Event     @relation(fields: [event_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
@@ -88,7 +98,9 @@ model Event_on_user {
 
 model User_on_friend {
   asked     User      @relation("asked", fields: [asked_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  asked     User      @relation("asked", fields: [asked_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
   asked_id  Int
+  asker     User      @relation("asker", fields: [asker_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
   asker     User      @relation("asker", fields: [asker_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
   asker_id  Int
   // Enum to predefined status (ex: pending, accepted, declined) are not supported by SQLite and Microsoft SQL Server, so status is a string
@@ -100,10 +112,16 @@ model User_on_friend {
 }
 
 // // How much the user master the sport
+// // How much the user master the sport
 model User_on_sport {
   id        Int       @id @default(autoincrement())
   user      User      @relation("ratee",fields: [user_id], references: [id], onDelete:Cascade, onUpdate: Cascade )
+  id        Int       @id @default(autoincrement())
+  user      User      @relation("ratee",fields: [user_id], references: [id], onDelete:Cascade, onUpdate: Cascade )
   user_id   Int
+  rater     User      @relation("rater", fields: [rater_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  rater_id  Int
+  sport     Sport     @relation(fields: [sport_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
   rater     User      @relation("rater", fields: [rater_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
   rater_id  Int
   sport     Sport     @relation(fields: [sport_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
@@ -129,7 +147,9 @@ model Sport_on_image {
 model Event_chat_on_user {
   id        Int       @id @default(autoincrement())  
   event     Event     @relation(fields: [event_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  event     Event     @relation(fields: [event_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
   event_id  Int
+  user      User      @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
   user      User      @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
   user_id   Int
   message   String

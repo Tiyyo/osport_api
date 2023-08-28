@@ -24,3 +24,4 @@ router.route('/')
   .patch(validateSchema(updateParticipantSchema, canals.body), factory(updateStatus));
 
 export default router;
+
