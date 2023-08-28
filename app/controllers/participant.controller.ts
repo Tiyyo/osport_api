@@ -6,10 +6,9 @@ export default {
   getParticipants: async (req: Request, res: Response) => {
     const id = checkParams(req.params.id);
 
-    // exist in next commit
-    // const event_id = checkParams(id);
-
     // await Cache.set(req.body.cacheKey, participants);
+
+    await UserOnEvent.findConfirmed(id);
 
     res.status(200).json({ message: 'Participant retrieved succesfully', data: participants });
   },

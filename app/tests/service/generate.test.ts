@@ -7,9 +7,7 @@ import {
   getTeamValue,
   getPlayerObject,
   divideInTeam,
-  generateBalancedTeam,
 } from '../../service/generateTeam.ts';
-import ServerError from '../../helpers/errors/server.error.ts';
 
 describe('getMaxIndex', () => {
   test('should return the index of the max value', () => {

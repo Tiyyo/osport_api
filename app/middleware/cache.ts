@@ -22,4 +22,3 @@ export default (key: string) => async (
     return next();
   }
 };
-

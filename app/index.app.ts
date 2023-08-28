@@ -1,6 +1,6 @@
 import * as url from 'url';
 import express from 'express';
-import cors, { CorsOptions } /* , { CorsOptions } */ from 'cors';
+import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import router from './router/main.router.ts';
 import accesHttp from './middleware/access.http.ts';
