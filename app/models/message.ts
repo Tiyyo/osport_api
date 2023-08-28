@@ -13,12 +13,22 @@ export default {
       throw new DatabaseError(error.message, 'message', error);
     }
   },
-  // retrieve an historic
+  findOne: async (id: number) => {
+    try {
+      const result = await prisma.event_chat_on_user.findFirst({
+        where: { id },
+      });
+      await prisma.$disconnect();
+      return result;
+    } catch (error: any) {
+      throw new DatabaseError(error.message, 'message', error);
+    }
+  },
   findMany: async (event_id: number) => {
     try {
       const result = await prisma.event_chat_on_user.findMany({
         where: { event_id },
-        orderBy: { createdAt: 'asc' },
+        orderBy: { created_at: 'asc' },
         include: {
           user: true,
         },
@@ -29,12 +39,12 @@ export default {
         id: message.id,
         event_id: message.event_id,
         message: message.message,
-        created_at: message.createdAt,
-        updated_at: message.updatedAt,
+        created_at: message.created_at,
+        updated_at: message.updated_at,
         user: {
           id: message.user.id,
           username: message.user.username,
-          avatar: message.user.image_id,
+          avatar: message.user.image_url,
         },
       }));
 
@@ -48,7 +58,7 @@ export default {
     try {
       await prisma.event_chat_on_user.update({
         where: { id },
-        data: { message, updatedAt: today },
+        data: { message, updated_at: today },
       });
       await prisma.$disconnect();
     } catch (error: any) {
@@ -65,7 +75,6 @@ export default {
       throw new DatabaseError(error.message, 'message', error);
     }
   },
-  // delete the full historc of a chat event
   destroyMany: async (event_id: number) => {
     try {
       await prisma.event_chat_on_user.deleteMany({

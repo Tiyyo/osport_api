@@ -13,8 +13,7 @@ export default (key: string) => async (
   try {
     const cacheValue = await Cache.get(paramsKey);
     if (req.method === 'GET' && cacheValue) {
-      // not modfied
-      return res.status(304).send(cacheValue);
+      return res.status(200).json(cacheValue);
     }
     req.body.cacheKey = paramsKey;
     return next();
@@ -23,3 +22,4 @@ export default (key: string) => async (
     return next();
   }
 };
+
