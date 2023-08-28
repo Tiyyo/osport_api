@@ -96,3 +96,12 @@ Après revision des besoins/fonctionnalités :
 - Amelioration des données faker, routes création event (Guillaume)
 - Controller, Route pour les events, patch sur la DB, Gestion d'erreur, Algo Pour generer les equipes, Controller, routes et modeles pour les messages (Steeve)
 - Page login terminée (Thomas)
+- 
+## Jour 10 - 25/08/2023
+
+- Integration de la page event et des differents composants qui évolueront en fonction du statut de l'event, modale pour noter les joueurs, amélioration CSS de la page create_event (Anthony)
+- Elaboration d'une documentation complète de l'application côté back, connexion du front avec le back (Steeve)
+- Gestion du seed, résolution de nombreux bugs en cours (Guillaume)
+- Authentification terminée, mise en place de ReactCoookie pour recupèrer les informations envoyées (Thomas)
+
+## Jour 11 - 28/08/2023
