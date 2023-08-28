@@ -12,7 +12,6 @@ export default {
   },
   sendInivation: async (req: Request, res: Response) => {
     const { eventId: event_id, userId: user_id } = req.body;
-    const { eventId: event_id, userId: user_id } = req.body;
 
     await UserOnEvent.create(event_id, user_id);
 
