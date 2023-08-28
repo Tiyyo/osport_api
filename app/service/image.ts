@@ -52,3 +52,11 @@ export async function saveImageOnServer(
   const { relativePath, name } = await writeFile(buffer);
   return { relativePath, name };
 }
+
+export async function deleteImageFromServer(relativePath: string) {
+  try {
+    fs.rmSync(`${dirname}/../../${relativePath}`);
+  } catch (error) {
+    throw new Error('Could not delete file');
+  }
+}

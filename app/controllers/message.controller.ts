@@ -10,6 +10,8 @@ export default {
 
     const historic = await Message.findMany(event_id);
 
+    await Cache.set(`chat${event_id}`, historic);
+
     res.status(200).json({ message: 'Historic retrieved successfully', data: historic });
   },
   create: async (req: Request, res: Response) => {
@@ -17,7 +19,7 @@ export default {
 
     await Cache.del([`chat${event_id}`]);
 
-    await Message.create({ event: event_id, user: user_id, message });
+    await Message.create({ event_id, user_id, message });
 
     res.status(201).json({ message: 'Message created successfully' });
   },

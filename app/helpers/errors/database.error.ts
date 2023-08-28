@@ -17,6 +17,7 @@ export default class DatabaseError extends Error {
     this.message = message;
 
     if (error instanceof Prisma.PrismaClientKnownRequestError) {
+      console.log(error);
       this.message = `Code ${error.code} : ${error.message} on ${userTable} table`;
       this.code = error.code;
 
@@ -26,9 +27,8 @@ export default class DatabaseError extends Error {
         this.userMessage = 'Record already exists and can\'t be duplicated';
       }
       if (error.code === 'P2003') {
-        this.message = `Code ${error.code} unique constraint on column "${(error.meta as any).target[0]
-          }" of ${userTable} table`;
-        this.userMessage = "You're trying to add something that doesn't exists";
+        this.message = error.message;
+        this.userMessage = "You're likely trying to delete something that doesn't exist";
       }
       if (error.code === 'P2025') {
         this.message = (error as any).meta.cause;

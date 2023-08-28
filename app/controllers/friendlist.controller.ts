@@ -40,27 +40,31 @@ export default {
   acceptFriendRequest: async (req: Request, res: Response) => {
     const { userId, friendId } = req.body;
 
-    const isPendingRequestExist = await Friends.findRequest(Number(userId), Number(friendId));
-
-    if (!isPendingRequestExist) throw new NotFoundError('No pending friend request found');
+    try {
+      await Friends.findRequest(Number(friendId), Number(userId));
+    } catch (error) {
+      if (error instanceof NotFoundError) return res.status(200).json({ message: 'No pending friend request found' });
+    }
 
     const updateStatus = 'accepted';
     await Friends
       .update(Number(userId), Number(friendId), updateStatus);
 
-    res.status(204).json({ message: 'Friend request accepted successfully' });
+    return res.status(204).json({ message: 'Friend request accepted successfully' });
   },
   rejectFriendRequest: async (req: Request, res: Response) => {
     const { userId, friendId } = req.body;
 
-    const isPendingRequestExist = await Friends.findRequest(Number(userId), Number(friendId));
-
-    if (!isPendingRequestExist) throw new NotFoundError('No pending friend request found');
+    try {
+      await Friends.findRequest(Number(friendId), Number(userId));
+    } catch (error) {
+      if (error instanceof NotFoundError) return res.status(200).json({ message: 'No pending friend request found' });
+    }
 
     const updateStatus = 'rejected';
 
     await Friends.update(Number(userId), Number(friendId), updateStatus);
 
-    res.status(204).json({ message: 'Friend request rejected successfully' });
+    return res.status(204).json({ message: 'Friend request rejected successfully' });
   },
 };

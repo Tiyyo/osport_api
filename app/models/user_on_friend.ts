@@ -21,8 +21,8 @@ export default {
       const data = result.map((relation) => ({
         asker_id: relation.asker_id,
         status: relation.status,
-        created_at: relation.createdAt,
-        updated_at: relation.updatedAt,
+        created_at: relation.created_at,
+        updated_at: relation.updated_at,
         friend: {
           id: relation.asked.id,
           email: relation.asked.email,
@@ -33,6 +33,7 @@ export default {
 
       return data;
     } catch (error: any) {
+      if (error instanceof NotFoundError) throw error;
       throw new DatabaseError(error.message, 'user_on_friend', error);
     }
   },
@@ -56,8 +57,8 @@ export default {
       const data = {
         friend_id: result.asker_id,
         status: result.status,
-        created_at: result.createdAt,
-        updated_at: result.updatedAt,
+        created_at: result.created_at,
+        updated_at: result.updated_at,
         user: {
           id: result.asker.id,
           email: result.asker.email,
@@ -68,6 +69,7 @@ export default {
 
       return data;
     } catch (error: any) {
+      if (error instanceof NotFoundError) throw error;
       throw new DatabaseError(error.message, 'user_on_friend', error);
     }
   },
@@ -88,8 +90,8 @@ export default {
       const data = result.map((relation) => ({
         user_id: relation.asked_id,
         status: relation.status,
-        created_at: relation.createdAt,
-        updated_at: relation.updatedAt,
+        created_at: relation.created_at,
+        updated_at: relation.updated_at,
         friend: {
           id: relation.asker.id,
           email: relation.asker.email,
@@ -100,21 +102,28 @@ export default {
 
       return data;
     } catch (error: any) {
+      if (error instanceof NotFoundError) throw error;
       throw new DatabaseError(error.message, 'user_on_friend', error);
     }
   },
   create: async ({ asker_id, asked_id }: Record<string, number>) => {
-    const result = await prisma.user_on_friend.create({
-      data: {
-        asker_id,
-        asked_id,
-        status: 'pending',
-      },
-    });
-    await prisma.$disconnect();
-    return result;
+    try {
+      const result = await prisma.user_on_friend.create({
+        data: {
+          asker_id,
+          asked_id,
+          status: 'pending',
+        },
+      });
+      await prisma.$disconnect();
+      return result;
+    } catch (error: any) {
+      throw new DatabaseError(error.message, 'user_on_friend', error);
+    }
   },
   update: async (askerId: number, askedId: number, status: FriendRequestStatus) => {
+    console.log(askerId, askedId, status);
+
     const firstQuery = prisma.user_on_friend.update({
       where: {
         asked_id_asker_id: {
@@ -126,14 +135,10 @@ export default {
         status,
       },
     });
-    const secondeQuery = prisma.user_on_friend.update({
-      where: {
-        asked_id_asker_id: {
-          asker_id: askedId,
-          asked_id: askerId,
-        },
-      },
+    const secondeQuery = prisma.user_on_friend.create({
       data: {
+        asker_id: askedId,
+        asked_id: askerId,
         status,
       },
     });

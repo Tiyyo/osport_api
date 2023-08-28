@@ -1,11 +1,7 @@
 import type { Player, TeamGeneratorConfig } from '../@types/index.js';
 import logger from '../helpers/logger.ts';
 
-// disable completly rule for this file
-// eslint doesnt know that function are hoisted in js ...
-// eslint doesnt let us use snake case for algorithm
 /* eslint-disable */
-
 
 // will take an event_id as parameter
 export async function generateBalancedTeam() {
@@ -79,13 +75,13 @@ export function useRandomConditionAtStart(
   participants: number,
   idsArray: number[],
   value_team_1: number,
-  valueT_team_2: number,
+  value_team_2: number,
 ) {
   if (participants === idsArray.length) {
     const random_nb_start = getRandomArbitrary(0, 1);
     return random_nb_start > 0.5;
   }
-  return value_team_1 < valueT_team_2;
+  return value_team_1 < value_team_2;
 }
 
 export function deleteFromArrayAfterPush(ids: number[], values: number[], index: number) {

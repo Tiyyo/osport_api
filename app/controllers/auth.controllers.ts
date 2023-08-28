@@ -15,8 +15,6 @@ export default {
       password: req.body.password,
     };
 
-    console.log(data.username, data.password);
-
     const { accessToken } = await login(data);
 
     res.cookie('accessToken', accessToken, {

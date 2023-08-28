@@ -16,6 +16,7 @@ export type AllowedUserUpdate = {
   username?: string;
   email?: string;
   password?: string;
+  imageUrl?: string;
 };
 export type FriendRequestStatus = 'pending' | 'accepted' | 'rejected';
 

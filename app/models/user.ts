@@ -17,30 +17,26 @@ export default {
     }
   },
   findOne: async (data: Prisma.UserWhereInput) => {
-    const result = await prisma.user.findFirst({
-      where: {
-        OR: [
-          { email: data.email },
-          { username: data.username },
-        ],
-      },
-    });
-    await prisma.$disconnect();
-    return result;
+    try {
+      const result = await prisma.user.findFirst({
+        where: {
+          OR: [
+            { email: data.email },
+            { username: data.username },
+          ],
+        },
+      });
+      await prisma.$disconnect();
+      return result;
+    } catch (error: any) {
+      throw new DatabaseError(error.message, 'user', error);
+    }
   },
   getUserInfos: async (id: number) => {
     // We find the user with the id provided by the front
-    const user: any = await prisma.user.findUnique({
+    const user = await prisma.user.findUnique({
       where: {
         id,
-      },
-      include: {
-        image: {
-          select: {
-            url: true,
-            title: true,
-          },
-        },
       },
     });
 
@@ -53,149 +49,45 @@ export default {
       [
         'password',
         'email',
-        'image_id',
-        'createdAt',
-        'updatedAt',
+        'created_at',
+        'updated_at',
       ],
     );
 
     await prisma.$disconnect();
     return userFiltered;
   },
-
-  patchImage: async (id: number, imageUrl: string) => {
-    // existingUser check if user already has an image
-    const existingUser = await prisma.user.findUnique({
-      where: { id },
-    });
-
-    // We check if the id is in our database
-    if (!existingUser) throw new Error('User not found');
-
-    // If the user already has an image, it searchs in image table and updates the url
-
-    if (existingUser.image_url) { // image_id doesnt exist anymore
-      await prisma.image.update({
-        where: {
-          url: existingUser.image_url,
-        },
-        data: {
-          title: `avatar-${existingUser.username}`,
-          url: imageUrl,
-        },
-      });
-
-      // If not, it create a new row in image table and use the id generated to put it in user table
-    } else {
-      const newImage = await prisma.image.create({
-        data: {
-          title: `avatar-${existingUser.username}`,
-          url: imageUrl,
-        },
-      });
-
-      await prisma.user.update({
+  deleteUser: async (id: number) => {
+    try {
+      const result = await prisma.user.delete({
         where: {
           id,
         },
+      });
+      await prisma.$disconnect();
+      return !!result.id;
+    } catch (error: any) {
+      throw new DatabaseError(error.message, 'user', error);
+    }
+  },
+  updateUser: async (id: number, data: AllowedUserUpdate) => {
+    try {
+      const result = await prisma.user.update({
+        where: {
+          id: Number(id),
+        },
         data: {
-          image_url: newImage.url,
+          username: data.username,
+          email: data.email,
+          password: data.password,
+          image_url: data.imageUrl,
         },
       });
+      await prisma.$disconnect();
+      return !!result.id;
+    } catch (error: any) {
+      throw new DatabaseError(error.message, 'user', error);
     }
-
-    const userUpdated = await prisma.user.findUnique({
-      where: { id },
-      include: {
-        image: {
-          select: {
-            url: true,
-            title: true,
-          },
-        },
-      },
-    });
-
-    // We already checked if the id from user is in our database, so we indicate
-    // we are sure that userUpdated is not null (typescript)
-    // Now we exclude all datas that front doesn't need, the image will be added later
-    const userUpdatedFiltered = exclude(
-      userUpdated!,
-      [
-        'password',
-        'email',
-        'createdAt',
-        'updatedAt',
-      ],
-    );
-
-    await prisma.$disconnect();
-    return userUpdatedFiltered;
-  },
-
-  deleteUser: async (id: number) => {
-    const existingUser = await prisma.user.findFirst({
-      where: {
-        id,
-      },
-    });
-
-    // We check if the id is in our database
-    if (!existingUser) throw new Error('User not found');
-
-    await prisma.user.delete({
-      where: {
-        id,
-      },
-    });
-
-    await prisma.$disconnect();
-    return true;
-  },
-
-  updateUser: async (id: number, data: AllowedUserUpdate) => {
-    const existingUser = await prisma.user.findFirst({
-      where: {
-        id,
-      },
-    });
-
-    // We check if the id is in our database
-    if (!existingUser) throw new Error('User not found');
-
-    await prisma.user.update({
-      where: {
-        id,
-      },
-      data,
-    });
-
-    const userUpdated = await prisma.user.findUnique({
-      where: { id },
-      include: {
-        image: {
-          select: {
-            url: true,
-            title: true,
-          },
-        },
-      },
-    });
-
-    // We already checked if the id from user is in our database, so we indicate
-    // we are sure that userUpdated is not null (typescript)
-    const userFiltered = exclude(
-      userUpdated!,
-      [
-        'password',
-        'email',
-        'createdAt',
-        'updatedAt',
-      ],
-    );
-
-    await prisma.$disconnect();
-    return userFiltered;
   },
 
 };

@@ -3,17 +3,13 @@
     /* Language and Environment */
     "target": "ES2020",
     "module": "ESNext",
-
     /* Modules */
     "allowImportingTsExtensions": true,
-    "moduleResolution": "node16",
-
+    "moduleResolution": "NodeNext",
     /* JavaScript Support */
     "allowJs": true,
-
     /* Emit */
     "noEmit": true,
-
     /* Interop Constraints */
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,

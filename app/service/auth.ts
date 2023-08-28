@@ -33,9 +33,7 @@ export async function login(data: LoginForm):
   Promise<{ accessToken: string; }> {
   const { username, password } = data;
 
-  // set to 1 minute for testing
-  // set to an higher value after succed in testing
-  const expireTimeAccess = '10m'; // '10 min
+  const expireTimeAccess = '8h'; // '8h'
 
   const user = await User.findOne({ username, password });
 

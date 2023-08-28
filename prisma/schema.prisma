@@ -18,117 +18,119 @@ model User {
   email              String               @unique
   username           String               @unique
   password           String
-  createdAt          DateTime             @default(now())
-  updatedAt          DateTime?            @updatedAt
-  image              Image?               @relation(fields: [image_url], references: [url])
+  created_at         DateTime             @default(now())
+  updated_at         DateTime?            @updatedAt
+  image              Image?               @relation(fields: [image_url], references: [url], onDelete: SetNull, onUpdate: Cascade)
   image_url          String?
   event              Event[]
   event_on_user      Event_on_user[]
   asked_to_be_friend User_on_friend[]     @relation("asked")
   ask_friend         User_on_friend[]     @relation("asker")
-  User_on_sport      User_on_sport[]
-  Event_chat_on_user Event_chat_on_user[]
+  rating             User_on_sport[]      @relation("ratee")
+  rater              User_on_sport[]      @relation("rater")
+  message            Event_chat_on_user[]
 }
 
 model Sport {
   id             Int              @id @default(autoincrement())
   name           String           @unique
-  createdAt      DateTime         @default(now())
-  updatedAt      DateTime?        @updatedAt
+  created_at     DateTime         @default(now())
+  updated_at     DateTime?        @updatedAt
   event          Event[]
-  User_on_sport  User_on_sport[]
-  Sport_on_image Sport_on_image[]
+  level          User_on_sport[]
+  image          Sport_on_image[]
 }
 
 model Image {
   id             Int              @id @default(autoincrement())
   title          String           @unique
   url            String           @unique
-  createdAt      DateTime         @default(now())
-  updatedAt      DateTime?        @updatedAt
+  created_at      DateTime        @default(now())
+  updated_at      DateTime?       @updatedAt
   user           User[]
-  Sport_on_image Sport_on_image[]
+  sport          Sport_on_image[]
 }
 
 model Event {
   id                 Int                  @id @default(autoincrement())
-  event_date         DateTime
+  date               DateTime
   location           String
   duration           Int
   nb_team            Int                  @default(2)
   nb_max_participant Int
-  status             String
+  status             String               @default("open")
   winner_team        Int?
-  creator            User                 @relation(fields: [creator_id], references: [id])
+  creator            User                 @relation(fields: [creator_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   creator_id         Int
-  sport              Sport                @relation(fields: [sport_id], references: [name])
-  sport_id           String
-  createdAt          DateTime             @default(now())
-  updatedAt          DateTime?            @updatedAt
-  event_on_user      Event_on_user[]
-  Event_chat_on_user Event_chat_on_user[]
+  sport              Sport                @relation(fields: [sport_id], references: [id], onDelete:NoAction, onUpdate: NoAction)
+  sport_id           Int
+  created_at         DateTime             @default(now())
+  updated_at         DateTime?            @updatedAt
+  participant        Event_on_user[]
+  message            Event_chat_on_user[]
 }
 
-// Players who particip to an event
+// // Players who particip to an event
 model Event_on_user {
-  event     Event     @relation(fields: [event_id], references: [id])
+  event     Event     @relation(fields: [event_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
   event_id  Int
-  user      User      @relation(fields: [user_id], references: [id])
+  user      User      @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
   user_id   Int
   status    String    @default("pending")
   // Optional in pre-match only
   team      Int?
-  createdAt DateTime  @default(now())
-  updatedAt DateTime? @updatedAt
+  created_at DateTime  @default(now())
+  updated_at DateTime? @updatedAt
 
   // To add a unique constraint on the couple event_id and user_id
   @@id([event_id, user_id])
 }
 
 model User_on_friend {
-  asked     User      @relation("asked", fields: [asked_id], references: [id])
+  asked     User      @relation("asked", fields: [asked_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
   asked_id  Int
-  asker     User      @relation("asker", fields: [asker_id], references: [id])
+  asker     User      @relation("asker", fields: [asker_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
   asker_id  Int
   // Enum to predefined status (ex: pending, accepted, declined) are not supported by SQLite and Microsoft SQL Server, so status is a string
   status    String
-  createdAt DateTime  @default(now())
-  updatedAt DateTime? @updatedAt
+  created_at DateTime  @default(now())
+  updated_at DateTime? @updatedAt
 
   @@id([asked_id, asker_id])
 }
 
-// How much the user master the sport
+// // How much the user master the sport
 model User_on_sport {
-  user      User      @relation(fields: [user_id], references: [id])
+  id        Int       @id @default(autoincrement())
+  user      User      @relation("ratee",fields: [user_id], references: [id], onDelete:Cascade, onUpdate: Cascade )
   user_id   Int
-  sport     Sport     @relation(fields: [sport_id], references: [id])
+  rater     User      @relation("rater", fields: [rater_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  rater_id  Int
+  sport     Sport     @relation(fields: [sport_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
   sport_id  Int
   rating    Int
-  createdAt DateTime  @default(now())
-  updatedAt DateTime? @updatedAt
-
-  @@id([user_id, sport_id])
+  created_at DateTime  @default(now())
+  updated_at DateTime? @updatedAt
 }
 
 model Sport_on_image {
-  sport     Sport     @relation(fields: [sport_id], references: [id])
-  sport_id  Int
-  image     Image     @relation(fields: [image_id], references: [id])
-  image_id  Int
-  createdAt DateTime  @default(now())
-  updatedAt DateTime? @updatedAt
+  sport      Sport     @relation(fields: [sport_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  sport_id   Int
+  image      Image     @relation(fields: [image_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  image_id   Int
+  created_at DateTime  @default(now())
+  updated_at DateTime? @updatedAt
 
   @@id([sport_id, image_id])
 }
 
 model Event_chat_on_user {
   id        Int       @id @default(autoincrement())  
-  event     Event     @relation(fields: [event_id], references: [id])
+  event     Event     @relation(fields: [event_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
   event_id  Int
-  user      User      @relation(fields: [user_id], references: [id])
+  user      User      @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
   user_id   Int
   message   String
-  createdAt DateTime  @default(now())
-  updatedAt DateTime? @updatedAt
+  created_at DateTime  @default(now())
+  updated_at DateTime? @updatedAt
 }

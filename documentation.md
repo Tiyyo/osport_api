@@ -224,7 +224,7 @@ Description
 
 ##### Response
 
-Status code : `200 Ok`
+Status code : `204 No content`
 
 ```json
 {
@@ -252,7 +252,7 @@ Delete user information.
 
 ##### Response
 
-Status code : `200 Ok`
+Status code : `204 No content`
 
 ```json
 {
