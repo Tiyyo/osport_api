@@ -1,13 +1,13 @@
 import * as z from 'zod';
 
 const createEventSchema = z.object({
-  date: z.string().datetime(),
+  userId: z.number(),
+  eventDate: z.string(),
   location: z.string(),
   duration: z.number(),
-  nb_team: z.number().optional(),
-  nb_max_participant: z.number(),
-  user_id: z.number(),
-  sport_id: z.number(),
+  nbMaxParticipant: z.number(),
+  eventStatus: z.string(),
+  sportId: z.number(),
 });
 
 export default createEventSchema;

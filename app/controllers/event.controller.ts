@@ -3,15 +3,6 @@ import EventModel from '../models/event.ts';
 
 export default {
 
-    // userId: number,
-    //         eventDate: any,
-    //         location: string,
-    //         duration: number,
-    //         nbMaxParticipant: number,
-    //         eventStatus: string,
-    //         creatorId: number,
-    //         sportId: number,
-
     createEvent: async (req: Request, res: Response) => {
         const {
             userId,
@@ -24,14 +15,22 @@ export default {
         } = req.body;
 
         const event = await EventModel.createEvent({
-            creator: userId,
+            creator: {
+              connect: {
+                id: userId,
+              },
+            },
             date: eventDate,
             location,
             duration,
             nb_max_participant: nbMaxParticipant,
             status: eventStatus,
-            sport: sportId,
-        });
+            sport: {
+              connect: {
+                id: sportId,
+              },
+            },
+          });
         return res.status(201).json({ message: 'Event created : ', event });
     },
 
