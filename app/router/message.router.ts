@@ -20,6 +20,7 @@ router.route('/')
   )
   .patch(
     validateSchema(updateMessage, canals.body),
+    validateSchema(updateMessage, canals.body),
     factory(update),
   );
 
