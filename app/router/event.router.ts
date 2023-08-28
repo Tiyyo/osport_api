@@ -14,13 +14,13 @@ const {
 } = eventController;
 
 router.route('/')
-.post(validateSchema(createEventSchema, canals.body), factory(createEvent))
-  .post(factory(createEvent))
-  // .patch(validateSchema(updateEventSchema, canals.body), factory(update))
-  // .get(getCache('events'), factory(getAll));
+  .post(validateSchema(createEventSchema, canals.body), factory(createEvent))
+  .post(factory(createEvent));
+// .patch(validateSchema(updateEventSchema, canals.body), factory(update))
+// .get(getCache('events'), factory(getAll));
 
-router.route('/:id')
-  // .get(getCache('event'), factory(getOne))
-  // .delete(factory(destroy));
+router.route('/:id');
+// .get(getCache('event'), factory(getOne))
+// .delete(factory(destroy));
 
 export default router;
