@@ -1,7 +1,6 @@
 import express, { Router } from 'express';
 import userController from '../controllers/user.controller.ts';
 import factory from '../middleware/factory.controller.ts';
-import upload from '../service/upload.ts';
 
 const router: Router = express.Router();
 
@@ -12,24 +11,26 @@ const {
   deleteUser,
   updateUser,
   getSports,
-
 } = userController;
 
 // GET -> /user
-router.route('/:id')
-  .get(factory(getUser))
-  .delete(factory(deleteUser));
+router.route('/')
+  .get(factory(getUser));
 
 // PATCH -> /user
 router.route('/')
   .patch(factory(updateUser));
 
+// DELETE -> /user
+router.route('/')
+  .delete(factory(deleteUser));
+
 // PATCH -> /user/image
 router.route('/image')
-  .patch(upload.single('image'), factory(updateImage));
+  .patch(factory(updateImage));
 
 // GET -> /user/sport
-router.route('/sport/:id')
+router.route('/sport')
   .get(factory(getSports));
 
 export default router;

@@ -1,9 +1,8 @@
 import { Request, Response } from 'express';
 import UserOnEvent from '../models/user_on_event.ts';
-import Event from '../models/event.ts';
 import checkParams from '../utils/checkParams.ts';
-import Cache from '../service/cache.ts';
-import { generateBalancedTeam } from '../service/generateTeam.ts';
+// import Cache from '../service/cache.ts';
+// import { generateBalancedTeam } from '../service/generateTeam.ts';
 
 export default {
   getParticipants: async (req: Request, res: Response) => {
@@ -11,7 +10,7 @@ export default {
 
     const participants = await UserOnEvent.find(id);
 
-    await Cache.set(req.body.cacheKey, participants);
+    // await Cache.set(req.body.cacheKey, participants);
 
     res.status(200).json({ message: 'Participant retrieved succesfully', data: participants });
   },
@@ -20,16 +19,16 @@ export default {
 
     await UserOnEvent.create(event_id, user_id);
 
-    const keyToDelete = `participants${event_id}`;
-    await Cache.del([keyToDelete]);
+    // const keyToDelete = `participants${event_id}`;
+    // await Cache.del([keyToDelete]);
 
     res.status(201).json({ message: 'Invitation sent' });
   },
   updateStatus: async (req: Request, res: Response) => {
     const { eventId: event_id, userId: user_id, status } = req.body;
 
-    const keyToDelete = `participants${event_id}`;
-    await Cache.del([keyToDelete, `event${event_id}`]);
+    // const keyToDelete = `participants${event_id}`;
+    // await Cache.del([keyToDelete, `event${event_id}`]);
 
     if (status === 'rejected') {
       await UserOnEvent.update(user_id, event_id, status);
