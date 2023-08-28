@@ -1,14 +1,13 @@
 import { Request, Response } from 'express';
 import UserOnEvent from '../models/user_on_event.ts';
 import checkParams from '../utils/checkParams.ts';
-// import Cache from '../service/cache.ts';
-// import { generateBalancedTeam } from '../service/generateTeam.ts';
 
 export default {
   getParticipants: async (req: Request, res: Response) => {
     const id = checkParams(req.params.id);
 
-    const participants = await UserOnEvent.find(id);
+    // exist in next commit
+    // const event_id = checkParams(id);
 
     // await Cache.set(req.body.cacheKey, participants);
 
@@ -37,19 +36,19 @@ export default {
 
     const participants = await UserOnEvent.findConfirmed(event_id);
 
-    const event = await Event.findById(event_id);
+    // const event = await Event.findById(event_id);
 
-    if (event?.nb_max_participant === participants) {
-      // TODO update event status to open -> full
-      throw new Error('Event is full');
-    }
+    // if (event?.nb_max_participant === participants) {
+    //   // TODO update event status to open -> full
+    //   throw new Error('Event is full');
+    // }
 
     await UserOnEvent.update(user_id, event_id, status);
 
-    if (event?.nb_max_participant === participants + 1) {
-      console.log('Team has been generated');
-      // await generateBalancedTeam(event_id);
-    }
+    // if (event?.nb_max_participant === participants + 1) {
+    //   console.log('Team has been generated');
+    //   // await generateBalancedTeam(event_id);
+    // }
 
     return res.status(204).json({ message: 'status updated' });
   },

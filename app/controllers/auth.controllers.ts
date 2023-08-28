@@ -34,3 +34,4 @@ export default {
     res.status(200).json({ message: 'User logged out successfully' });
   },
 };
+

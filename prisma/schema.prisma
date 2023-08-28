@@ -34,8 +34,8 @@ model User {
 model Sport {
   id             Int              @id @default(autoincrement())
   name           String           @unique
-  created_at     DateTime         @default(now())
-  updated_at     DateTime?        @updatedAt
+  created_at      DateTime         @default(now())
+  updated_at      DateTime?        @updatedAt
   event          Event[]
   level          User_on_sport[]
   image          Sport_on_image[]
@@ -45,8 +45,8 @@ model Image {
   id             Int              @id @default(autoincrement())
   title          String           @unique
   url            String           @unique
-  created_at      DateTime        @default(now())
-  updated_at      DateTime?       @updatedAt
+  created_at      DateTime         @default(now())
+  updated_at      DateTime?        @updatedAt
   user           User[]
   sport          Sport_on_image[]
 }
@@ -62,12 +62,12 @@ model Event {
   winner_team        Int?
   creator            User                 @relation(fields: [creator_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   creator_id         Int
-  sport              Sport                @relation(fields: [sport_id], references: [id], onDelete:NoAction, onUpdate: NoAction)
-  sport_id           Int
-  created_at         DateTime             @default(now())
-  updated_at         DateTime?            @updatedAt
-  participant        Event_on_user[]
-  message            Event_chat_on_user[]
+  sport              Sport                @relation(fields: [sport_id], references: [name])
+  sport_id           String
+  created_at          DateTime             @default(now())
+  updated_at          DateTime?            @updatedAt
+  event_on_user      Event_on_user[]
+  Event_chat_on_user Event_chat_on_user[]
 }
 
 // // Players who particip to an event
@@ -109,15 +109,17 @@ model User_on_sport {
   sport     Sport     @relation(fields: [sport_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
   sport_id  Int
   rating    Int
-  created_at DateTime  @default(now())
-  updated_at DateTime? @updatedAt
+  createdAt DateTime  @default(now())
+  updatedAt DateTime? @updatedAt
+
+
 }
 
 model Sport_on_image {
-  sport      Sport     @relation(fields: [sport_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  sport_id   Int
-  image      Image     @relation(fields: [image_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  image_id   Int
+  sport     Sport     @relation(fields: [sport_id], references: [id])
+  sport_id  Int
+  image     Image     @relation(fields: [image_id], references: [id])
+  image_id  Int
   created_at DateTime  @default(now())
   updated_at DateTime? @updatedAt
 
