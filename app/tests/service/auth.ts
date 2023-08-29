@@ -3,6 +3,8 @@
 
 // describe('register', () => {
 //   test('should return true', () => {
-//     expect(createUser({ username: 'john', email: 'john.doe@example.com', password: 'test' })).toBe(true);
+//     expect(createUser({ username: 'john',
+                          // email: 'john.doe@example.com',
+                          // password: 'test' })).toBe(true);
 //   });
 // });

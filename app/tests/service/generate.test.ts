@@ -95,6 +95,6 @@ describe('divideInTeam', () => {
       participants: 4,
     };
     const result = divideInTeam(mockConfig2);
-    expect(result.team_1.length).toEqual(result.team_2.length);
+    expect(result?.team_1?.length).toEqual(result?.team_2?.length);
   });
 });

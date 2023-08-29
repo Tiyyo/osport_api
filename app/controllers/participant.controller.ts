@@ -22,9 +22,6 @@ export default {
     // const keyToDelete = `participants${event_id}`;
     // await Cache.del([keyToDelete]);
 
-    // const keyToDelete = `participants${event_id}`;
-    // await Cache.del([keyToDelete]);
-
     res.status(201).json({ message: 'Invitation sent' });
   },
   updateStatus: async (req: Request, res: Response) => {

@@ -19,6 +19,13 @@ module.exports = {
     'no-console': 'off',
     '@typescript-eslint/indent': 'off',
     'import/extensions': ["error", "ignorePackages"],
+    '@typescript-eslint/naming-convention': [
+          'error',
+          {
+            selector: 'variable',
+            format: ['PascalCase', 'camelCase', 'UPPER_CASE', 'snake_case'], 
+          },
+        ],
   },
 }
 

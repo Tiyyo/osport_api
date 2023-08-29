@@ -5,7 +5,10 @@ import { Request, Response } from 'express';
 import authControlller from '../../controllers/auth.controllers.ts';
 
 const {
-  register, signin, validate, logout,
+  register,
+  // signin,
+  validate,
+  logout,
 } = authControlller;
 
 const user = {
@@ -83,7 +86,9 @@ describe('register', () => {
 //     const req = mockRequest;
 
 //     await signin(req, res);
-//     expect(res.json).toBeCalledWith(expect.objectContaining({ message: 'User logged in successfully' }));
+//     expect(res.json).toBeCalledWith(expect.objectContaining(
+// { message: 'User logged in successfully' }
+// ));
 //   });
 // });
 

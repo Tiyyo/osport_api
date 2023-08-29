@@ -10,7 +10,7 @@ const validateToken = (req: Request, _res: Response, next: NextFunction) => {
   if (req.cookies && req.cookies.accessToken) token = req.cookies.accessToken;
 
   verify(token, process.env.JWT_TOKEN_KEY as string, (err, decoded) => {
-    if (err) throw new AuthorizationError('Unauthorized user');
+    if (err) next(new AuthorizationError('Unauthorized user'));
     req.body.decoded = decoded;
     next();
   });
