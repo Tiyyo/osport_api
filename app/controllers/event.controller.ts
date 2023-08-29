@@ -36,7 +36,7 @@ export default {
     await UserOnEvent.create(event.id, userId);
     await UserOnEvent.update(userId, event.id, 'accepted');
 
-    res.status(201).json({ message: 'Event created ', event });
+    res.status(201).json({ message: 'Event created ', data: event });
   },
 
 };

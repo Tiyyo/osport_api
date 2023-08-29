@@ -41,14 +41,14 @@ export default {
     const { userId, friendId } = req.body;
 
     try {
-      await Friends.findRequest(Number(friendId), Number(userId));
+      await Friends.findRequest(friendId, userId);
     } catch (error) {
-      if (error instanceof NotFoundError) return res.status(200).json({ message: 'No pending friend request found' });
+      if (error instanceof NotFoundError) return res.status(200).json({ error: 'No pending friend request found' });
     }
 
     const updateStatus = 'accepted';
     await Friends
-      .update(Number(userId), Number(friendId), updateStatus);
+      .update(userId, friendId, updateStatus);
 
     return res.status(204).json({ message: 'Friend request accepted successfully' });
   },
