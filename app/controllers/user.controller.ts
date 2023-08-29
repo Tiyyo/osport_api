@@ -2,16 +2,16 @@ import { Request, Response } from 'express';
 import UserModel from '../models/user.ts';
 import Image from '../models/image.ts';
 import UserOnSport from '../models/user_on_sport.ts';
-import type { AllowedUserUpdate } from '../@types/index.d.ts';
+// import type { AllowedUserUpdate } from '../@types/index.d.ts';
 import { deleteImageFromServer, saveImageOnServer } from '../service/image.ts';
 import checkParams from '../utils/checkParams.ts';
 
 // To block user who want to modify his own id, createdAt, updatedAt, or image_id
-const isAllowedUserUpdate = (data: any): data is AllowedUserUpdate => (
-  (data.username !== undefined && typeof data.username === 'string')
-  || (data.email !== undefined && typeof data.email === 'string')
-  || (data.password !== undefined && typeof data.password === 'string')
-);
+// const isAllowedUserUpdate = (data: any): data is AllowedUserUpdate => (
+//   (data.username !== undefined && typeof data.username === 'string')
+//   || (data.email !== undefined && typeof data.email === 'string')
+//   || (data.password !== undefined && typeof data.password === 'string')
+// );
 
 export default {
 

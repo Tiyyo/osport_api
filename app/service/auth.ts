@@ -48,4 +48,3 @@ export async function login(data: LoginForm):
 
   return { accessToken };
 }
-

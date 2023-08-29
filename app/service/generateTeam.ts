@@ -8,9 +8,6 @@ import logger from '../helpers/logger.ts';
 // will take an event_id as parameter
 export async function generateBalancedTeam(event_id: number) {
 
-  // const ids = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-  // const values = [3, 2, 7, 9, 4, 5, 6, 6, 7, 2];
-
   const event = await prisma.event.findUnique({
     where: {
       id: event_id,

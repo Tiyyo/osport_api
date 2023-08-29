@@ -8,13 +8,15 @@ const { verify } = jwt;
 
 const validateUser = async (req: Request, res: Response, next: NextFunction) => {
   let token: string = '';
-  let userInfos: any = {};
+  const userInfos: any = {};
 
   if (req.cookies && req.cookies.accessToken) token = req.cookies.accessToken;
 
   verify(token, process.env.JWT_TOKEN_KEY as string, (err, decoded) => {
     if (err) next(new AuthorizationError('Unauthorized user'));
-    userInfos = decoded[0];
+    /* eslint-disable */
+    [userInfos] = decoded;
+    /* eslint-enable */
   });
   if (!userInfos) next(new AuthorizationError('Unauthorized user'));
   const headersUserId = userInfos.userId;

@@ -4,14 +4,13 @@ import prisma from '../helpers/db.client.ts';
 
 export default {
 
-    createEvent: async (data: Prisma.EventCreateInput) => {
-        const result = await prisma.event.create(
-            {
-                data,
-            },
+  createEvent: async (data: Prisma.EventCreateInput) => {
+    const result = await prisma.event.create(
+      {
+        data,
+      },
     );
     await prisma.$disconnect();
     return result;
   },
-
 };
