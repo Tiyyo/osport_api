@@ -101,7 +101,6 @@ model User_on_friend {
 }
 
 // // How much the user master the sport
-// // How much the user master the sport
 model User_on_sport {
   id        Int       @id @default(autoincrement())
   user      User      @relation("ratee",fields: [user_id], references: [id], onDelete:Cascade, onUpdate: Cascade )

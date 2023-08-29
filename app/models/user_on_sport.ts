@@ -37,7 +37,12 @@ export default {
       throw new DatabaseError(error.message, 'user_on_sport', error);
     }
   },
-  updateSportRating: async (data: any) => {
+  updateSportRating: async (data: {
+    user_id: number,
+    sport_id: number,
+    rating: number,
+    rater_id: number,
+  }) => {
     try {
       const result = await prisma.user_on_sport.update({
         where: {
@@ -58,7 +63,7 @@ export default {
   getRatings: async (user_id: number) => {
     // (user_id , sport_id)
     try {
-      const [foot]: SportLevel = await prisma.$queryRaw`
+      const resultFoot: any = await prisma.$queryRaw`
     SELECT sport.name ,
              (SUM(level.rating) + (SELECT rating
                                    FROM (SELECT
@@ -74,7 +79,9 @@ export default {
     WHERE level.sport_id = 1 AND level.user_id = ${user_id} AND level.user_id <> level.rater_id
     GROUP BY sport.name`;
 
-      const [basket]: SportLevel = await prisma.$queryRaw`
+      const foot: SportLevel = resultFoot[0];
+
+      const resultBasket: any = await prisma.$queryRaw`
     SELECT sport.name ,
              (SUM(level.rating) + (SELECT rating
                                    FROM (SELECT
@@ -90,6 +97,8 @@ export default {
     WHERE level.sport_id = 2 AND level.user_id = ${user_id} AND level.user_id <> level.rater_id
     GROUP BY sport.name`;
 
+      const basket: SportLevel = resultBasket[0];
+
       const sports: SportLevel[] = [
         { name: foot?.name ?? 'Football', gb_rating: foot ? Number(foot.gb_rating) : null },
         { name: basket?.name ?? 'Basketball', gb_rating: basket ? Number(basket.gb_rating) : null },
@@ -98,13 +107,12 @@ export default {
       await prisma.$disconnect();
       return sports;
     } catch (error: any) {
-      console.log(error);
       throw new DatabaseError(error.message, 'user_on_sport', error);
     }
   },
   getRating: async (user_id: number, sport_id: number) => {
     try {
-      const [result]: SportLevel = await prisma.$queryRaw`
+      const sportLevelResult: any = await prisma.$queryRaw`
   SELECT sport.name ,
            (SUM(level.rating) + (SELECT rating
                                  FROM (SELECT
@@ -119,6 +127,8 @@ export default {
   INNER JOIN "Sport" AS sport ON level.sport_id = sport.id
   WHERE level.sport_id = ${sport_id} AND level.user_id = ${user_id} AND level.user_id <> level.rater_id
   GROUP BY sport.name`;
+
+      const result: SportLevel = sportLevelResult[0];
 
       if (!result.name) throw new Error('Sport not found');
 

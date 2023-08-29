@@ -1,38 +1,42 @@
 import { NextFunction, Request, Response } from 'express';
-import jwt from 'jsonwebtoken';
-import AuthorizationError from '../helpers/errors/unauthorized.error.ts';
+import jwt, { JwtPayload } from 'jsonwebtoken';
 import User from '../models/user.ts';
-import NotFoundError from '../helpers/errors/notFound.error.ts';
 
 const { verify } = jwt;
 
-const validateUser = async (req: Request, res: Response, next: NextFunction) => {
+const validateUser = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
   let token: string = '';
-  const userInfos: any = {};
+  let userInfos: JwtPayload = {};
 
   if (req.cookies && req.cookies.accessToken) token = req.cookies.accessToken;
-
-  verify(token, process.env.JWT_TOKEN_KEY as string, (err, decoded) => {
-    if (err) next(new AuthorizationError('Unauthorized user'));
-    /* eslint-disable */
-    [userInfos] = decoded;
-    /* eslint-enable */
-  });
-  if (!userInfos) next(new AuthorizationError('Unauthorized user'));
-  const headersUserId = userInfos.userId;
-  const bodyUserId = req.body.id;
-
   try {
-    const user = await User.getUserInfos(headersUserId);
-    if (headersUserId === bodyUserId && user?.id === bodyUserId) {
-      return next();
+    verify(token, process.env.JWT_TOKEN_KEY as string, (err, decoded) => {
+      if (err) throw new Error('Unauthorized user');
+      if (!decoded) throw new Error('No decoded token');
+      if (typeof decoded === 'string') throw new Error('Decoded token is a string');
+      userInfos = decoded;
+    });
+
+    if (!userInfos) throw new Error('No user infos');
+    const headersUserId = userInfos[0].userId;
+    const bodyUserId = req.body.id;
+
+    try {
+      const user = await User.getUserInfos(headersUserId);
+      if (headersUserId === bodyUserId && user?.id === bodyUserId) {
+        next();
+      } else {
+        throw new Error('Unauthorized user');
+      }
+    } catch (error) {
+      res.status(200).json({ error: 'Unauthorized' });
     }
-    res.status(401).json({ error: 'Unauthorized' });
   } catch (error) {
-    if (error instanceof NotFoundError) {
-      return res.status(401).json({ error: 'Unauthorized' });
-    }
-    return next(error);
+    res.status(200).json({ error: 'Unauthorized' });
   }
 };
 
