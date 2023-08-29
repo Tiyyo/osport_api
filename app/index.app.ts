@@ -15,7 +15,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(`${dirname}/../images`));
-app.use(express.static(`${dirname}/../images`));
 
 // Cors should not be used that way in production
 // the corsOptions should be set to the origin of the client
