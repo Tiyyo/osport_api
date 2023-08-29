@@ -11,15 +11,18 @@ const router: Router = express.Router();
 
 const {
   createEvent,
+  validateEvent,
 } = eventController;
 
 router.route('/')
-.post(validateSchema(createEventSchema, canals.body), factory(createEvent))
-  .post(factory(createEvent))
+  .post(validateSchema(createEventSchema, canals.body), factory(createEvent));
   // .patch(validateSchema(updateEventSchema, canals.body), factory(update))
   // .get(getCache('events'), factory(getAll));
 
-router.route('/:id')
+router.route('/validate')
+  .patch(factory(validateEvent));
+
+router.route('/:id');
   // .get(getCache('event'), factory(getOne))
   // .delete(factory(destroy));
 

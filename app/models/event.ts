@@ -9,9 +9,36 @@ export default {
             {
                 data,
             },
-    );
-    await prisma.$disconnect();
-    return result;
-  },
+        );
+        await prisma.$disconnect();
+        return result;
+    },
+
+    findOne: async ({ eventId }: any) => {
+        const result = await prisma.event.findUnique(
+            {
+                where: {
+                    id: eventId,
+                },
+            },
+        );
+        await prisma.$disconnect();
+        return result;
+    },
+
+    validateEvent: async (status: string, eventId: number) => {
+        const eventUpdated = await prisma.event.update(
+            {
+                where: {
+                    id: eventId,
+                },
+                data: {
+                    status,
+                },
+            },
+        );
+        await prisma.$disconnect();
+        return eventUpdated;
+    },
 
 };
