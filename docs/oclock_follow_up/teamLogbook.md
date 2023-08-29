@@ -105,3 +105,10 @@ Après revision des besoins/fonctionnalités :
 - Authentification terminée, mise en place de ReactCoookie pour recupèrer les informations envoyées (Thomas)
 
 ## Jour 11 - 28/08/2023
+
+- Le user peut desormais créer un event => Todo : User peut lancer le match (verif. si user est l'organisateur), User peut modifier un event. (Guillaume)
+- Resolution de problème sur le login suite à un changement de PC + veille  + début logique page profile (Thomas)
+- Liaison entre event et algo pour la génération des équipes, fin du back. Notes et schema fixed (Steeve)
+- Problème avec la récuperation des datas (useEffect), création d'un hook perso. pour fetch les datas (avec l'aide de Steeve et Thomas), affichage de la liste des contacts (Anthony)
+
+## Jour 12 - 29/08/2023
