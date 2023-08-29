@@ -1,4 +1,5 @@
 import { faker } from '@faker-js/faker';
+import { array } from 'zod';
 import prisma from '../app/helpers/db.client.ts';
 import logger from '../app/helpers/logger.ts';
 import { createUser } from '../app/service/auth.ts';
@@ -35,7 +36,7 @@ async function seed() {
 
   // Seed user for testing use
 
-  const usersToCreate = 10;
+  const usersToCreate = 30;
 
   const arrIteration = new Array(usersToCreate).fill(1);
 
@@ -56,8 +57,7 @@ async function seed() {
   try {
     await Promise.all(queries);
   } catch (error) {
-    console.log(error);
-    logger.error('Seeding user failed');
+    logger.info('Seeding user failed');
     logger.error(error);
   }
 
@@ -67,65 +67,235 @@ async function seed() {
 
   if (!admin) throw new Error('Can\'t add relation to admin account');
 
-  const friendQueries = arrIteration.map((_, index) => Friend.create({
+  const arrayOneToFive = [1, 2, 3, 4, 5];
+
+  const friendQueries = arrayOneToFive.map((n) => Friend.create({
     asker_id: admin.id,
-    asked_id: userIds[index + 1],
+    asked_id: userIds[n],
+  }));
+
+  const arrayFiveToTen = [6, 7, 8, 9, 10, 11];
+
+  const friendQueries2 = arrayFiveToTen.map((n) => prisma.user_on_friend.create({
+    data: {
+      asker_id: admin.id,
+      asked_id: userIds[n],
+      status: 'accepted',
+    },
+  }));
+
+  const arrayTenToTwenty = [12, 13, 14, 15, 16, 17, 18, 19, 20];
+
+  const friendQueries3 = arrayTenToTwenty.map((n) => prisma.user_on_friend.create({
+    data: {
+      asked_id: admin.id,
+      asker_id: userIds[n],
+      status: 'pending',
+    },
   }));
 
   try {
-    await Promise.all(friendQueries);
+    await Promise.all([...friendQueries, ...friendQueries2, ...friendQueries3]);
   } catch (error) {
     logger.error('Seeding friend failed');
   }
-  const testData = {
-    date: faker.date.future(),
-    location: faker.location.city(),
-    duration: 60,
-    nb_max_participant: 10,
-    user_id: admin.id,
+
+  // const testData = {
+  //   date: faker.date.future(),
+  //   location: faker.location.city(),
+  //   duration: 60,
+  //   nb_max_participant: 10,
+  //   user_id: admin.id,
+  //   sport_id: 1,
+  // };
+
+  // try {
+  //   await prisma.event.create({
+  //     data: {
+  //       date: testData.date,
+  //       location: testData.location,
+  //       duration: 60,
+  //       nb_max_participant: 10,
+  //       creator: {
+  //         connect: { id: testData.user_id },
+  //       },
+  //       sport: {
+  //         connect: {
+  //           id: 1,
+  //         },
+  //       },
+  //     },
+  //   });
+  // } catch (error) {
+  //   console.log(error);
+  //   console.log('event is failling');
+  // }
+
+  // user rate himlsef
+
+  const levels = [2, 5, 8];
+
+  const ownRatingFootballQueries = arrIteration.map((_, index) => ({
+    user_id: userIds[index + 1],
     sport_id: 1,
-  };
+    rating: levels[getRandomInt(0, 3)],
+    rater_id: userIds[index + 1],
+  }));
 
-  console.log(testData);
-  try {
-    await prisma.event.create({
-      data: {
-        date: testData.date,
-        location: testData.location,
-        duration: 60,
-        nb_max_participant: 10,
-        creator: {
-          connect: { id: testData.user_id },
-        },
-        sport: {
-          connect: {
-            id: 1,
-          },
-        },
-      },
-    });
-  } catch (error) {
-    console.log(error);
-    console.log('event is failling');
-  }
-
-  const numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  const ownRatingBasketballQueries = arrIteration.map((_, index) => ({
+    user_id: userIds[index + 1],
+    sport_id: 2,
+    rating: levels[getRandomInt(0, 3)],
+    rater_id: userIds[index + 1],
+  }));
 
   function randomRating(id: number) {
-    const dataRating = numbers.map((n) => ({
+    const dataRating = arrIteration.map((_, index) => ({
       user_id: id,
       sport_id: getRandomInt(1, 3),
       rating: getRandomInt(1, 11),
-      rater_id: n + 1,
+      rater_id: index + 1,
     }));
     return dataRating;
   }
 
-  const datas = numbers.map((n) => randomRating(n + 1));
+  const datas = arrIteration.map((_, index) => randomRating(index + 1));
+
+  const ratingQueries = [...datas.flat(),
+  ...ownRatingFootballQueries, ...ownRatingBasketballQueries];
 
   await prisma.user_on_sport.createMany({
-    data: datas.flat(),
+    data: ratingQueries,
   });
+
+  // create events
+
+  const arrayOneToFiveR = [1, 2, 3, 4, 5];
+  const arrayOneToTen = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+  const eventQueries1 = arrayOneToFiveR.map(() => ({
+    date: faker.date.past(),
+    location: faker.location.city(),
+    duration: 60,
+    nb_max_participant: 10,
+    creator_id: admin.id,
+    sport_id: 1,
+    status: 'full',
+  }));
+
+  function invitForCloseEvent(
+    event_id: number,
+    status: string,
+    nbIteration: Array<number>,
+    number = 0,
+  ) {
+    return nbIteration.map((n) => ({
+      event_id,
+      user_id: userIds[n + number],
+      status,
+      team: n < 6 ? 1 : 2,
+    }));
+  }
+
+  function invitForOpenEvent(
+    event_id: number,
+    status: string,
+    nbIteration: Array<number>,
+    number = 0,
+  ) {
+    return nbIteration.map((n) => ({
+      event_id,
+      user_id: userIds[n + number],
+      status,
+    }));
+  }
+
+  const ParticipantR1 = arrayOneToFiveR.map((n) => invitForCloseEvent(n, 'accepted', arrayOneToTen));
+
+  console.log(ParticipantR1);
+
+  const eventQueries2 = arrayOneToFiveR.map(() => ({
+    date: faker.date.past(),
+    location: faker.location.city(),
+    duration: 60,
+    nb_max_participant: 6,
+    creator_id: admin.id,
+    sport_id: 2,
+    status: 'full',
+  }));
+
+  const arrayOneToSix = [1, 2, 3, 4, 5, 6];
+
+  const ParticipantR2 = arrayOneToFiveR.map((n) => invitForCloseEvent(n + 5, 'accepted', arrayOneToSix, 10));
+
+  const eventQueries3 = arrayOneToFiveR.map(() => ({
+    date: faker.date.past(),
+    location: faker.location.city(),
+    duration: 90,
+    nb_max_participant: 10,
+    creator_id: admin.id,
+    sport_id: 1,
+    status: 'full',
+  }));
+
+  const ParticipantR3 = arrayOneToFiveR.map((n) => invitForCloseEvent(n + 10, 'accepted', arrayOneToTen, 5));
+
+  const eventQueries4 = arrayOneToFiveR.map(() => ({
+    date: faker.date.future(),
+    location: faker.location.city(),
+    duration: 60,
+    nb_max_participant: 10,
+    creator_id: admin.id,
+    sport_id: 2,
+  }));
+
+  const ParticipantR4 = arrayOneToFiveR.map((n) => invitForOpenEvent(n + 15, 'pending', arrayOneToTen, 15));
+
+  const eventQueries5 = arrayOneToFiveR.map(() => ({
+    date: faker.date.future(),
+    location: faker.location.city(),
+    duration: 60,
+    nb_max_participant: 10,
+    creator_id: admin.id,
+    sport_id: 1,
+  }));
+
+  const ParticipantR5 = arrayOneToFiveR.map((n) => invitForOpenEvent(n + 20, 'pending', arrayOneToTen, 18));
+
+  const eventQueries = [
+    ...eventQueries1,
+    ...eventQueries2,
+    ...eventQueries3,
+    ...eventQueries4,
+    ...eventQueries5,
+  ];
+
+  try {
+    await prisma.event.createMany({
+      data: eventQueries,
+    });
+  } catch (error) {
+    logger.info('Seeding event failed');
+    logger.error(error);
+  }
+
+  const participantQueries = [
+    ...ParticipantR1.flat(),
+    ...ParticipantR2.flat(),
+    ...ParticipantR3.flat(),
+    ...ParticipantR4.flat(),
+    ...ParticipantR5.flat(),
+  ];
+
+  try {
+    await prisma.event_on_user.createMany({
+      data: participantQueries,
+    });
+  } catch (error) {
+    console.log(error);
+    logger.info('Seeding event on user failed');
+    logger.error(error);
+  }
 
   logger.info('Seeding finished');
 }

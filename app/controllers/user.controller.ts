@@ -20,7 +20,7 @@ export default {
     // factory controller will handle the error throwing in database or createUser function
     const id = checkParams(req.params.id);
     const user = await UserModel.getUserInfos(id);
-    return res.status(200).json({ message: 'User informations : ', user });
+    return res.status(200).json({ message: 'User informations', data: user });
   },
 
   updateImage: async (req: Request, res: Response) => {
@@ -74,7 +74,7 @@ export default {
 
     const sports = await UserOnSport.getRatings(id);
 
-    return res.status(200).json({ message: 'Sport(s) that the user master', sports });
+    return res.status(200).json({ message: 'Sport(s) that the user master', data: sports });
   },
 
 };
