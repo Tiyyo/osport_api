@@ -8,7 +8,7 @@ export default {
     const userId = checkParams(req.params.id);
     const status = 'pending';
 
-    const friends = await Friends.find(Number(userId), status);
+    const friends = await Friends.find(userId, status);
 
     res.status(200).json({ message: 'Friends retrieved successfully', data: friends });
   },
@@ -16,7 +16,7 @@ export default {
     const userId = checkParams(req.params.id);
     const status = 'accepted';
 
-    const friends = await Friends.find(Number(userId), status);
+    const friends = await Friends.find(userId, status);
 
     res.status(200).json({ message: 'Friends retrieved successfully', data: friends });
   },
@@ -56,14 +56,14 @@ export default {
     const { userId, friendId } = req.body;
 
     try {
-      await Friends.findRequest(Number(friendId), Number(userId));
+      await Friends.findRequest(friendId, userId);
     } catch (error) {
       if (error instanceof NotFoundError) return res.status(200).json({ message: 'No pending friend request found' });
     }
 
     const updateStatus = 'rejected';
 
-    await Friends.update(Number(userId), Number(friendId), updateStatus);
+    await Friends.update(userId, friendId, updateStatus);
 
     return res.status(204).json({ message: 'Friend request rejected successfully' });
   },
