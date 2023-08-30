@@ -37,12 +37,12 @@ export default {
       throw new DatabaseError(error.message, 'user_on_friend', error);
     }
   },
-  findRequest: async (args: { userId: number, userToAdd: number }) => {
+  findRequest: async (args: { userId: number, friendId: number }) => {
     try {
       const result = await prisma.user_on_friend.findFirst({
         where: {
           asked_id: args.userId,
-          asker_id: args.userToAdd,
+          asker_id: args.friendId,
           status: {
             in: ['pending', 'accepted'],
           },

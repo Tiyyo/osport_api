@@ -73,7 +73,7 @@ export default {
     const { userId, friendId } = req.body;
 
     try {
-      await Friends.findRequest(friendId, userId);
+      await Friends.findRequest({ userId, friendId });
     } catch (error) {
       if (error instanceof NotFoundError) return res.status(200).json({ message: 'No pending friend request found' });
     }
