@@ -15,7 +15,13 @@ export default {
       password: req.body.password,
     };
 
-    const { accessToken } = await login(data);
+    let accessToken;
+
+    try {
+      accessToken = await login(data);
+    } catch (error) {
+      res.status(200).json({ error: 'Bad credentials' });
+    }
 
     res.cookie('accessToken', accessToken, {
       httpOnly: true, sameSite: 'none', secure: true, maxAge: 24 * 60 * 60 * 1000,
