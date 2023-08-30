@@ -299,3 +299,61 @@ res.json = {
     }
 }
 ```
+
+### GET | Get all events from an user
+
+```text
+    req.params = {
+       "id": 5
+    }
+
+res.status = 200
+res.json = {
+    "message": "Events found",
+  "events": [
+    {
+      "id": 2,
+      "date": "2023-08-28T16:38:15.381Z",
+      "location": "On sait pas ou",
+      "duration": 45,
+      "nb_team": 2,
+      "nb_max_participant": 12,
+      "status": "closed",
+      "winner_team": null,
+      "creator_id": 5,
+      "sport_id": "Football",
+      "created_at": "2023-08-28T15:13:07.321Z",
+      "updated_at": "2023-08-30T06:45:00.673Z",
+      "sport": {
+        "name": "Football",
+        "image": [
+          {
+            "image": {
+              "url": "https://picsum.photos/seed/XmZoCD9S/128/480",
+              "title": "Illum beatae ipsa nemo."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": 3,
+      "date": "2056-08-30T15:30:00.000Z",
+      "location": "New Location",
+      "duration": 120,
+      "nb_team": 2,
+      "nb_max_participant": 50,
+      "status": "Juste créé",
+      "winner_team": null,
+      "creator_id": 5,
+      "sport_id": "Basketball",
+      "created_at": "2023-08-28T15:14:17.568Z",
+      "updated_at": "2023-08-30T09:52:51.672Z",
+      "sport": {
+        "name": "Basketball",
+        "image": []
+      }
+    }
+  ]
+}
+```
