@@ -19,10 +19,11 @@ export default {
     // data should be validated before reaching this point
     // factory controller will handle the error throwing in database or createUser function
     const id = checkParams(req.params.id);
+
     const user = await UserModel.getUserInfos(id);
+
     return res.status(200).json({ message: 'User informations', data: user });
   },
-
   updateImage: async (req: Request, res: Response) => {
     const { id } = req.body;
     if (!req.file) return res.status(200).json({ error: 'No image provided' });

@@ -2,6 +2,8 @@ import { Request, Response } from 'express';
 import Friends from '../models/user_on_friend.ts';
 import NotFoundError from '../helpers/errors/notFound.error.ts';
 import checkParams from '../utils/checkParams.ts';
+import User from '../models/user.ts';
+import logger from '../helpers/logger.ts';
 
 export default {
   getPendingRequestSent: async (req: Request, res: Response) => {
@@ -36,6 +38,21 @@ export default {
     await Friends.create(data);
 
     res.status(201).json({ message: 'Friend request sent successfully' });
+  },
+  addFriend: async (req: Request, res: Response) => {
+    const { username, email, userId } = req.body;
+    let friend: any = {};
+
+    try {
+      friend = await User.findOne({ username, email });
+    } catch (error) {
+      logger.error(error);
+      res.status(200).json({ error: "Friend doesn't exist" });
+    }
+
+    await Friends.create({ asker_id: userId, asked_id: friend.id });
+
+    res.status(201).json({ message: 'Friend added successfully' });
   },
   acceptFriendRequest: async (req: Request, res: Response) => {
     const { userId, friendId } = req.body;
