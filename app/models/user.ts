@@ -52,7 +52,6 @@ export default {
         user,
         [
           'password',
-          'email',
           'created_at',
           'updated_at',
         ],
