@@ -73,7 +73,6 @@ export default {
         data: {
           username: data.username,
           email: data.email,
-          password: data.password,
           image_url: data.imageUrl,
         },
       });
