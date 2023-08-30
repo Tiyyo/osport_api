@@ -1,5 +1,4 @@
 import { faker } from '@faker-js/faker';
-import { array } from 'zod';
 import prisma from '../app/helpers/db.client.ts';
 import logger from '../app/helpers/logger.ts';
 import { createUser } from '../app/service/auth.ts';
@@ -149,12 +148,16 @@ async function seed() {
     rater_id: userIds[index + 1],
   }));
 
+  function allExceptOne(id: number, index: number) {
+    return index + 1 === id ? index + 2 : index + 1;
+  }
+
   function randomRating(id: number) {
     const dataRating = arrIteration.map((_, index) => ({
       user_id: id,
       sport_id: getRandomInt(1, 3),
       rating: getRandomInt(1, 11),
-      rater_id: index + 1,
+      rater_id: allExceptOne(id, index),
     }));
     return dataRating;
   }
@@ -164,9 +167,14 @@ async function seed() {
   const ratingQueries = [...datas.flat(),
   ...ownRatingFootballQueries, ...ownRatingBasketballQueries];
 
-  await prisma.user_on_sport.createMany({
-    data: ratingQueries,
-  });
+  try {
+    await prisma.user_on_sport.createMany({
+      data: ratingQueries,
+    });
+  } catch (error) {
+    logger.info('Seeding rating failed');
+    logger.error(error);
+  }
 
   // create events
 

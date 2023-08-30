@@ -14,6 +14,7 @@ const {
   sendFriendRequest,
   acceptFriendRequest,
   rejectFriendRequest,
+  addFriend,
 } = friendlist;
 
 router.route('/sent/:id')
@@ -27,6 +28,8 @@ router.route('/pending/:id')
 
 router.route('/send')
   .post(validateSchema(requestSchema, canals.body), factory(sendFriendRequest));
+
+router.route('/add').post(factory(addFriend));
 
 router.route('/accept')
   .patch(validateSchema(requestSchema, canals.body), factory(acceptFriendRequest));

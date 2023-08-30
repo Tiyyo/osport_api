@@ -2,6 +2,8 @@ import { Request, Response } from 'express';
 import Friends from '../models/user_on_friend.ts';
 import NotFoundError from '../helpers/errors/notFound.error.ts';
 import checkParams from '../utils/checkParams.ts';
+import User from '../models/user.ts';
+import logger from '../helpers/logger.ts';
 
 export default {
   getPendingRequestSent: async (req: Request, res: Response) => {
@@ -37,18 +39,33 @@ export default {
 
     res.status(201).json({ message: 'Friend request sent successfully' });
   },
+  addFriend: async (req: Request, res: Response) => {
+    const { username, email, userId } = req.body;
+    let friend: any = {};
+
+    try {
+      friend = await User.findOne({ username, email });
+    } catch (error) {
+      logger.error(error);
+      res.status(200).json({ error: "Friend doesn't exist" });
+    }
+
+    await Friends.create({ asker_id: userId, asked_id: friend.id });
+
+    res.status(201).json({ message: 'Friend added successfully' });
+  },
   acceptFriendRequest: async (req: Request, res: Response) => {
     const { userId, friendId } = req.body;
 
     try {
-      await Friends.findRequest(friendId, userId);
+      await Friends.findRequest({ userId, friendId });
     } catch (error) {
       if (error instanceof NotFoundError) return res.status(200).json({ error: 'No pending friend request found' });
     }
 
     const updateStatus = 'accepted';
     await Friends
-      .update(userId, friendId, updateStatus);
+      .update(friendId, userId, updateStatus);
 
     return res.status(204).json({ message: 'Friend request accepted successfully' });
   },
@@ -56,14 +73,14 @@ export default {
     const { userId, friendId } = req.body;
 
     try {
-      await Friends.findRequest(friendId, userId);
+      await Friends.findRequest({ userId, friendId });
     } catch (error) {
       if (error instanceof NotFoundError) return res.status(200).json({ message: 'No pending friend request found' });
     }
 
     const updateStatus = 'rejected';
 
-    await Friends.update(userId, friendId, updateStatus);
+    await Friends.update(friendId, userId, updateStatus);
 
     return res.status(204).json({ message: 'Friend request rejected successfully' });
   },
