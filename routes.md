@@ -334,7 +334,31 @@ res.json = {
             }
           }
         ]
-      }
+      },
+      "event_on_user": [
+        {
+          "user": {
+            "id": 2,
+            "email": "Brad.Boyer@hotmail.com",
+            "username": "Maximus",
+            "password": "QmS_sGWVgF23OUB",
+            "created_at": "2023-08-30T15:05:17.542Z",
+            "updated_at": "2023-08-30T15:05:17.542Z",
+            "image_url": "https://picsum.photos/seed/uv6rv/128/480"
+          }
+        },
+        {
+          "user": {
+            "id": 3,
+            "email": "Urban.Purdy@yahoo.com",
+            "username": "Robert",
+            "password": "0yIOEUADvjJqSrC",
+            "created_at": "2023-08-30T15:05:17.543Z",
+            "updated_at": "2023-08-30T15:05:17.543Z",
+            "image_url": "https://picsum.photos/seed/he4jsa/128/480"
+          }
+        },
+      ]
     },
     {
       "id": 3,
