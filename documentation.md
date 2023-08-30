@@ -183,15 +183,9 @@ This module handles various operations related to user management.
 
 #### Get User
 
-Endpoint: `GET /user`
+Endpoint: `GET /user/:id`
 
 Retrieves information about a user.
-
-##### Request Body
-
-```json
-{"id": 1}
-```
 
 ##### Response 
 
@@ -248,12 +242,6 @@ Endpoint: `DELETE /user/:id`
 
 Delete user information.
 
-##### Request 
-
-```json
-{ "id": 4 }
-```
-
 ##### Response
 
 Status code : `200 Ok`
@@ -300,14 +288,8 @@ Status code : `200 Ok`
 
 Get sports the user master with rating
 
-Endpoint: `GET /user/sport`
+Endpoint: `GET /user/sport/:id`
 
-##### Request Body
-
-```json
-{ "id": 2 } //  Number 
-
-```
 
 ##### Response
 
@@ -623,7 +605,7 @@ This module handles operations related to managing messages for events.
 
 #### Get Historic Messages
 
-Endpoint: `PATCH /chat/event/:id`
+Endpoint: `GET /chat/event/:id`
 
 Retrieves historic messages for a specific event.
 

@@ -38,5 +38,4 @@ export default {
 
     res.status(201).json({ message: 'Event created ', data: event });
   },
-
 };

@@ -68,6 +68,8 @@ export default {
   getSports: async (req: Request, res: Response) => {
     const id = checkParams(req.params.id);
 
+    console.log(id);
+
     // Will be replaced with later Zod validation
     if (typeof id !== 'number') {
       return res.status(400).json({ message: 'Invalid data provided' });
