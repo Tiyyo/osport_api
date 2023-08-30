@@ -1,6 +1,6 @@
 import * as z from 'zod';
 
-export const updateeEventSchema = z.object({
+export const updateEventSchema = z.object({
   id: z.number(),
   date: z.string().datetime().optional(),
   location: z.string().optional(),
@@ -10,4 +10,4 @@ export const updateeEventSchema = z.object({
   sport_id: z.number().optional(),
 });
 
-export default updateeEventSchema;
+export default updateEventSchema;

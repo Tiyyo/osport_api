@@ -271,3 +271,31 @@ res.json = {
     ]
 }
 ```
+
+### PATCH | User creator can validate and close an event
+
+```text
+    req.body = {
+       "userId": 8,
+        "eventId": 2
+    }
+
+res.status = 200
+res.json = {
+    "message": "Event validated",
+    "event": {
+        "id": 2,
+        "date": "2023-08-28T16:38:15.381Z",
+        "location": "On sait pas ou",
+        "duration": 45,
+        "nb_team": 2,
+        "nb_max_participant": 12,
+        "status": "closed",
+        "winner_team": null,
+        "creator_id": 8,
+        "sport_id": "Football",
+        "created_at": "2023-08-28T15:13:07.321Z",
+        "updated_at": "2023-08-30T06:45:00.673Z"
+    }
+}
+```
