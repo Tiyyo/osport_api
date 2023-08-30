@@ -220,8 +220,6 @@ async function seed() {
 
   const ParticipantR1 = arrayOneToFiveR.map((n) => invitForCloseEvent(n, 'accepted', arrayOneToTen));
 
-  console.log(ParticipantR1);
-
   const eventQueries2 = arrayOneToFiveR.map(() => ({
     date: faker.date.past(),
     location: faker.location.city(),

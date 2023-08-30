@@ -32,7 +32,7 @@ export default {
         },
       },
     });
-    return res.status(201).json({ message: 'Event created : ', event });
+    return res.status(201).json({ message: 'Event created ', data: event });
   },
 
   validateEvent: async (req: Request, res: Response) => {
@@ -64,7 +64,7 @@ export default {
     // If yes, update the event status to 'closed'
     const event = await EventModel.validateEvent('closed', eventId);
 
-    return res.status(200).json({ message: 'Event validated', event });
+    return res.status(200).json({ message: 'Event validated', data: event });
   },
 
   updateEvent: async (req: Request, res: Response) => {
@@ -97,7 +97,7 @@ export default {
 
     const eventUpdated = await EventModel.updateEvent(eventId, data);
 
-    return res.status(200).json({ message: 'Event updated', eventUpdated });
+    return res.status(200).json({ message: 'Event updated', data: eventUpdated });
   },
 
   getEvents: async (req: Request, res: Response) => {
@@ -107,9 +107,9 @@ export default {
 
     if (events.length === 0) {
       return res.status(200).json({ message: 'This user has not any event yet' });
-  }
+    }
 
-    return res.status(200).json({ message: 'Events found', events });
+    return res.status(200).json({ message: 'Events found', data: events });
   },
 
   resultsEvent: async (req: Request, res: Response) => {
@@ -144,15 +144,15 @@ export default {
       // Determine the winnerTeam based on the scores
       let winnerTeam = null;
       if (req.body.scoreTeam1 > req.body.scoreTeam2) {
-          winnerTeam = 1;
+        winnerTeam = 1;
       } else if (req.body.scoreTeam2 > req.body.scoreTeam1) {
-          winnerTeam = 2;
+        winnerTeam = 2;
       }
       if (req.body.scoreTeam1 === req.body.scoreTeam2) {
         winnerTeam = 3;
       }
       if (winnerTeam !== null) {
-          data.winnerTeam = winnerTeam;
+        data.winnerTeam = winnerTeam;
       }
     } catch (error) {
       return res.status(500).json({ message: 'Error while finding event' });

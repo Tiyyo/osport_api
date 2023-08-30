@@ -65,15 +65,21 @@ export default {
     }
   },
   updateUser: async (id: number, data: AllowedUserUpdate) => {
+    const user = await prisma.user.findUnique({
+      where: {
+        id,
+      },
+    });
+
     try {
       const result = await prisma.user.update({
         where: {
           id: Number(id),
         },
         data: {
-          username: data.username,
-          email: data.email,
-          image_url: data.imageUrl,
+          username: data.username ?? user?.username,
+          email: data.email ?? user?.email,
+          image_url: data.imageUrl ?? user?.image_url,
         },
       });
       await prisma.$disconnect();
