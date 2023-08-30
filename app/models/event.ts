@@ -81,4 +81,33 @@ export default {
         return eventUpdated;
     },
 
+    getEvents: async (userId: string) => {
+        const result = await prisma.event.findMany({
+            where: {
+                creator_id: Number(userId),
+            },
+            include: {
+                sport: {
+                    select: {
+                        name: true,
+                        image: {
+                            select: {
+                                image: {
+                                    select: {
+                                        url: true,
+                                        title: true,
+                                    },
+                                },
+                            },
+                        },
+                    },
+
+                },
+
+            },
+        });
+        await prisma.$disconnect();
+        return result;
+    },
+
 };

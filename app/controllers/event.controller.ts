@@ -99,4 +99,16 @@ export default {
 
     return res.status(200).json({ message: 'Event updated', eventUpdated });
   },
+
+  getEvents: async (req: Request, res: Response) => {
+    const { id } = req.params;
+
+    const events = await EventModel.getEvents(id);
+
+    if (events.length === 0) {
+      return res.status(200).json({ message: 'This user has not any event yet' });
+  }
+
+    return res.status(200).json({ message: 'Events found', events });
+  },
 };
