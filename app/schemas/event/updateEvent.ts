@@ -1,7 +1,8 @@
 import * as z from 'zod';
 
 export const updateEventSchema = z.object({
-  id: z.number(),
+  userId: z.number(),
+  eventId: z.number(),
   date: z.string().datetime().optional(),
   location: z.string().optional(),
   duration: z.number().optional(),

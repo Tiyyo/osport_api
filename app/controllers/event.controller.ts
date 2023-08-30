@@ -67,4 +67,37 @@ export default {
     return res.status(200).json({ message: 'Event validated', event });
   },
 
+  updateEvent: async (req: Request, res: Response) => {
+    const {
+      userId,
+      eventId,
+      ...data
+    } = req.body;
+
+    try {
+      // First, find the event based on the event ID
+      const existingEvent = await EventModel.findOne({ eventId });
+
+      if (!existingEvent) {
+        return res.status(200).json({ message: 'This event doesn\'t exist' });
+      }
+
+      // Then, check if the user is the creator of the event
+      const creatorId = existingEvent.creator_id;
+      // If not, return an error
+      if (creatorId !== userId) {
+        return res.status(200).json({ message: 'You can not modify an event that does not belong to you' });
+      }
+    } catch (error) {
+      return res.status(500).json({ message: 'Error while finding event' });
+    }
+
+    // If yes, update the event status to 'closed'
+    // const event = await EventModel.validateEvent('closed', eventId);
+
+    const eventUpdated = await EventModel.updateEvent(eventId, data);
+
+    return res.status(200).json({ message: 'Event updated', eventUpdated });
+  },
+
 };
