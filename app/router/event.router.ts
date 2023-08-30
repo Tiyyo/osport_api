@@ -16,6 +16,7 @@ const {
   validateEvent,
   updateEvent,
   getEvents,
+  resultsEvent,
 } = eventController;
 
 router.route('/')
@@ -26,8 +27,8 @@ router.route('/')
 router.route('/validate')
   .patch(validateSchema(validateEventSchema, canals.body), factory(validateEvent));
 
-// router.route('/results')
-//   .patch(validateSchema(updateEventSchema, canals.body), factory(resultsEvent));
+router.route('/results')
+  .patch(validateSchema(updateEventSchema, canals.body), factory(resultsEvent));
 
 router.route('/:id')
   .get(validateSchema(getEventsSchema, canals.body), factory(getEvents));

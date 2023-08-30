@@ -67,5 +67,5 @@ Content-Type: application/json
 }
 
 ### Get all events from an user
-GET http://localhost:5000/event/:5
+GET http://localhost:5000/event/1
 Content-Type: application/json
