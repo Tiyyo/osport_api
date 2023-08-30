@@ -58,14 +58,14 @@ export default {
     const { userId, friendId } = req.body;
 
     try {
-      await Friends.findRequest(friendId, userId);
+      await Friends.findRequest({ userId, friendId });
     } catch (error) {
       if (error instanceof NotFoundError) return res.status(200).json({ error: 'No pending friend request found' });
     }
 
     const updateStatus = 'accepted';
     await Friends
-      .update(userId, friendId, updateStatus);
+      .update(friendId, userId, updateStatus);
 
     return res.status(204).json({ message: 'Friend request accepted successfully' });
   },
@@ -80,7 +80,7 @@ export default {
 
     const updateStatus = 'rejected';
 
-    await Friends.update(userId, friendId, updateStatus);
+    await Friends.update(friendId, userId, updateStatus);
 
     return res.status(204).json({ message: 'Friend request rejected successfully' });
   },
