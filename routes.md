@@ -357,3 +357,35 @@ res.json = {
   ]
 }
 ```
+
+### PATCH | The creator can save the final results, when the event is finished, scores can't be changed again
+
+```text
+    req.body = {
+        "userId": 1,
+        "eventId": 2,
+        "scoreTeam1": 24,
+        "scoreTeam2": 12
+    }
+
+res.status = 200
+res.json = {
+  "message": "Result of the event has been saved",
+  "eventUpdated": {
+    "id": 3,
+    "date": "2022-11-13T22:54:56.777Z",
+    "location": "East Zolacester",
+    "duration": 60,
+    "nb_team": 2,
+    "nb_max_participant": 10,
+    "status": "finished",
+    "winner_team": 1,
+    "creator_id": 1,
+    "score_team_1": 24,
+    "score_team_2": 12,
+    "sport_id": 1,
+    "created_at": "2023-08-30T15:05:17.803Z",
+    "updated_at": "2023-08-30T15:53:48.115Z"
+  }
+}
+```
