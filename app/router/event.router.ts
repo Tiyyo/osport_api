@@ -6,6 +6,7 @@ import createEventSchema from '../schemas/event/createEvent.ts';
 // import updateEventSchema from '../schemas/event/updateEvent.ts';
 // import getCache from '../middleware/cache.ts';
 import canals from '../helpers/canals.ts';
+import { validateEventSchema } from '../schemas/event/validateEvent.ts';
 
 const router: Router = express.Router();
 
@@ -20,7 +21,7 @@ router.route('/')
   // .get(getCache('events'), factory(getAll));
 
 router.route('/validate')
-  .patch(factory(validateEvent));
+  .patch(validateSchema(validateEventSchema, canals.body), factory(validateEvent));
 
 router.route('/:id');
   // .get(getCache('event'), factory(getOne))

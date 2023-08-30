@@ -56,3 +56,12 @@ Content-Type: application/json
   "eventStatus": "Juste créé",
   "sportId": 1
 }
+
+### Validate an event
+PATCH http://localhost:5000/event/validate
+Content-Type: application/json
+
+{
+  "userId": 8,
+  "eventId": 2
+}
