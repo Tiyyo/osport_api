@@ -33,7 +33,7 @@ export async function writeFile(buffer: Buffer) {
     const extension = await getExtension(buffer);
     const name = createRandomName();
     const relativePath = `/images/${name}.${extension}`;
-    fs.writeFileSync(`${dirname}/../../images/${name}.png`, buffer);
+    fs.writeFileSync(`${dirname}/../../public/images/${name}.${extension}`, buffer);
     return { relativePath, name };
   } catch (error) {
     throw new Error('Could not write file');

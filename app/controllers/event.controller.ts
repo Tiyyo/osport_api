@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import EventModel from '../models/event.ts';
+// import UserOnEvent from '../models/user_on_event.ts';
 
 export default {
 

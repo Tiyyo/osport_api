@@ -1,14 +1,40 @@
 import type { Player, TeamGeneratorConfig } from '../@types/index.js';
+import UserOnSport from '../models/user_on_sport.ts';
+import prisma from '../helpers/db.client.ts';
 import logger from '../helpers/logger.ts';
 
 /* eslint-disable */
 
 // will take an event_id as parameter
-export async function generateBalancedTeam() {
+export async function generateBalancedTeam(event_id: number) {
 
-  const ids = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-  const values = [3, 2, 7, 9, 4, 5, 6, 6, 7, 2];
-  const required_participants = 10;
+  const event = await prisma.event.findUnique({
+    where: {
+      id: event_id,
+    }
+  });
+
+  if (!event) throw new Error('Event not found');
+
+  const required_participants = event.nb_max_participant;
+
+  const participants = await prisma.event_on_user.findMany({
+    where: {
+      event_id,
+      status: 'accepted'
+    }
+  });
+
+  const idsParticipants = participants.map((p) => p.user_id);
+
+  const queriesRatings = idsParticipants.map((id) => UserOnSport.getRating(id, event.sport_id));
+
+  const valueRating = await Promise.all(queriesRatings);
+
+  const ids = Object.values(valueRating.map((rating) => rating.user_id))
+  const values = Object.values(valueRating.map((value) => value.gb_rating)) as number[];
+
+  console.log(valueRating, 'this is the result');
 
   console.info('Algo has started');
   console.time('Algo time start');
@@ -16,26 +42,60 @@ export async function generateBalancedTeam() {
   // need a function to gather all the users rating with an
   // event_id as parameter
 
-  const team_1: Player[] = [];
-  const team_2: Player[] = [];
+  const team1: Player[] = [];
+  const team2: Player[] = [];
 
   logger.debug('ids', ids);
   logger.debug('values', values);
 
   const config = {
-    team1: team_1,
-    team2: team_2,
+    team1,
+    team2,
     ids,
     values,
     participants: required_participants,
   };
 
-  const result = divideInTeam(config);
+  const { team_1, team_2 } = divideInTeam(config);
 
-  console.log(result, 'this is the result');
+  if (!team_1 || !team_2) throw new Error('Teams are not created')
+
+  if (team_1.length !== team_2.length) throw new Error('Teams are not balanced')
+
+  const updateParticipantsTeam1 = team_1.map((p) => prisma.event_on_user.update({
+    where: {
+      event_id_user_id: {
+        user_id: p.id,
+        event_id,
+      }
+    },
+    data: {
+      team: 1,
+    }
+  }))
+
+  const updateParticipantsTeam2 = team_2.map((p) => prisma.event_on_user.update({
+    where: {
+      event_id_user_id: {
+        user_id: p.id,
+        event_id,
+      }
+    },
+    data: {
+      team: 2,
+    }
+  }))
+
+  const allUpdates = [...updateParticipantsTeam1, ...updateParticipantsTeam2];
+
+  await Promise.all(allUpdates);
+
+
+
+  console.log({ team_1, team_2 }, 'this is the result');
   console.timeEnd('Algo time start');
 
-  return result;
+  return { team_1, team_2 };
 }
 
 export function divideInTeam(config: TeamGeneratorConfig) {

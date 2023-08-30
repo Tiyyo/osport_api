@@ -15,16 +15,20 @@ export default {
     res.status(200).json({ message: 'Historic retrieved successfully', data: historic });
   },
   create: async (req: Request, res: Response) => {
-    const { event_id, user_id, message } = req.body;
+    const { event_id: event, user_id: user, message } = req.body;
 
     // await Cache.del([`chat${event_id}`]);
 
-    await Message.create({ event_id, user_id, message });
+    await Message.create({ event, user, message });
 
     res.status(201).json({ message: 'Message created successfully' });
   },
   update: async (req: Request, res: Response) => {
-    const { id, eventId, message } = req.body;
+    const {
+      id,
+      // eventId,
+      message,
+    } = req.body;
 
     // await Cache.del([`chat${eventId}`]);
 

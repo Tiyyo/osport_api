@@ -199,11 +199,11 @@ Status Code : `200 Ok`
 
 ```json
 {
-  "user": {
-        "id": 4,
-        "username": "Johnny",
-        "imageUrl": "https://picsum.photos/200/300",
-        "imageTitle": "avatar-cool guy"
+    "message": "User informations : ",
+    "user": {
+        "id": 12,
+        "username": "Steeve",
+        "image_url": "/images/e9cae3ff922f054ce450d9e2e205bd0f4a71f73d19806c7d22626fa6fc1a87a3.jpeg"
     }
 }
 ```
@@ -219,32 +219,36 @@ Description
 ##### Request Body
 
 ```json
-{ "id": 4 }
+{ 
+"id": 4, // Number
+"email"?: "john.do@example.com", // String
+"username"?: "john", // String
+"password"?: "securePassword",  // String
+ }
 ```
 
 ##### Response
 
-Status code : `204 No content`
+Status code : `200 Ok`
 
 ```json
 {
-  "message": "The user has been updated",
-  "user": {
-        "id": 4,
-        "username": "Jacky",
-        "imageTitle": "avatar-cool guy",
-        "imageUrl": "https://picsum.photos/200/300"
+    "message": "User informations : ",
+    "user": {
+        "id": 12,
+        "username": "New Username",
+        "image_url": "/images/e9cae3ff922f054ce450d9e2e205bd0f4a71f73d19806c7d22626fa6fc1a87a3.jpeg"
     }
 }
 ```
 
 #### Delete User
 
-Endpoint: `DELETE /user`
+Endpoint: `DELETE /user/:id`
 
 Delete user information.
 
-##### Request Body
+##### Request 
 
 ```json
 { "id": 4 }
@@ -252,11 +256,11 @@ Delete user information.
 
 ##### Response
 
-Status code : `204 No content`
+Status code : `200 Ok`
 
 ```json
 {
-  "message": "4 has been deleted",
+  "message": "User has been deleted",
 }
 ```
 
@@ -268,10 +272,12 @@ Change the picture of the user
 
 ##### Request Body
 
+Note: The key with the image must be named "image"
+Otherwise the request will not work
 ```json
 {
 "id": 17,
-"imageUrl": "insaneurl"
+"image": "insaneurl"
 }
 ```
 
@@ -281,14 +287,13 @@ Status code : `200 Ok`
 
 ```json
 {
-  "message": "The user has been updated",
+    "message": "User informations : ",
     "user": {
-        "id": 17,
-        "username": "Danny",
-        "imageTitle": "avatar-Danny",
-        "imageUrl": "insaneurl",
+        "id": 12,
+        "username": "David",
+        "image_url": "New url linking to the server"
     }
-} 
+}
 ```
 
 #### Sport
@@ -300,31 +305,93 @@ Endpoint: `GET /user/sport`
 ##### Request Body
 
 ```json
-{ "id": 2 }
+{ "id": 2 } //  Number 
+
 ```
 
 ##### Response
 
 Status code : `200 Ok`
 
+if the user has not post his own rating for a sport and no user has rated him for this sport the gb_rating will be null
+if users have rated him for this sport but he has not rate himself the gb_ratin will be 0
+Otherwise the gb_rating will be the average of all the ratings
+
 ```json
 {
     "message": "Sport(s) that the user master",
     "sports": [
         {
-        "sportName": "basket",
-        "sportRate": 3
+            "name": "Football",
+            "gb_rating": null
         },
         {
-        "sportName": "foot",
-        "sportRate": 5
+            "name": "Basketball",
+            "gb_rating": null
         }
     ]
-} 
+}
 ```
 
 </br>
 </br>
+
+### Rating
+
+This module handles operations related to rating user on sports
+
+#### Post your own rating
+
+Endpoint: `POST /user/sport`
+
+User can post his own rating for a sport
+
+
+##### Request Body
+
+```json
+{
+    "user_id": 2, // Number
+    "sport_id": 1, // Number
+    "rating": "Advanced" // " Beginner" | "Intermediate" | "Advanced"
+}
+```
+
+##### Response
+
+Status Code : `201 Created`
+
+#### User rating other users
+
+Endpoint: `PATCH /user/sport`
+
+User can rate other users on sports
+
+Note : user_id always refers to the user who received the rating
+Note : rating can't go below 1 and above 10
+
+##### Request Body
+
+```json
+{
+    "user_id": 2, // Number
+    "sport_id": 1, // Number
+    "rating": 4 // Number
+    "rater_id": 3 // Number
+}
+```
+
+##### Response
+
+Status Code : `200 Ok`
+
+```json
+{
+     "message": "Rating updated "
+}
+```
+
+
 
 
 
@@ -803,6 +870,51 @@ export default class Cache {
     redis.del(keys);
   }
 }
+
 ```
+- The `upload` middleware is used to handle file uploads. It configures multer to store uploaded files in memory as buffers, allowing you to process the uploaded data without saving files to the filesystem. 
+
+```typescript
+const storage = multer.memoryStorage();
+const upload = multer({ storage });
+
+export default upload;
+```
+- The `validateUser` middleware is used to validate the user's token against 
+the body of the request. It is used to ensure that the user is authorized to perform the requested operation.
+
+```typescript
+const { verify } = jwt;
+
+const validateUser = async (req: Request, res: Response, next: NextFunction) => {
+  let token: string = '';
+  let userInfos: any = {};
+
+  if (req.cookies && req.cookies.accessToken) token = req.cookies.accessToken;
+
+  verify(token, process.env.JWT_TOKEN_KEY as string, (err, decoded) => {
+    if (err) next(new AuthorizationError('Unauthorized user'));
+    userInfos = decoded[0];
+  });
+  if (!userInfos) next(new AuthorizationError('Unauthorized user'));
+  const headersUserId = userInfos.userId;
+  const bodyUserId = req.body.id;
+
+  try {
+    const user = await User.getUserInfos(headersUserId);
+    if (headersUserId === bodyUserId && user?.id === bodyUserId) {
+      return next();
+    }
+    res.status(401).json({ error: 'Unauthorized' });
+  } catch (error) {
+    if (error instanceof NotFoundError) {
+      return res.status(401).json({ error: 'Unauthorized' });
+    }
+    return next(error);
+  }
+};
+```
+
+
 ### Purpose
 
