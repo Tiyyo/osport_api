@@ -38,7 +38,7 @@ export default {
 
     const imageStored = await Image.create({ title: name, url: relativePath });
 
-    const user = await UserModel.getUserInfos(id);
+    const user = await UserModel.getUserInfos(Number(id));
 
     if (user.image_url) {
       // const imageToDelete = await Image.findOne(user.image_url as string);
