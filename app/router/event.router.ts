@@ -24,6 +24,9 @@ router.route('/')
 router.route('/validate')
   .patch(validateSchema(validateEventSchema, canals.body), factory(validateEvent));
 
+router.route('/results')
+  .patch(validateSchema(updateEventSchema, canals.body), factory(resultsEvent));
+
 router.route('/:id');
   // .get(getCache('event'), factory(getOne))
   // .delete(factory(destroy));
