@@ -65,3 +65,18 @@ Content-Type: application/json
   "userId": 8,
   "eventId": 2
 }
+
+### Get all events from an user
+GET http://localhost:5000/event/1
+Content-Type: application/json
+
+### The creator can save the final results, when the event is finished, scores can't be changed again
+PATCH http://localhost:5000/event/results
+Content-Type: application/json
+
+{
+  "userId": 1,
+  "eventId": 2,
+  "scoreTeam1": 24,
+  "scoreTeam2": 12
+}

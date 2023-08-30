@@ -6,6 +6,10 @@ interface AllowedEventUpdate {
     date?: string;
     location?: string;
     duration?: number;
+    scoreTeam1?: number;
+    scoreTeam2?: number;
+    eventStatus?: string;
+    winnerTeam?: number;
     nbMaxParticipant?: number;
     sportId?: number;
 }
@@ -56,6 +60,10 @@ export default {
             date: data.date,
             location: data.location,
             duration: data.duration,
+            status: data.eventStatus,
+            winner_team: data.winnerTeam,
+            score_team_1: data.scoreTeam1,
+            score_team_2: data.scoreTeam2,
             nb_max_participant: data.nbMaxParticipant,
         };
 
@@ -79,6 +87,40 @@ export default {
         );
         await prisma.$disconnect();
         return eventUpdated;
+    },
+
+    getEvents: async (userId: string) => {
+        const result = await prisma.event.findMany({
+            where: {
+                creator_id: Number(userId),
+            },
+            include: {
+                sport: {
+                    select: {
+                        name: true,
+                        image: {
+                            select: {
+                                image: {
+                                    select: {
+                                        url: true,
+                                        title: true,
+                                    },
+                                },
+                            },
+                        },
+                    },
+
+                },
+                event_on_user: {
+                    select: {
+                        user: true,
+                    },
+                },
+
+            },
+        });
+        await prisma.$disconnect();
+        return result;
     },
 
 };

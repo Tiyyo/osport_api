@@ -299,3 +299,117 @@ res.json = {
     }
 }
 ```
+
+### GET | Get all events from an user
+
+```text
+    req.params = {
+       "id": 5
+    }
+
+res.status = 200
+res.json = {
+    "message": "Events found",
+  "events": [
+    {
+      "id": 2,
+      "date": "2023-08-28T16:38:15.381Z",
+      "location": "On sait pas ou",
+      "duration": 45,
+      "nb_team": 2,
+      "nb_max_participant": 12,
+      "status": "closed",
+      "winner_team": null,
+      "creator_id": 5,
+      "sport_id": "Football",
+      "created_at": "2023-08-28T15:13:07.321Z",
+      "updated_at": "2023-08-30T06:45:00.673Z",
+      "sport": {
+        "name": "Football",
+        "image": [
+          {
+            "image": {
+              "url": "https://picsum.photos/seed/XmZoCD9S/128/480",
+              "title": "Illum beatae ipsa nemo."
+            }
+          }
+        ]
+      },
+      "event_on_user": [
+        {
+          "user": {
+            "id": 2,
+            "email": "Brad.Boyer@hotmail.com",
+            "username": "Maximus",
+            "password": "QmS_sGWVgF23OUB",
+            "created_at": "2023-08-30T15:05:17.542Z",
+            "updated_at": "2023-08-30T15:05:17.542Z",
+            "image_url": "https://picsum.photos/seed/uv6rv/128/480"
+          }
+        },
+        {
+          "user": {
+            "id": 3,
+            "email": "Urban.Purdy@yahoo.com",
+            "username": "Robert",
+            "password": "0yIOEUADvjJqSrC",
+            "created_at": "2023-08-30T15:05:17.543Z",
+            "updated_at": "2023-08-30T15:05:17.543Z",
+            "image_url": "https://picsum.photos/seed/he4jsa/128/480"
+          }
+        },
+      ]
+    },
+    {
+      "id": 3,
+      "date": "2056-08-30T15:30:00.000Z",
+      "location": "New Location",
+      "duration": 120,
+      "nb_team": 2,
+      "nb_max_participant": 50,
+      "status": "Juste créé",
+      "winner_team": null,
+      "creator_id": 5,
+      "sport_id": "Basketball",
+      "created_at": "2023-08-28T15:14:17.568Z",
+      "updated_at": "2023-08-30T09:52:51.672Z",
+      "sport": {
+        "name": "Basketball",
+        "image": []
+      }
+    }
+  ]
+}
+```
+
+### PATCH | The creator can save the final results, when the event is finished, scores can't be changed again
+
+```text
+    req.body = {
+        "userId": 1,
+        "eventId": 2,
+        "scoreTeam1": 24,
+        "scoreTeam2": 12
+    }
+
+res.status = 200
+res.json = {
+  "message": "Result of the event has been saved",
+  "eventUpdated": {
+    "id": 3,
+    "date": "2022-11-13T22:54:56.777Z",
+    "location": "East Zolacester",
+    "duration": 60,
+    "nb_team": 2,
+    "nb_max_participant": 10,
+    "status": "finished",
+    "winner_team": 1,
+    "creator_id": 1,
+    "score_team_1": 24,
+    "score_team_2": 12,
+    "sport_id": 1,
+    "created_at": "2023-08-30T15:05:17.803Z",
+    "updated_at": "2023-08-30T15:53:48.115Z"
+  }
+}
+```
