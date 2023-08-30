@@ -112,3 +112,8 @@ Après revision des besoins/fonctionnalités :
 - Problème avec la récuperation des datas (useEffect), création d'un hook perso. pour fetch les datas (avec l'aide de Steeve et Thomas), affichage de la liste des contacts (Anthony)
 
 ## Jour 12 - 29/08/2023
+
+-  Affichage de la liste des contacts de manière dynamique, changement en fonction du statut de la demande. Todo => Fin de la page contact (ajout amis) (Anthony)
+-  Fin de user can validate event, et debut de update event. Todo => fin de l'update et debut de save event (Guillaume)
+-  Aide sur le front pour la création d'un hook personnalisé, update du seed (Steeve)
+-  
