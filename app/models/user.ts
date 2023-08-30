@@ -78,7 +78,7 @@ export default {
         },
       });
       await prisma.$disconnect();
-      return !!result.id;
+      return result;
     } catch (error: any) {
       throw new DatabaseError(error.message, 'user', error);
     }
