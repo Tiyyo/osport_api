@@ -111,6 +111,11 @@ export default {
                     },
 
                 },
+                event_on_user: {
+                    select: {
+                        user: true,
+                    },
+                },
 
             },
         });
