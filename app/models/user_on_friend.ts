@@ -41,8 +41,8 @@ export default {
     try {
       const result = await prisma.user_on_friend.findFirst({
         where: {
-          asked_id: userId,
-          asker_id: userToAdd,
+          asked_id: userToAdd,
+          asker_id: userId,
           status: {
             in: ['pending', 'accepted'],
           },
