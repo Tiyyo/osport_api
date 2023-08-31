@@ -33,6 +33,7 @@ export default {
       throw new DatabaseError(error.message, 'user_on_event', error);
     }
   },
+
   createMany: async (event_id: number, userIds: number[]) => {
     try {
       const result = await prisma.event_on_user.createMany({
@@ -48,6 +49,7 @@ export default {
       throw new DatabaseError(error.message, 'user_on_event', error);
     }
   },
+
   create: async (event_id: number, user_id: number) => {
     const result = await prisma.event_on_user.create({
       data: {
@@ -58,6 +60,7 @@ export default {
     await prisma.$disconnect();
     return !!result;
   },
+
   update: async (user_id: number, event_id: number, status: string, team?: number) => {
     try {
       const result = await prisma.event_on_user.update({
@@ -72,6 +75,7 @@ export default {
       throw new DatabaseError(error.message, 'user_on_event', error);
     }
   },
+
   findConfirmed: async (event_id: number) => {
     try {
       const result = await prisma.event_on_user.count({

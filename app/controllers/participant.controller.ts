@@ -14,16 +14,22 @@ export default {
 
     res.status(200).json({ message: 'Participant retrieved succesfully', data: participants });
   },
-  sendInivation: async (req: Request, res: Response) => {
+
+  sendInvitation: async (req: Request, res: Response) => {
     const { eventId: event_id, userId: user_id } = req.body;
 
-    await UserOnEvent.create(event_id, user_id);
+    if (typeof user_id === 'number') {
+      await UserOnEvent.create(event_id, user_id);
+    } else {
+      await UserOnEvent.createMany(event_id, user_id);
+    }
 
     // const keyToDelete = `participants${event_id}`;
     // await Cache.del([keyToDelete]);
 
     res.status(201).json({ message: 'Invitation sent' });
   },
+
   updateStatus: async (req: Request, res: Response) => {
     const { eventId: event_id, userId: user_id, status } = req.body;
 
@@ -35,7 +41,7 @@ export default {
       return res.status(204).json({ message: 'status updated' });
     }
 
-    const participants = await UserOnEvent.findConfirmed(event_id);
+    // const participants = await UserOnEvent.findConfirmed(event_id);
 
     // const event = await Event.findById(event_id);
 
