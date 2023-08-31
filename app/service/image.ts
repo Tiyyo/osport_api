@@ -55,8 +55,9 @@ export async function saveImageOnServer(
 
 export async function deleteImageFromServer(relativePath: string) {
   try {
-    fs.rmSync(`${dirname}/../../${relativePath}`);
+    fs.rmSync(`${dirname}/../../public${relativePath}`);
   } catch (error) {
+    console.log(error);
     throw new Error('Could not delete file');
   }
 }
