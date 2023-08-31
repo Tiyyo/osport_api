@@ -16,14 +16,13 @@ Master, Lead Dev Front, Project Manager)
 
 - UserStories
 - MCD (Guillaume & Steeve)
-- Wireframes
+- Wireframes (Anthony)
 
 ## Jour 2 - 14/08/2023
 
 - Ajout de Tailwind au projet (avec DaisyUI)
 - Premières versions des Userstories (Revues par chaque membre)
 - Premières propositons du MCD (Revues par chaque membre)
-- Intêret d'utiliser MongoDB ou PostgreSQL pour gérer la BDD (possible nécessité d'avoir une table contenant d'autre table) ??
 - Convention de nommage des commits
 
 - Redéfinition de la page d'accueil, qui comprendra le chat, les dates des prochaines rencontres et autres informations (profil, historique des rencontres jouées)
@@ -53,7 +52,7 @@ Après revision des besoins/fonctionnalités :
 - Les notes attribuées donneront un niveau à l'utilisateur : 1 à 3 = débutant, 4 à 6 = intermédiaire, 7 et + = confirmé.
 - Les notes seront utilisées en back pour donner un niveau à l'utilisateur en front
 - L'utilisateur choisira son niveau et ne s'attribuera pas de note au départ
-- 2 sports conservés dans la V1 : Foot et Basket
+- 2 sports conservés dans la V1 : Football et Basket-ball
 - Finalisation des user stories
 
 - Schéma d'arborescence fait (Thomas)
@@ -96,7 +95,7 @@ Après revision des besoins/fonctionnalités :
 - Amelioration des données faker, routes création event (Guillaume)
 - Controller, Route pour les events, patch sur la DB, Gestion d'erreur, Algo Pour generer les equipes, Controller, routes et modeles pour les messages (Steeve)
 - Page login terminée (Thomas)
-- 
+
 ## Jour 10 - 25/08/2023
 
 - Integration de la page event et des differents composants qui évolueront en fonction du statut de l'event, modale pour noter les joueurs, amélioration CSS de la page create_event (Anthony)
@@ -115,5 +114,10 @@ Après revision des besoins/fonctionnalités :
 
 -  Affichage de la liste des contacts de manière dynamique, changement en fonction du statut de la demande. Todo => Fin de la page contact (ajout amis) (Anthony)
 -  Fin de user can validate event, et debut de update event. Todo => fin de l'update et debut de save event (Guillaume)
--  Aide sur le front pour la création d'un hook personnalisé, update du seed (Steeve)
--  
+-  Aide sur le front pour la création d'un hook personnalisé, update du seed (Steeve) 
+
+## Jour 13 -30/08/2023
+
+- Principales fonctionnalités page contact terminées (Affichage, Ajout, Accepter/Refuser). Affichage de la liste des events de l'utilisateur (score, date, etc...) (Anthony)
+- Route pour les events (sans les participants), validation de l'event, enregistrement des events terminés (avec les scores) / (Front) Création event (nb de participants/sport/date) (Guillaume)
+- Page Edit-profile avec enregistrement nouveau username et nouveau email et la photo de profil (image upload sur le serveur local) (Thomas & Steeve)
