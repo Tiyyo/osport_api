@@ -1,44 +1,30 @@
 import { NextFunction, Request, Response } from 'express';
-import jwt, { JwtPayload } from 'jsonwebtoken';
-import User from '../models/user.ts';
+import jwt from 'jsonwebtoken';
+import AuthorizationError from '../helpers/errors/unauthorized.error.ts';
 
 const { verify } = jwt;
 
 const validateUser = async (
   req: Request,
-  res: Response,
+  _res: Response,
   next: NextFunction,
 ) => {
   next();
-  // let token: string = '';
-  // let userInfos: JwtPayload = {};
+  let token: string = '';
+  let userInfos: any = {};
 
-  // if (req.cookies && req.cookies.accessToken) token = req.cookies.accessToken;
-  // try {
-  //   verify(token, process.env.JWT_TOKEN_KEY as string, (err, decoded) => {
-  //     if (err) throw new Error('Unauthorized user');
-  //     if (!decoded) throw new Error('No decoded token');
-  //     if (typeof decoded === 'string') throw new Error('Decoded token is a string');
-  //     userInfos = decoded;
-  //   });
+  if (req.cookies && req.cookies.accessToken) token = req.cookies.accessToken;
 
-  //   if (!userInfos) throw new Error('No user infos');
-  //   const headersUserId = userInfos[0].userId;
-  //   const bodyUserId = req.body.id;
+  console.log('validate user is called');
 
-  //   try {
-  //     const user = await User.getUserInfos(headersUserId);
-  //     if (headersUserId === bodyUserId && user?.id === bodyUserId) {
-  //       next();
-  //     } else {
-  //       throw new Error('Unauthorized user');
-  //     }
-  //   } catch (error) {
-  //     res.status(200).json({ error: 'Unauthorized' });
-  //   }
-  // } catch (error) {
-  //   res.status(200).json({ error: 'Unauthorized' });
-  // }
+  verify(token, process.env.JWT_TOKEN_KEY as string, async (err, decoded) => {
+    if (err || !decoded || typeof decoded === 'string') next(new AuthorizationError('Unauthorized'));
+    if (decoded) userInfos = decoded;
+
+    const headersUserId = userInfos[0].userId;
+    const bodyUserId = req.body.id;
+    if (headersUserId !== bodyUserId) next(new AuthorizationError('Unauthorized user'));
+  });
 };
 
 export default validateUser;

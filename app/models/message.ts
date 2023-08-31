@@ -3,6 +3,7 @@ import prisma from '../helpers/db.client.ts';
 import DatabaseError from '../helpers/errors/database.error.ts';
 
 export default {
+  // @ts-ignore
   create: async (data: Prisma.Event_chat_on_userCreateInput) => {
     try {
       await prisma.event_chat_on_user.create({
@@ -34,7 +35,7 @@ export default {
         },
       });
       await prisma.$disconnect();
-
+      // @ts-ignore
       const historic = result.map((message) => ({
         id: message.id,
         event_id: message.event_id,

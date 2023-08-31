@@ -22,7 +22,7 @@ const {
 router.route('/')
   .post(validateSchema(createEventSchema, canals.body), factory(createEvent))
   .patch(validateSchema(updateEventSchema, canals.body), factory(updateEvent));
-  // .get(getCache('events'), factory(getAll));
+// .get(getCache('events'), factory(getAll));
 
 router.route('/validate')
   .patch(validateSchema(validateEventSchema, canals.body), factory(validateEvent));
@@ -32,7 +32,7 @@ router.route('/results')
 
 router.route('/:id')
   .get(validateSchema(getEventsSchema, canals.body), factory(getEvents));
-  // .get(getCache('event'), factory(getOne))
-  // .delete(factory(destroy));
+// .get(getCache('event'), factory(getOne))
+// .delete(factory(destroy));
 
 export default router;

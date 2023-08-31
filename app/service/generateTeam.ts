@@ -24,9 +24,9 @@ export async function generateBalancedTeam(event_id: number) {
       status: 'accepted'
     }
   });
-
+  // @ts-ignore
   const idsParticipants = participants.map((p) => p.user_id);
-
+  // @ts-ignore
   const queriesRatings = idsParticipants.map((id) => UserOnSport.getRating(id, event.sport_id));
 
   const valueRating = await Promise.all(queriesRatings);

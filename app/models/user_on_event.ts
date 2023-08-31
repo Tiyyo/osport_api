@@ -14,7 +14,7 @@ export default {
       });
       await prisma.$disconnect();
       if (!userOnEvent) throw new NotFoundError('No user on event found');
-
+      // @ts-ignore
       const data = userOnEvent.map((user) => ({
         event_id: user.event_id,
         status: user.status,

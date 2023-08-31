@@ -61,7 +61,7 @@ async function seed() {
   }
 
   const user = await prisma.user.findMany();
-
+  // @ts-ignore
   const userIds = user.map((u) => u.id);
 
   if (!admin) throw new Error('Can\'t add relation to admin account');

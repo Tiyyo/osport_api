@@ -45,6 +45,7 @@ export default {
   }) => {
     try {
       const result = await prisma.user_on_sport.update({
+        // @ts-ignore
         where: {
           user_id: data.user_id,
           sport_id: data.sport_id,

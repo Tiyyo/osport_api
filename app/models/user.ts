@@ -6,6 +6,7 @@ import DatabaseError from '../helpers/errors/database.error.ts';
 import NotFoundError from '../helpers/errors/notFound.error.ts';
 
 export default {
+  // @ts-ignore
   create: async (data: Prisma.UserCreateInput) => {
     try {
       const result = await prisma.user.create({
@@ -17,6 +18,7 @@ export default {
       throw new DatabaseError(error.message, 'user', error);
     }
   },
+  // @ts-ignore
   findOne: async (data: Prisma.UserWhereInput) => {
     try {
       const result = await prisma.user.findFirst({

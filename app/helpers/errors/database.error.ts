@@ -1,3 +1,8 @@
+// ignore all ts errors in this file
+// FIXME remove this once refactor is done
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
+
 import { Prisma } from '@prisma/client';
 
 export default class DatabaseError extends Error {

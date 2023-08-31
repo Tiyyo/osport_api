@@ -4,7 +4,7 @@ import factory from '../middleware/factory.controller.ts';
 import validateSchema from '../middleware/schemas.validator.ts';
 import createMessage from '../schemas/message/createMessage.ts';
 import updateMessage from '../schemas/message/updateMessage.ts';
-// import getCache from '../middleware/cache.ts';
+import getCache from '../middleware/cache.ts';
 import canals from '../helpers/canals.ts';
 
 const router: Router = express.Router();
@@ -29,7 +29,7 @@ router.route('/:id')
 
 router.route('/event/:id')
   .get(
-    // getCache('chat'),
+    getCache('chat'),
     factory(getHistoric),
   )
   .delete(factory(destroyMany));

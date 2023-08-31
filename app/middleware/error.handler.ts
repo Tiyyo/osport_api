@@ -22,7 +22,6 @@ const errorHandler = (error: any, _req: Request, res: Response, _next: NextFunct
   if (res.app.get('env') !== 'development' && error instanceof DatabaseError) {
     return res.status(200).json({ error: error.message });
   }
-  res.status(200).json({ error: error.userMessage });
 
   if (error instanceof UserInputError) return res.status(200).json({ error: error.userMessage });
 

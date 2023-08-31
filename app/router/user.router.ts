@@ -3,6 +3,9 @@ import userController from '../controllers/user.controller.ts';
 import factory from '../middleware/factory.controller.ts';
 import upload from '../service/upload.ts';
 import validateUser from '../middleware/validate.user.ts';
+import updateUserSchema from '../schemas/user/updateUser.ts';
+import validateSchema from '../middleware/schemas.validator.ts';
+import canals from '../helpers/canals.ts';
 
 const router: Router = express.Router();
 
@@ -22,7 +25,7 @@ router.route('/:id')
 
 // PATCH -> /user
 router.route('/')
-  .patch(validateUser, factory(updateUser));
+  .patch(validateUser, validateSchema(updateUserSchema, canals.body), factory(updateUser));
 
 // PATCH -> /user/image
 router.route('/image')
