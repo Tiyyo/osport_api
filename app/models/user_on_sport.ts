@@ -140,4 +140,19 @@ export default {
       throw new DatabaseError(error.message, 'user_on_sport', error);
     }
   },
+  getStartRating: async (user_id: number) => {
+    const result: any = await prisma.$queryRaw`
+      SELECT
+        level.rating,
+        sport.name
+      FROM "User_on_sport" AS level
+      INNER JOIN "Sport" AS sport ON level.sport_id = sport.id
+      WHERE level.rater_id = level.user_id AND level.user_id = ${user_id}
+          `;
+    await prisma.$disconnect();
+    if (!result) return null;
+
+    const data = Object.fromEntries(result.map((item: any) => [item.name, item.rating]));
+    return data;
+  },
 };

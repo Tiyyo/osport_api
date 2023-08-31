@@ -86,5 +86,11 @@ export default {
 
     return res.status(200).json({ message: 'Sport(s) that the user master', data: sports });
   },
+  getStartRating: async (req: Request, res: Response) => {
+    const id = checkParams(req.params.id);
 
+    const result = await UserOnSport.getStartRating(id);
+
+    return res.status(200).json({ message: 'User start rating', data: result ?? null });
+  },
 };
