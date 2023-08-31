@@ -9,14 +9,20 @@ import UserInputError from '../helpers/errors/userInput.error.ts';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const errorHandler = (error: any, _req: Request, res: Response, _next: NextFunction) => {
+  console.log(error);
+
   if (error instanceof AuthorizationError
     || error instanceof ServerError
-    || error instanceof DatabaseError
     || error instanceof NotFoundError
   ) {
     logger.error(`${error.name} ${error.message}`);
     return res.status(error.status).json({ error: error.userMessage });
   }
+
+  if (res.app.get('env') !== 'development' && error instanceof DatabaseError) {
+    return res.status(200).json({ error: error.message });
+  }
+  res.status(200).json({ error: error.userMessage });
 
   if (error instanceof UserInputError) return res.status(200).json({ error: error.userMessage });
 

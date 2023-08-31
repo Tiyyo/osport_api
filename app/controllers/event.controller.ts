@@ -155,7 +155,7 @@ export default {
         data.winnerTeam = winnerTeam;
       }
     } catch (error) {
-      return res.status(500).json({ message: 'Error while finding event' });
+      return res.status(500).json({ error: 'Error while finding event' });
     }
 
     const eventUpdated = await EventModel.updateEvent(eventId, data);

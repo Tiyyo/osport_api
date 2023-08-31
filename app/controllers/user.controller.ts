@@ -26,7 +26,7 @@ export default {
     return res.status(200).json({ message: 'User informations', data: user });
   },
   updateImage: async (req: Request, res: Response) => {
-    const { id } = req.body;
+    const { id } = req.body; //  form-data so id is a string
     if (!req.file) return res.status(200).json({ error: 'No image provided' });
     const error: any = {
 
@@ -54,7 +54,7 @@ export default {
       }
     }
 
-    const isUpdated = await UserModel.updateUser(id, { imageUrl: imageStored.url });
+    const isUpdated = await UserModel.updateUser(Number(id), { imageUrl: imageStored.url });
 
     return res.status(200).json({ message: 'User has been updated', data: isUpdated, error });
   },
