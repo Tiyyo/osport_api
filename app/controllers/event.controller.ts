@@ -109,7 +109,7 @@ export default {
       return res.status(200).json({ message: 'This user has not any event yet' });
     }
 
-    return res.status(200).json({ message: 'Events found', events });
+    return res.status(200).json({ message: 'Events found', data: events });
   },
 
   getEventDetails: async (req: Request, res: Response) => {
@@ -121,7 +121,7 @@ export default {
       return res.status(200).json({ message: 'This event does not exist' });
     }
 
-    return res.status(200).json({ message: 'Event found', event });
+    return res.status(200).json({ message: 'Event found', data: event });
    },
 
   resultsEvent: async (req: Request, res: Response) => {

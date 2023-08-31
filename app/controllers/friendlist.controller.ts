@@ -12,7 +12,7 @@ export default {
 
     const friends = await Friends.find(userId, status);
 
-    res.status(200).json({ message: 'Friends retrieved successfully', friends });
+    res.status(200).json({ message: 'Friends retrieved successfully', data: friends });
   },
   getAcceptedFriends: async (req: Request, res: Response) => {
     const userId = checkParams(req.params.id);
@@ -20,14 +20,14 @@ export default {
 
     const friends = await Friends.find(userId, status);
 
-    res.status(200).json({ message: 'Friends retrieved successfully', friends });
+    res.status(200).json({ message: 'Friends retrieved successfully', data: friends });
   },
   getPendingRequestReceived: async (req: Request, res: Response) => {
     const userId = checkParams(req.params.id);
 
     const friends = await Friends.findManyRequest(userId);
 
-    res.status(200).json({ message: 'Friends retrieved successfully', friends });
+    res.status(200).json({ message: 'Friends retrieved successfully', data: friends });
   },
   sendFriendRequest: async (req: Request, res: Response) => {
     const data = {
