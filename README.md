@@ -107,6 +107,7 @@ Dans une version 1, l'application comprendrait :
 | `/rate_user/:id` | ❌ | ❌ | ✅ | ❌ | |
 | `/event` | ❌ | ✅ | ✅ | ❌ | Here, after organizator validate the event, it generate teams and distribute players (for Patch) |
 | `/event/:id` | ✅ | ❌ | ❌ | ❌ | |
+| `/event/details/:id` | ✅ | ❌ | ❌ | ❌ | |
 | `/event/validate` | ❌ | ❌ | ✅ | ❌ | |
 | `/event/results` | ❌ | ❌ | ✅ | ❌ | After the end of the event, the organizator only can save results |
 | `/sport` | ✅ | ❌ | ❌ | ❌ | |

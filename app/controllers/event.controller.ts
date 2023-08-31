@@ -109,8 +109,20 @@ export default {
       return res.status(200).json({ message: 'This user has not any event yet' });
     }
 
-    return res.status(200).json({ message: 'Events found', data: events });
+    return res.status(200).json({ message: 'Events found', events });
   },
+
+  getEventDetails: async (req: Request, res: Response) => {
+    const { id } = req.params;
+
+    const event = await EventModel.findOne({ eventId: Number(id) });
+
+    if (!event) {
+      return res.status(200).json({ message: 'This event does not exist' });
+    }
+
+    return res.status(200).json({ message: 'Event found', event });
+   },
 
   resultsEvent: async (req: Request, res: Response) => {
     const {
