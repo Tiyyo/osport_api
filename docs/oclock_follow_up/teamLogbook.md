@@ -116,8 +116,15 @@ Après revision des besoins/fonctionnalités :
 -  Fin de user can validate event, et debut de update event. Todo => fin de l'update et debut de save event (Guillaume)
 -  Aide sur le front pour la création d'un hook personnalisé, update du seed (Steeve) 
 
-## Jour 13 -30/08/2023
+## Jour 13 - 30/08/2023
 
 - Principales fonctionnalités page contact terminées (Affichage, Ajout, Accepter/Refuser). Affichage de la liste des events de l'utilisateur (score, date, etc...) (Anthony)
 - Route pour les events (sans les participants), validation de l'event, enregistrement des events terminés (avec les scores) / (Front) Création event (nb de participants/sport/date) (Guillaume)
 - Page Edit-profile avec enregistrement nouveau username et nouveau email et la photo de profil (image upload sur le serveur local) (Thomas & Steeve)
+
+## Jour 14 - 31/08/2023
+
+- Page Event en cours,  les composants changent en fonction du statut du match, validation du match par l'organisateur (Anthony)
+- Page Edit Profile Ok, (changement pseudo, email, avatar). Auto-évaluation selon le sport Ok (Thomas)
+- Page Create-Event Ok + Création d'une route event/detail/:id (Guillaume)
+- Tentative d'utilisation de Docker (Steeve)
