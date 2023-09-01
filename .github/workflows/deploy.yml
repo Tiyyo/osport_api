@@ -2,7 +2,7 @@ name: Deploy
 
 on:
   push:
-    branches: -test_deploy
+    branches: -deploy
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -23,15 +23,15 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v3
         with:
-          cache: pnpm
-          cache-dependency-path: ./pnpm-lock.yaml
+          cache: npm
+          cache-dependency-path: ./package.json
           node-version: 18
 
       - name: Install deps
         run: pnpm install
 
       - name: Lint
-        run: pnpm exec lint // insert lint command here
+        run: npm run lint
 
   typecheck:
     name: Typescript
@@ -44,14 +44,14 @@ jobs:
         uses: actions/setup-node@v3
         with:
           cache: pnpm
-          cache-dependency-path: ./pnpm-lock.yaml
+          cache-dependency-path: ./package.json
           node-version: 18
 
       - name: Install deps
         run: pnpm install
 
       - name: Typecheck
-        run: pnpm exec typecheck --if-present // insert typecheck command here
+        run: npx typecheck --if-present 
 
   vitest:
     name: vitest
@@ -64,31 +64,17 @@ jobs:
         uses: actions/setup-node@v3
         with:
           cache: pnpm
-          cache-dependency-path: ./pnpm-lock.yaml
+          cache-dependency-path: ./package.json
           node-version: 18
 
       - name: Install deps
         run: pnpm install
 
       - name: vitest
-        run: pnpm exec test -- --coverage // insert vitest command here
+        run: npm run test
 
   deploy:
-    name: Deploy to EC2
+    name: Deploy 
     if: ${{ github.ref == 'refs/heads/dev' }}
+    needs: [lint, typecheck, vitest]
     runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v3
-
-      - name: Install deps
-        run: pnpm install
-
-      - name: Deploy to Server1
-        uses: easingthemes/ssh-deploy@v2.1.5
-        with:
-          SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY}}
-          REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
-          REMOTE_USER: ${{ secrets.REMOTE_USER }}
-          TARGET: ${{ secrets.REMOTE_TARGET }}
