@@ -1,11 +1,11 @@
 import express, { Router } from 'express';
-import friendlist from '../controllers/friendlist.controller.ts';
-import factory from '../middleware/factory.controller.ts';
-import validateSchema from '../middleware/schemas.validator.ts';
-import requestSchema from '../schemas/friendship/friendRequest.ts';
-import canals from '../helpers/canals.ts';
+import friendlist from '../controllers/friendlist.controller.js';
+import factory from '../middleware/factory.controller.js';
+import validateSchema from '../middleware/schemas.validator.js';
+import requestSchema from '../schemas/friendship/friendRequest.js';
+import canals from '../helpers/canals.js';
 
-const router: Router = express.Router();
+const router = express.Router();
 
 const {
   getPendingRequestSent,

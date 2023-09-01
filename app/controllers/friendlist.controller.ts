@@ -1,9 +1,9 @@
 import { Request, Response } from 'express';
-import Friends from '../models/user_on_friend.ts';
-import NotFoundError from '../helpers/errors/notFound.error.ts';
-import checkParams from '../utils/checkParams.ts';
-import User from '../models/user.ts';
-import logger from '../helpers/logger.ts';
+import Friends from '../models/user_on_friend.js';
+import NotFoundError from '../helpers/errors/notFound.error.js';
+import checkParams from '../utils/checkParams.js';
+import User from '../models/user.js';
+import logger from '../helpers/logger.js';
 
 export default {
   getPendingRequestSent: async (req: Request, res: Response) => {

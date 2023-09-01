@@ -1,9 +1,9 @@
 import { Prisma } from '@prisma/client';
-import prisma from '../helpers/db.client.ts';
+import prisma from '../helpers/db.client.js';
 import type { AllowedUserUpdate } from '../@types/index.d.ts';
-import exclude from '../utils/exclude.fields.ts';
-import DatabaseError from '../helpers/errors/database.error.ts';
-import NotFoundError from '../helpers/errors/notFound.error.ts';
+import exclude from '../utils/exclude.fields.js';
+import DatabaseError from '../helpers/errors/database.error.js';
+import NotFoundError from '../helpers/errors/notFound.error.js';
 
 export default {
   // @ts-ignore

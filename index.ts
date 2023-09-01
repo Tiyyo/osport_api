@@ -1,9 +1,9 @@
 import http from 'http';
 import https from 'https';
 // import fs from 'fs';
-import logger from './app/helpers/logger.ts';
-import './app/helpers/env.load.ts';
-import app from './app/index.app.ts';
+import logger from './app/helpers/logger.js';
+import './app/helpers/env.load.js';
+import app from './app/index.app.js';
 
 const PORT = process.env.PORT || 8080;
 
@@ -15,6 +15,7 @@ const httpsServer = https.createServer({
 // const server = createServer(app);
 
 httpServer.listen(PORT, () => {
+  console.log('Server running on port 8080');
   logger.info(`HTTP Server is running on port ${PORT}`);
 });
 

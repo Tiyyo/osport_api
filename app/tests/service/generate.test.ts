@@ -7,7 +7,7 @@ import {
   getTeamValue,
   getPlayerObject,
   divideInTeam,
-} from '../../service/generateTeam.ts';
+} from '../../service/generateTeam.js';
 
 describe('getMaxIndex', () => {
   test('should return the index of the max value', () => {

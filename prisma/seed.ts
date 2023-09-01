@@ -1,8 +1,8 @@
 import { faker } from '@faker-js/faker';
-import prisma from '../app/helpers/db.client.ts';
-import logger from '../app/helpers/logger.ts';
-import { createUser } from '../app/service/auth.ts';
-import Friend from '../app/models/user_on_friend.ts';
+import prisma from '../app/helpers/db.client.js';
+import logger from '../app/helpers/logger.js';
+import { createUser } from '../app/service/auth.js';
+import Friend from '../app/models/user_on_friend.js';
 
 function getRandomInt(min: number, max: number) {
   return Math.floor(Math.random() * (Math.floor(max) - Math.ceil(min)) + Math.ceil(min));

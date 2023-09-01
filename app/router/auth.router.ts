@@ -1,11 +1,11 @@
 import express, { Router } from 'express';
-import authController from '../controllers/auth.controllers.ts';
-import factory from '../middleware/factory.controller.ts';
-import validateToken from '../middleware/validate.token.ts';
-import validateSchema from '../middleware/schemas.validator.ts';
-import createUserSchema from '../schemas/auth/createUser.ts';
-import loginUserSchema from '../schemas/auth/loginUser.ts';
-import canals from '../helpers/canals.ts';
+import authController from '../controllers/auth.controllers.js';
+import factory from '../middleware/factory.controller.js';
+import validateToken from '../middleware/validate.token.js';
+import validateSchema from '../middleware/schemas.validator.js';
+import createUserSchema from '../schemas/auth/createUser.js';
+import loginUserSchema from '../schemas/auth/loginUser.js';
+import canals from '../helpers/canals.js';
 
 const router: Router = express.Router();
 

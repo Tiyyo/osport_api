@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { Prisma } from '@prisma/client';
-import prisma from '../helpers/db.client.ts';
+import prisma from '../helpers/db.client.js';
 // import exclude from '../utils/exclude.fields.ts';
 
 interface AllowedEventUpdate {

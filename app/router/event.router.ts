@@ -1,15 +1,15 @@
 import express, { Router } from 'express';
-import eventController from '../controllers/event.controller.ts';
-import factory from '../middleware/factory.controller.ts';
-import validateSchema from '../middleware/schemas.validator.ts';
-import createEventSchema from '../schemas/event/createEvent.ts';
-import { updateEventSchema } from '../schemas/event/updateEvent.ts';
+import eventController from '../controllers/event.controller.js';
+import factory from '../middleware/factory.controller.js';
+import validateSchema from '../middleware/schemas.validator.js';
+import createEventSchema from '../schemas/event/createEvent.js';
+import { updateEventSchema } from '../schemas/event/updateEvent.js';
 // import getCache from '../middleware/cache.ts';
-import canals from '../helpers/canals.ts';
-import { validateEventSchema } from '../schemas/event/validateEvent.ts';
-import getEventsSchema from '../schemas/event/getEvents.ts';
+import canals from '../helpers/canals.js';
+import { validateEventSchema } from '../schemas/event/validateEvent.js';
+import getEventsSchema from '../schemas/event/getEvents.js';
 
-const router: Router = express.Router();
+const router = express.Router();
 
 const {
   createEvent,

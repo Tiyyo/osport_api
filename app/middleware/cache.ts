@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
-import logger from '../helpers/logger.ts';
-import Cache from '../service/cache.ts';
+import logger from '../helpers/logger.js';
+import Cache from '../service/cache.js';
 
 export default (key: string) => async (
   req: Request,

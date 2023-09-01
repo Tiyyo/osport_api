@@ -1,11 +1,11 @@
 import express, { Router } from 'express';
-import ratingController from '../controllers/rating.controller.ts';
-import factory from '../middleware/factory.controller.ts';
-import validateSchema from '../middleware/schemas.validator.ts';
-import createRatingSchema from '../schemas/rating/createRating.ts';
-import updateRatingSchema from '../schemas/rating/updateRating.ts';
-// import getCache from '../middleware/cache.ts';
-import canals from '../helpers/canals.ts';
+import ratingController from '../controllers/rating.controller.js';
+import factory from '../middleware/factory.controller.js';
+import validateSchema from '../middleware/schemas.validator.js';
+import createRatingSchema from '../schemas/rating/createRating.js';
+import updateRatingSchema from '../schemas/rating/updateRating.js';
+// import getCache from '../middleware/cache.js;
+import canals from '../helpers/canals.js';
 
 const router: Router = express.Router();
 

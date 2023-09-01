@@ -1,6 +1,6 @@
 import { Prisma } from '@prisma/client';
-import prisma from '../helpers/db.client.ts';
-import DatabaseError from '../helpers/errors/database.error.ts';
+import prisma from '../helpers/db.client.js';
+import DatabaseError from '../helpers/errors/database.error.js';
 
 export default {
   // @ts-ignore

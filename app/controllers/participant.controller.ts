@@ -1,10 +1,10 @@
 import { Request, Response } from 'express';
-import UserOnEvent from '../models/user_on_event.ts';
-import Event from '../models/event.ts';
-import checkParams from '../utils/checkParams.ts';
-import Cache from '../service/cache.ts';
-import { generateBalancedTeam } from '../service/generateTeam.ts';
-import UserInputError from '../helpers/errors/userInput.error.ts';
+import UserOnEvent from '../models/user_on_event.js';
+import Event from '../models/event.js';
+import checkParams from '../utils/checkParams.js';
+import Cache from '../service/cache.js';
+import { generateBalancedTeam } from '../service/generateTeam.js';
+import UserInputError from '../helpers/errors/userInput.error.js';
 
 export default {
   getParticipants: async (req: Request, res: Response) => {

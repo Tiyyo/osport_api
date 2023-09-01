@@ -1,6 +1,6 @@
-import prisma from '../helpers/db.client.ts';
-import DatabaseError from '../helpers/errors/database.error.ts';
-import UserInputError from '../helpers/errors/userInput.error.ts';
+import prisma from '../helpers/db.client.js';
+import DatabaseError from '../helpers/errors/database.error.js';
+import UserInputError from '../helpers/errors/userInput.error.js';
 
 type SportLevel = {
   name: string,

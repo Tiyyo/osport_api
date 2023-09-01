@@ -1,18 +1,18 @@
 import { Request, Response } from 'express';
-import UserModel from '../models/user.ts';
-import Image from '../models/image.ts';
-import UserOnSport from '../models/user_on_sport.ts';
+import UserModel from '../models/user.js';
+import Image from '../models/image.js';
+import UserOnSport from '../models/user_on_sport.js';
 // import type { AllowedUserUpdate } from '../@types/index.d.ts';
-import { deleteImageFromServer, saveImageOnServer } from '../service/image.ts';
-import checkParams from '../utils/checkParams.ts';
-import logger from '../helpers/logger.ts';
+import { deleteImageFromServer, saveImageOnServer } from '../service/image.js';
+import checkParams from '../utils/checkParams.js';
+import logger from '../helpers/logger.js';
 
-// To block user who want to modify his own id, createdAt, updatedAt, or image_id
-// const isAllowedUserUpdate = (data: any): data is AllowedUserUpdate => (
-//   (data.username !== undefined && typeof data.username === 'string')
-//   || (data.email !== undefined && typeof data.email === 'string')
-//   || (data.password !== undefined && typeof data.password === 'string')
-// );
+// // To block user who want to modify his own id, createdAt, updatedAt, or image_id
+// // const isAllowedUserUpdate = (data: any): data is AllowedUserUpdate => (
+// //   (data.username !== undefined && typeof data.username === 'string')
+// //   || (data.email !== undefined && typeof data.email === 'string')
+// //   || (data.password !== undefined && typeof data.password === 'string')
+// // );
 
 export default {
 

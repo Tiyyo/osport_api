@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
-import UserOnSport from '../models/user_on_sport.ts';
-import associateStringToNumber from '../utils/associate.ts';
+import UserOnSport from '../models/user_on_sport.js';
+import associateStringToNumber from '../utils/associate.js';
 
 export default {
   rate: async (req: Request, res: Response) => {

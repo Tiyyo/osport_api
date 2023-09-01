@@ -1,11 +1,11 @@
 import express, { Router } from 'express';
-import participantController from '../controllers/participant.controller.ts';
-import factory from '../middleware/factory.controller.ts';
-import validateSchema from '../middleware/schemas.validator.ts';
-import canals from '../helpers/canals.ts';
-import invitationParticipantSchema from '../schemas/participant/invitationParticipant.ts';
-import updateParticipantSchema from '../schemas/participant/updateParticipant.ts';
-import getCache from '../middleware/cache.ts';
+import participantController from '../controllers/participant.controller.js';
+import factory from '../middleware/factory.controller.js';
+import validateSchema from '../middleware/schemas.validator.js';
+import canals from '../helpers/canals.js';
+import invitationParticipantSchema from '../schemas/participant/invitationParticipant.js';
+import updateParticipantSchema from '../schemas/participant/updateParticipant.js';
+import getCache from '../middleware/cache.js';
 
 const router: Router = express.Router();
 

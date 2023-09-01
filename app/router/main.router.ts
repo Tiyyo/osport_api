@@ -1,16 +1,16 @@
 import express, { Router } from 'express';
-import errorHandler from '../middleware/error.handler.ts';
-import authRouter from './auth.router.ts';
-import userRouter from './user.router.ts';
-import eventRouter from './event.router.ts';
-import NotFoundError from '../helpers/errors/notFound.error.ts';
-import participantRouter from './participant.router.ts';
-import friendlistRouter from './friendlist.router.ts';
-import messageRouter from './message.router.ts';
-import ratingRouter from './rating.router.ts';
-import { generateBalancedTeam } from '../service/generateTeam.ts';
+import errorHandler from '../middleware/error.handler.js';
+import authRouter from './auth.router.js';
+import userRouter from './user.router.js';
+import eventRouter from './event.router.js';
+import NotFoundError from '../helpers/errors/notFound.error.js';
+import participantRouter from './participant.router.js';
+import friendlistRouter from './friendlist.router.js';
+import messageRouter from './message.router.js';
+import ratingRouter from './rating.router.js';
+import { generateBalancedTeam } from '../service/generateTeam.js';
 
-const router: Router = express.Router();
+const router = express.Router();
 
 router.use('/', authRouter);
 router.use('/user', userRouter);

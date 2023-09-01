@@ -1,13 +1,13 @@
-import express, { Router } from 'express';
-import messageController from '../controllers/message.controller.ts';
-import factory from '../middleware/factory.controller.ts';
-import validateSchema from '../middleware/schemas.validator.ts';
-import createMessage from '../schemas/message/createMessage.ts';
-import updateMessage from '../schemas/message/updateMessage.ts';
-import getCache from '../middleware/cache.ts';
-import canals from '../helpers/canals.ts';
+import express from 'express';
+import messageController from '../controllers/message.controller.js';
+import factory from '../middleware/factory.controller.js';
+import validateSchema from '../middleware/schemas.validator.js';
+import createMessage from '../schemas/message/createMessage.js';
+import updateMessage from '../schemas/message/updateMessage.js';
+import getCache from '../middleware/cache.js';
+import canals from '../helpers/canals.js';
 
-const router: Router = express.Router();
+const router = express.Router();
 
 const {
   getHistoric, create, update, destroyOne, destroyMany,

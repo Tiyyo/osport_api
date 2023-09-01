@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import { AnyZodObject, ZodError } from 'zod';
-import ServerError from '../helpers/errors/server.error.ts';
-import ValidationError from '../helpers/errors/validation.error.ts';
+import ServerError from '../helpers/errors/server.error.js';
+import ValidationError from '../helpers/errors/validation.error.js';
 
 export default (
   schema: AnyZodObject,

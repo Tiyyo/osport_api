@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
-import AuthorizationError from '../helpers/errors/unauthorized.error.ts';
+import AuthorizationError from '../helpers/errors/unauthorized.error.js';
 
 const { verify } = jwt;
 
@@ -14,8 +14,6 @@ const validateUser = async (
   let userInfos: any = {};
 
   if (req.cookies && req.cookies.accessToken) token = req.cookies.accessToken;
-
-  console.log('validate user is called');
 
   verify(token, process.env.JWT_TOKEN_KEY as string, async (err, decoded) => {
     if (err || !decoded || typeof decoded === 'string') next(new AuthorizationError('Unauthorized'));

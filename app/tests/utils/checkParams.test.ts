@@ -1,5 +1,5 @@
 import { describe, test, expect } from 'vitest';
-import checkParams from '../../utils/checkParams.ts';
+import checkParams from '../../utils/checkParams.js';
 
 describe('checkParams', () => {
   test('should return a number', () => {

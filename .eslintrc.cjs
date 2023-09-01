@@ -18,7 +18,7 @@ module.exports = {
   rules: {
     'no-console': 'off',
     '@typescript-eslint/indent': 'off',
-    'import/extensions': ["error", "ignorePackages"],
+    'import/extensions': "off",
     '@typescript-eslint/naming-convention': [
           'error',
           {

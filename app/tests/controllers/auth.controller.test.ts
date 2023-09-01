@@ -2,7 +2,7 @@ import {
   describe, vi, afterEach, test, expect,
 } from 'vitest';
 import { Request, Response } from 'express';
-import authControlller from '../../controllers/auth.controllers.ts';
+import authControlller from '../../controllers/auth.controllers.js';
 
 const {
   register,

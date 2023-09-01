@@ -1,5 +1,5 @@
 import morgan, { StreamOptions } from 'morgan';
-import logger from '../helpers/logger.ts';
+import logger from '../helpers/logger.js';
 
 // middleware to get some information about the request
 // and we log it using our logger

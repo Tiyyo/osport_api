@@ -1,6 +1,6 @@
-import prisma from '../helpers/db.client.ts';
-import DatabaseError from '../helpers/errors/database.error.ts';
-import NotFoundError from '../helpers/errors/notFound.error.ts';
+import prisma from '../helpers/db.client.js';
+import DatabaseError from '../helpers/errors/database.error.js';
+import NotFoundError from '../helpers/errors/notFound.error.js';
 
 export default {
   find: async (event_id?: number, user_id?: number) => {

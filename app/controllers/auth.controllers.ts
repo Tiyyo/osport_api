@@ -1,5 +1,5 @@
-import { Request, Response } from 'express';
-import { createUser, login } from '../service/auth.ts';
+import { Response, Request } from 'express';
+import { createUser, login } from '../service/auth.js';
 
 export default {
   register: async (req: Request, res: Response) => {

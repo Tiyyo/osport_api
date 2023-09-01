@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
-import Message from '../models/message.ts';
-import checkParams from '../utils/checkParams.ts';
-import Cache from '../service/cache.ts';
+import Message from '../models/message.js';
+import checkParams from '../utils/checkParams.js';
+import Cache from '../service/cache.js';
 
 export default {
   getHistoric: async (req: Request, res: Response) => {

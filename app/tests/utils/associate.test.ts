@@ -1,5 +1,5 @@
 import { describe, test, expect } from 'vitest';
-import associate from '../../utils/associate.ts';
+import associate from '../../utils/associate.js';
 import type { Levels } from '../../@types/index.d.ts';
 
 describe('associate', () => {

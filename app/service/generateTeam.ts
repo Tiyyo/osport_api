@@ -1,7 +1,7 @@
 import type { Player, TeamGeneratorConfig } from '../@types/index.js';
-import UserOnSport from '../models/user_on_sport.ts';
-import prisma from '../helpers/db.client.ts';
-import logger from '../helpers/logger.ts';
+import UserOnSport from '../models/user_on_sport.js';
+import prisma from '../helpers/db.client.js';
+import logger from '../helpers/logger.js';
 
 /* eslint-disable */
 
@@ -90,8 +90,6 @@ export async function generateBalancedTeam(event_id: number) {
 
   await Promise.all(allUpdates);
 
-
-
   console.log({ team_1, team_2 }, 'this is the result');
   console.timeEnd('Algo time start');
 
@@ -101,7 +99,6 @@ export async function generateBalancedTeam(event_id: number) {
 export function divideInTeam(config: TeamGeneratorConfig) {
 
   if (config.participants % 2 !== 0) return { error: 'participants must be even' };
-
 
   const value_team_1 = getTeamValue(config.team1);
   const value_team_2 = getTeamValue(config.team2);
