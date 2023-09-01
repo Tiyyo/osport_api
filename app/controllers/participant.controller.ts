@@ -43,7 +43,7 @@ export default {
       return res.status(204).json({ message: 'status updated' });
     }
 
-    // const participants = await UserOnEvent.findConfirmed(event_id);
+    const participants = await UserOnEvent.findConfirmed(event_id);
 
     const event = await Event.findOne(event_id);
 

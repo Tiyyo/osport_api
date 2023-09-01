@@ -122,7 +122,7 @@ export default {
     }
 
     return res.status(200).json({ message: 'Event found', data: event });
-   },
+  },
 
   resultsEvent: async (req: Request, res: Response) => {
     const {
@@ -172,6 +172,6 @@ export default {
 
     const eventUpdated = await EventModel.updateEvent(eventId, data);
 
-    return res.status(200).json({ message: 'Result of the event has been saved', eventUpdated });
+    return res.status(200).json({ message: 'Result of the event has been saved', data: eventUpdated });
   },
 };
