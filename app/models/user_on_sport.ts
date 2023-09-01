@@ -153,7 +153,7 @@ export default {
     await prisma.$disconnect();
     if (!result) return null;
 
-    const data = Object.fromEntries(result.map((item: any) => [item.name, item.rating]));
-    return data;
+    // const data = Object.fromEntries(result.map((item: any) => [item.name, item.rating]));
+    return result;
   },
 };
