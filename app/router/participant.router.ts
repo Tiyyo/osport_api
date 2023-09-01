@@ -10,7 +10,7 @@ import getCache from '../middleware/cache.js';
 const router: Router = express.Router();
 
 const {
-  getParticipants, sendInivation, updateStatus,
+  getParticipants, sendInvitation, updateStatus,
 } = participantController;
 
 router.route('/:id')
@@ -20,7 +20,7 @@ router.route('/:id')
   );
 
 router.route('/')
-  .post(validateSchema(invitationParticipantSchema, canals.body), factory(sendInivation))
+  .post(validateSchema(invitationParticipantSchema, canals.body), factory(sendInvitation))
   .patch(validateSchema(updateParticipantSchema, canals.body), factory(updateStatus));
 
 export default router;
