@@ -24,6 +24,9 @@ router.use('/test', async (_req, res) => {
   generateBalancedTeam(1);
   res.send('test');
 });
+router.use('/', async (_req, res) => {
+  res.send('Welcome to O\'Sport API');
+});
 
 router.use(() => {
   throw new NotFoundError("Route doesn't exist");

@@ -1,6 +1,4 @@
 import http from 'http';
-// import https from 'https';
-// import fs from 'fs';
 import logger from './app/helpers/logger.js';
 import './app/helpers/env.load.js';
 import app from './app/index.app.js';
