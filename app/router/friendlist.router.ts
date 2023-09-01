@@ -5,7 +5,7 @@ import validateSchema from '../middleware/schemas.validator.js';
 import requestSchema from '../schemas/friendship/friendRequest.js';
 import canals from '../helpers/canals.js';
 
-const router = express.Router();
+const router: Router = express.Router();
 
 const {
   getPendingRequestSent,

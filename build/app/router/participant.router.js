@@ -7,10 +7,10 @@ import invitationParticipantSchema from '../schemas/participant/invitationPartic
 import updateParticipantSchema from '../schemas/participant/updateParticipant.js';
 import getCache from '../middleware/cache.js';
 const router = express.Router();
-const { getParticipants, sendInivation, updateStatus, } = participantController;
+const { getParticipants, sendInvitation, updateStatus, } = participantController;
 router.route('/:id')
     .get(getCache('participant'), factory(getParticipants));
 router.route('/')
-    .post(validateSchema(invitationParticipantSchema, canals.body), factory(sendInivation))
+    .post(validateSchema(invitationParticipantSchema, canals.body), factory(sendInvitation))
     .patch(validateSchema(updateParticipantSchema, canals.body), factory(updateStatus));
 export default router;

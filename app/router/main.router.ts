@@ -10,7 +10,7 @@ import messageRouter from './message.router.js';
 import ratingRouter from './rating.router.js';
 import { generateBalancedTeam } from '../service/generateTeam.js';
 
-const router = express.Router();
+const router: Router = express.Router();
 
 router.use('/', authRouter);
 router.use('/user', userRouter);

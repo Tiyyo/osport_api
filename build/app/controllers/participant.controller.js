@@ -11,9 +11,14 @@ export default {
         await Cache.set(req.body.cacheKey, participants);
         res.status(200).json({ message: 'Participant retrieved succesfully', data: participants });
     },
-    sendInivation: async (req, res) => {
+    sendInvitation: async (req, res) => {
         const { eventId: event_id, userId: user_id } = req.body;
-        await UserOnEvent.create(event_id, user_id);
+        if (typeof user_id === 'number') {
+            await UserOnEvent.create(event_id, user_id);
+        }
+        else {
+            await UserOnEvent.createMany(event_id, user_id);
+        }
         const keyToDelete = `participants${event_id}`;
         await Cache.del([keyToDelete]);
         res.status(201).json({ message: 'Invitation sent' });
@@ -26,7 +31,7 @@ export default {
             await UserOnEvent.update(user_id, event_id, status);
             return res.status(204).json({ message: 'status updated' });
         }
-        const participants = await UserOnEvent.findConfirmed(event_id);
+        // const participants = await UserOnEvent.findConfirmed(event_id);
         const event = await Event.findOne(event_id);
         if (event?.nb_max_participant === participants) {
             // TODO update event status to open -> full

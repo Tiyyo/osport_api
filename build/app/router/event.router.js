@@ -9,11 +9,13 @@ import canals from '../helpers/canals.js';
 import { validateEventSchema } from '../schemas/event/validateEvent.js';
 import getEventsSchema from '../schemas/event/getEvents.js';
 const router = express.Router();
-const { createEvent, validateEvent, updateEvent, getEvents, resultsEvent, } = eventController;
+const { createEvent, validateEvent, updateEvent, getEvents, getEventDetails, resultsEvent, } = eventController;
 router.route('/')
     .post(validateSchema(createEventSchema, canals.body), factory(createEvent))
     .patch(validateSchema(updateEventSchema, canals.body), factory(updateEvent));
 // .get(getCache('events'), factory(getAll));
+router.route('/details/:id')
+    .get(validateSchema(getEventsSchema, canals.body), factory(getEventDetails));
 router.route('/validate')
     .patch(validateSchema(validateEventSchema, canals.body), factory(validateEvent));
 router.route('/results')
