@@ -1,7 +1,10 @@
 name: Deploy
 on:
-  push:
-    branches: -deploy
+ push:
+  branches:
+   - deploy
+   - main
+   - develop
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
