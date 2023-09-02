@@ -15,7 +15,8 @@
     "db:migration": "prisma migrate dev",
     "db:reset": "prisma migrate reset",
     "typecheck": "npx tsc --noEmit",
-    "test": "vitest -- --coverage"
+    "test": "vitest -- --coverage",
+    "rimraf": "./node_modules/rimraf/bin.js"
   },
   "keywords": [],
   "author": "",
