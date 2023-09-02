@@ -8,8 +8,9 @@ import { updateEventSchema } from '../schemas/event/updateEvent.js';
 import canals from '../helpers/canals.js';
 import { validateEventSchema } from '../schemas/event/validateEvent.js';
 import getEventsSchema from '../schemas/event/getEvents.js';
+import validateUser from '../middleware/validate.user.js';
 
-const router = express.Router();
+const router: Router = express.Router();
 
 const {
   createEvent,
@@ -22,20 +23,20 @@ const {
 
 router.route('/')
   .post(validateSchema(createEventSchema, canals.body), factory(createEvent))
-  .patch(validateSchema(updateEventSchema, canals.body), factory(updateEvent));
+  .patch(validateUser, validateSchema(updateEventSchema, canals.body), factory(updateEvent));
 // .get(getCache('events'), factory(getAll));
 
 router.route('/details/:id')
-  .get(validateSchema(getEventsSchema, canals.body), factory(getEventDetails));
+  .get(factory(getEventDetails));
 
 router.route('/validate')
-  .patch(validateSchema(validateEventSchema, canals.body), factory(validateEvent));
+  .patch(factory(validateEvent));
 
 router.route('/results')
   .patch(validateSchema(updateEventSchema, canals.body), factory(resultsEvent));
 
 router.route('/:id')
-  .get(validateSchema(getEventsSchema, canals.body), factory(getEvents));
+  .get(factory(getEvents));
 // .get(getCache('event'), factory(getOne))
 // .delete(factory(destroy));
 

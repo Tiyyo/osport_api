@@ -44,19 +44,14 @@ export default {
     rater_id: number,
   }) => {
     try {
-      const result = await prisma.user_on_sport.update({
-        // @ts-ignore
-        where: {
-          user_id: data.user_id,
-          sport_id: data.sport_id,
-        },
-        data: {
-          rating: data.rating,
-          rater_id: data.rater_id,
-        },
-      });
+      // where condition bug with prisma
+      const isUpdate = await prisma.$queryRaw`
+         INSERT INTO "User_on_sport" (user_id, sport_id, rating, rater_id) 
+         VALUES (${data.user_id}, ${data.sport_id}, ${data.rating}, ${data.rater_id})
+         RETURNING "User_on_sport"."id"
+          `;
       await prisma.$disconnect();
-      return result;
+      return isUpdate;
     } catch (error: any) {
       throw new DatabaseError(error.message, 'user_on_sport', error);
     }
@@ -131,9 +126,7 @@ export default {
 
       const result: SportLevel = sportLevelResult[0];
 
-      if (!result.name) throw new Error('Sport not found');
-
-      const sport = { name: result.name ?? '', gb_rating: result ? Number(result.gb_rating) : null, user_id };
+      const sport = { name: sport_id === 1 ? 'Football' : 'Basketball', gb_rating: result ? Number(result.gb_rating) : 5, user_id };
 
       await prisma.$disconnect();
       return sport;

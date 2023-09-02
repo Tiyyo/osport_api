@@ -34,33 +34,30 @@ export default {
     }
   },
 
-  createMany: async (event_id: number, userIds: number[]) => {
+  createMany: async (event_id: number, userIds: number[] | number) => {
+    let ids: number[];
+    if (typeof userIds === 'number') {
+      ids = [userIds];
+    } else {
+      ids = userIds;
+    }
+
+    const queries = ids.map((id) => prisma.event_on_user.create({
+      data: {
+        user_id: id,
+        event_id,
+        status: 'pending',
+      },
+    }));
+
     try {
-      const result = await prisma.event_on_user.createMany({
-        data: userIds.map((id) => ({
-          user_id: id,
-          event_id,
-          status: 'pending',
-        })),
-      });
+      const result = await Promise.allSettled(queries);
       await prisma.$disconnect();
       return !!result;
     } catch (error: any) {
       throw new DatabaseError(error.message, 'user_on_event', error);
     }
   },
-
-  create: async (event_id: number, user_id: number) => {
-    const result = await prisma.event_on_user.create({
-      data: {
-        event_id,
-        user_id,
-      },
-    });
-    await prisma.$disconnect();
-    return !!result;
-  },
-
   update: async (user_id: number, event_id: number, status: string, team?: number) => {
     try {
       const result = await prisma.event_on_user.update({
@@ -85,8 +82,10 @@ export default {
         },
       });
       await prisma.$disconnect();
+      if (!result) throw new NotFoundError('No user on event found');
       return result;
     } catch (error: any) {
+      if (error instanceof NotFoundError) throw error;
       throw new DatabaseError(error.message, 'user_on_event', error);
     }
   },

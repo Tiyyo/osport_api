@@ -15,6 +15,6 @@ export default class Cache {
   }
 
   static async del(keys: string[]) {
-    redis.del(keys);
+    const res = await redis.del(...keys);
   }
 }

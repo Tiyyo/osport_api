@@ -27,10 +27,11 @@ export async function generateBalancedTeam(event_id: number) {
   // @ts-ignore
   const idsParticipants = participants.map((p) => p.user_id);
   // @ts-ignore
+
   const queriesRatings = idsParticipants.map((id) => UserOnSport.getRating(id, event.sport_id));
 
   const valueRating = await Promise.all(queriesRatings);
-
+  console.log(valueRating, 'this is the result');
   const ids = Object.values(valueRating.map((rating) => rating.user_id))
   const values = Object.values(valueRating.map((value) => value.gb_rating)) as number[];
 

@@ -3,6 +3,7 @@ import {
 } from 'vitest';
 import { Request, Response } from 'express';
 import authControlller from '../../controllers/auth.controllers.js';
+import prisma from '../../helpers/db.client.js';
 
 const {
   register,
@@ -18,13 +19,19 @@ const user = {
 };
 
 describe('register', () => {
-  afterEach(() => {
+  afterEach(async () => {
     vi.restoreAllMocks();
+    await prisma.user.delete({
+      where: {
+        username: user.username,
+        email: user.email,
+      },
+    });
   });
 
   // we need to mock the createUser function
   // we need this line
-  vi.mock('../../service/auth/auth');
+  vi.mock('../../service/auth');
 
   // but not these one no idea why
   // const cb = vi.fn();
@@ -63,7 +70,7 @@ describe('register', () => {
 //     vi.restoreAllMocks();
 //   });
 
-//   vi.mock('../../service/auth/auth');
+//   vi.mock('../../service/auth');
 //   const cb = vi.fn();
 //   cb.mockReturnValue({ accessToken: 'test' });
 
@@ -97,7 +104,7 @@ describe('validate', () => {
     vi.restoreAllMocks();
   });
 
-  vi.mock('../../service/auth/auth');
+  vi.mock('../../service/auth');
 
   const mockRequest = {
     body: {

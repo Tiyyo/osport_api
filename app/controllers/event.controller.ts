@@ -1,5 +1,8 @@
 import { Request, Response } from 'express';
 import EventModel from '../models/event.js';
+import UserOnEvent from '../models/user_on_event.js';
+import findWinnerTeam from '../utils/findWinner.js';
+import checkParams from '../utils/checkParams.js';
 // import UserOnEvent from '../models/user_on_event.ts';
 
 export default {
@@ -32,6 +35,8 @@ export default {
         },
       },
     });
+    await UserOnEvent.createMany(event.id, userId);
+    await UserOnEvent.update(userId, event.id, 'accepted');
     return res.status(201).json({ message: 'Event created ', data: event });
   },
 
@@ -101,25 +106,17 @@ export default {
   },
 
   getEvents: async (req: Request, res: Response) => {
-    const { id } = req.params;
+    const id = checkParams(req.params.id);
 
     const events = await EventModel.getEvents(id);
-
-    if (events.length === 0) {
-      return res.status(200).json({ message: 'This user has not any event yet' });
-    }
 
     return res.status(200).json({ message: 'Events found', data: events });
   },
 
   getEventDetails: async (req: Request, res: Response) => {
-    const { id } = req.params;
+    const id = checkParams(req.params.id);
 
-    const event = await EventModel.findOne({ eventId: Number(id) });
-
-    if (!event) {
-      return res.status(200).json({ message: 'This event does not exist' });
-    }
+    const event = await EventModel.findOne({ eventId: id });
 
     return res.status(200).json({ message: 'Event found', data: event });
   },
@@ -154,18 +151,7 @@ export default {
       data.eventStatus = 'finished';
 
       // Determine the winnerTeam based on the scores
-      let winnerTeam = null;
-      if (req.body.scoreTeam1 > req.body.scoreTeam2) {
-        winnerTeam = 1;
-      } else if (req.body.scoreTeam2 > req.body.scoreTeam1) {
-        winnerTeam = 2;
-      }
-      if (req.body.scoreTeam1 === req.body.scoreTeam2) {
-        winnerTeam = 3;
-      }
-      if (winnerTeam !== null) {
-        data.winnerTeam = winnerTeam;
-      }
+      data.winnerTeam = findWinnerTeam(data.scoreTeam1, data.scoreTeam2);
     } catch (error) {
       return res.status(500).json({ error: 'Error while finding event' });
     }

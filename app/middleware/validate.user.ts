@@ -20,7 +20,9 @@ const validateUser = async (
     if (decoded) userInfos = decoded;
 
     const headersUserId = userInfos[0].userId;
-    const bodyUserId = req.body.id;
+    const bodyUserId = req.body.userId;
+
+    console.log(headersUserId, bodyUserId);
     if (headersUserId !== bodyUserId) next(new AuthorizationError('Unauthorized user'));
   });
 };

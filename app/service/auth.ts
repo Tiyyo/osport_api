@@ -33,13 +33,16 @@ export async function login(data: LoginForm):
   Promise<{ accessToken: string; }> {
   const { username, password } = data;
 
-  const expireTimeAccess = '8h'; // '8h'
+  const trimedPassword = password.trim();
+  const trimedUsername = username.trim();
 
-  const user = await User.findOne({ username, password });
+  const expireTimeAccess = '8h'; // '8h';
+
+  const user = await User.findOne({ username: trimedUsername, password: trimedPassword });
 
   if (!user) throw new UserInputError('Wrong credentials');
 
-  if (!await bcrypt.compare(password, user.password)) throw new UserInputError("Password didn't match", 'wrong credentials');
+  if (!await bcrypt.compare(trimedPassword, user.password)) throw new UserInputError("Password didn't match", 'wrong credentials');
 
   const accessToken = createAccesToken(
     expireTimeAccess,

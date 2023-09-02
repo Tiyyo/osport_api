@@ -5,8 +5,7 @@ import Cache from '../service/cache.js';
 
 export default {
   getHistoric: async (req: Request, res: Response) => {
-    const { id } = req.params;
-    const event_id = checkParams(id);
+    const event_id = checkParams(req.params.id);
 
     const historic = await Message.findMany(event_id);
 

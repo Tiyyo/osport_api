@@ -8,7 +8,7 @@ export default class NotFoundError extends Error {
   constructor(message: string) {
     super(message);
     this.message = message;
-    this.status = 404;
+    this.status = 200;
     this.userMessage = "Item(s) couldn't be found";
     this.name = 'NotFoundError';
   }

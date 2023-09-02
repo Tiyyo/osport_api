@@ -12,52 +12,48 @@ export default {
 
     const participants = await UserOnEvent.find(id);
 
-    await Cache.set(req.body.cacheKey, participants);
+    await Cache.set(`participant${id}`, participants);
 
     res.status(200).json({ message: 'Participant retrieved succesfully', data: participants });
   },
 
   sendInvitation: async (req: Request, res: Response) => {
-    const { eventId: event_id, userId: user_id } = req.body;
+    const { eventId: event_id, ids } = req.body;
 
-    if (typeof user_id === 'number') {
-      await UserOnEvent.create(event_id, user_id);
-    } else {
-      await UserOnEvent.createMany(event_id, user_id);
-    }
+    await UserOnEvent.createMany(event_id, ids);
 
-    const keyToDelete = `participants${event_id}`;
+    const keyToDelete = `participant${event_id}`;
     await Cache.del([keyToDelete]);
 
     res.status(201).json({ message: 'Invitation sent' });
   },
 
   updateStatus: async (req: Request, res: Response) => {
-    const { eventId: event_id, userId: user_id, status } = req.body;
+    const { eventId, userId: user_id, status } = req.body;
 
-    const keyToDelete = `participants${event_id}`;
-    await Cache.del([keyToDelete, `event${event_id}`]);
+    const keyToDelete = `participant${eventId}`;
+    await Cache.del([keyToDelete, `event${eventId}`]);
 
     if (status === 'rejected') {
-      await UserOnEvent.update(user_id, event_id, status);
+      await UserOnEvent.update(user_id, eventId, status);
       return res.status(204).json({ message: 'status updated' });
     }
 
-    const participants = await UserOnEvent.findConfirmed(event_id);
+    const participants = await UserOnEvent.findConfirmed(eventId);
 
-    const event = await Event.findOne(event_id);
+    const event = await Event.findOne({ eventId });
 
     if (event?.nb_max_participant === participants) {
       // TODO update event status to open -> full
       throw new UserInputError('Event is full');
     }
 
-    await UserOnEvent.update(user_id, event_id, status);
+    await UserOnEvent.update(user_id, eventId, status);
 
     if (event?.nb_max_participant === participants + 1) {
-      await generateBalancedTeam(event_id);
+      await generateBalancedTeam(eventId);
     }
 
-    return res.status(204).json({ message: 'status updated' });
+    return res.status(200).json({ message: 'status updated' });
   },
 };

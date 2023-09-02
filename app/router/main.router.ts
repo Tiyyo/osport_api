@@ -21,15 +21,15 @@ router.use('/', ratingRouter);
 router.use('/event', eventRouter);
 
 router.use('/test', async (_req, res) => {
-  generateBalancedTeam(1);
+  generateBalancedTeam(31);
   res.send('test');
 });
 router.get('/', async (_req, res) => {
   res.send('Welcome to O\'Sport API');
 });
 
-router.use(() => {
-  throw new NotFoundError("Route doesn't exist");
+router.use((_req, res) => {
+  res.status(404).json({ error: 'Not found' });
 });
 
 router.use(errorHandler);

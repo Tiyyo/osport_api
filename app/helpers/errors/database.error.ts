@@ -22,7 +22,6 @@ export default class DatabaseError extends Error {
     this.message = message;
 
     if (error instanceof Prisma.PrismaClientKnownRequestError) {
-      console.log(error);
       this.message = `Code ${error.code} : ${error.message} on ${userTable} table`;
       this.code = error.code;
 

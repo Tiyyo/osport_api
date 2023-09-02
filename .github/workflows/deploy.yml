@@ -55,7 +55,7 @@ jobs:
         run: npm install
 
       - name: Typecheck
-        run: npx typecheck --if-present 
+        run: npx tsc
 
   vitest:
     name: vitest

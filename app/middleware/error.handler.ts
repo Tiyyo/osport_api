@@ -9,8 +9,6 @@ import UserInputError from '../helpers/errors/userInput.error.js';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const errorHandler = (error: any, _req: Request, res: Response, _next: NextFunction) => {
-  console.log(error);
-
   if (error instanceof AuthorizationError
     || error instanceof ServerError
     || error instanceof NotFoundError
@@ -19,15 +17,19 @@ const errorHandler = (error: any, _req: Request, res: Response, _next: NextFunct
     return res.status(error.status).json({ error: error.userMessage });
   }
 
-  if (res.app.get('env') !== 'development' && error instanceof DatabaseError) {
-    return res.status(200).json({ error: error.message });
+  if (error instanceof DatabaseError) {
+    logger.error(`${error.name} ${error.message}`);
+    return res.status(200).json({ error: error.userMessage });
   }
 
-  if (error instanceof UserInputError) return res.status(200).json({ error: error.userMessage });
+  if (error instanceof UserInputError) {
+    logger.error(`${error.name} ${error.message}`);
+    return res.status(200).json({ error: error.userMessage });
+  }
 
   if (error instanceof ValidationError) {
     logger.error(`${error.name} ${error.message}`);
-    return res.status(200).json({ error: error.userMessage });
+    return res.status(200).json({ error: `${error.userMessage} ${JSON.stringify(error.fieldErrors).replace(/[!@#$%^&\\/{}:*]/g, '').replace(/["]/g, ' ')}` });
   }
 
   if (res.app.get('env') !== 'development') {

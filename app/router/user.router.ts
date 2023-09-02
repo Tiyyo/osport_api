@@ -15,8 +15,6 @@ const {
   updateImage,
   deleteUser,
   updateUser,
-  getSports,
-  getStartRating,
 } = userController;
 
 // GET -> /user
@@ -31,12 +29,5 @@ router.route('/')
 // PATCH -> /user/image
 router.route('/image')
   .patch(upload.single('image'), factory(updateImage));
-
-// GET -> /user/sport
-router.route('/sport/:id')
-  .get(factory(getSports));
-
-router.route('/own_rating/:id')
-  .get(factory(getStartRating));
 
 export default router;
