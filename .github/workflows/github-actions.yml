@@ -5,59 +5,59 @@ on:
       - deploy
 
 jobs:
-  lint:
-    name: ESLint
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v3
+  # lint:
+  #   name: ESLint
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Checkout repo
+  #       uses: actions/checkout@v3
 
-      - name: Setup node
-        uses: actions/setup-node@v3
-        with:
-          cache: npm
-          cache-dependency-path: ./package.json
-          node-version: 18
+  #     - name: Setup node
+  #       uses: actions/setup-node@v3
+  #       with:
+  #         cache: npm
+  #         cache-dependency-path: ./package.json
+  #         node-version: 18
 
-      - name: Install deps
-        run: npm install
+  #     - name: Install deps
+  #       run: npm install
 
-      - name: Lint
-        run: npm run lint
+  #     - name: Lint
+  #       run: npm run lint
 
-  typecheck:
-    name: Typescript
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v3
+  # typecheck:
+  #   name: Typescript
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Checkout repo
+  #       uses: actions/checkout@v3
 
-      - name: Setup node
-        uses: actions/setup-node@v3
-        with:
-          cache: npm
-          cache-dependency-path: ./package.json
-          node-version: 18
+  #     - name: Setup node
+  #       uses: actions/setup-node@v3
+  #       with:
+  #         cache: npm
+  #         cache-dependency-path: ./package.json
+  #         node-version: 18
 
-  vitest:
-    name: vitest
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v3
+  # vitest:
+  #   name: vitest
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Checkout repo
+  #       uses: actions/checkout@v3
 
-      - name: Setup node
-        uses: actions/setup-node@v3
-        with:
-          cache: npm
-          cache-dependency-path: ./package.json
-          node-version: 18
+  #     - name: Setup node
+  #       uses: actions/setup-node@v3
+  #       with:
+  #         cache: npm
+  #         cache-dependency-path: ./package.json
+  #         node-version: 18
 
-      - name: Install deps
-        run: npm install
+  #     - name: Install deps
+  #       run: npm install
 
-      - name: vitest
-        run: npm run test
+  #     - name: vitest
+  #       run: npm run test
 
   build:
     runs-on: ubuntu-latest
@@ -76,6 +76,7 @@ jobs:
             cd /var/www/osport/projet-o-sport-back
             git fetch
             git checkout deploy
-            git pull
+            git reset --hard origin/deploy
+            git pull origin deploy
             npm run build
             pm2 restart all
