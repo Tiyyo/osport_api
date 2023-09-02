@@ -64,11 +64,6 @@ jobs:
     if: ${{ github.ref == 'refs/heads/deploy' }}
     needs: []
     steps:
-      - name: Setup node
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
-
       - uses: actions/checkout@v1
       - name: SSH Remote Commands
         uses: appleboy/ssh-action@master
@@ -83,4 +78,7 @@ jobs:
             git checkout deploy
             git reset --hard origin/deploy
             git pull origin deploy
+            export NVM_DIR=~/.nvm
+            source ~/.nvm/nvm.sh
+            nvm install
             npm run build
