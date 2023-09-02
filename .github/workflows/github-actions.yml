@@ -64,6 +64,13 @@ jobs:
     if: ${{ github.ref == 'refs/heads/deploy' }}
     needs: []
     steps:
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          cache: npm
+          cache-dependency-path: ./package.json
+          node-version: 18
+
       - uses: actions/checkout@v1
       - name: SSH Remote Commands
         uses: appleboy/ssh-action@master
@@ -79,4 +86,3 @@ jobs:
             git reset --hard origin/deploy
             git pull origin deploy
             npm run build
-            pm2 restart all
