@@ -80,5 +80,5 @@ jobs:
             git pull origin deploy
             export NVM_DIR=~/.nvm
             source ~/.nvm/nvm.sh
-            npm ci
+            nvm install 
             npm run build --if-present
