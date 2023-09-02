@@ -1,4 +1,8 @@
 name: SSH Remote Commands
+on:
+  push:
+    branches:
+      - deploy
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -14,7 +18,3 @@ jobs:
           script: |
             whoami
             ls -al
-on:
-  push:
-    branches:
-      - deploy
