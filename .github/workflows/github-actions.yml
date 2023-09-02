@@ -3,9 +3,66 @@ on:
   push:
     branches:
       - deploy
+
 jobs:
+  lint:
+    name: ESLint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          cache: npm
+          cache-dependency-path: ./package.json
+          node-version: 18
+
+      - name: Install deps
+        run: npm install
+
+      - name: Lint
+        run: npm run lint
+
+  typecheck:
+    name: Typescript
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          cache: npm
+          cache-dependency-path: ./package.json
+          node-version: 18
+
+  vitest:
+    name: vitest
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          cache: npm
+          cache-dependency-path: ./package.json
+          node-version: 18
+
+      - name: Install deps
+        run: npm install
+
+      - name: vitest
+        run: npm run test
+
   build:
     runs-on: ubuntu-latest
+    if: ${{ github.ref == 'refs/heads/deploy' }}
+    needs: []
     steps:
       - uses: actions/checkout@v1
       - name: SSH Remote Commands
@@ -16,6 +73,9 @@ jobs:
           key: ${{ secrets.KEY }}
           port: ${{ secrets.PORT }}
           script: |
-            echo "Nice Job!!!"
-            whoami
-            ls -al
+            cd /var/www/osport/projet-o-sport-back
+            git fetch
+            git checkout deploy
+            git pull
+            npm run build
+            pm2 restart all
