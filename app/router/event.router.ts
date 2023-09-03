@@ -6,8 +6,6 @@ import createEventSchema from '../schemas/event/createEvent.js';
 import { updateEventSchema } from '../schemas/event/updateEvent.js';
 // import getCache from '../middleware/cache.ts';
 import canals from '../helpers/canals.js';
-import { validateEventSchema } from '../schemas/event/validateEvent.js';
-import getEventsSchema from '../schemas/event/getEvents.js';
 import validateUser from '../middleware/validate.user.js';
 
 const router: Router = express.Router();

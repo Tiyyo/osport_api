@@ -13,7 +13,7 @@ export default {
 
     await UserOnSport.addOwnSport(user_id, sport_id, rating);
 
-    await Cache.del([`sport${user_id}`]);
+    await Cache.del([`sport${user_id}`, `own_rating${user_id}`]);
 
     res.status(201).json({ message: 'Sport rated' });
   },
