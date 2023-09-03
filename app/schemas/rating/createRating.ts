@@ -1,7 +1,8 @@
 import * as z from 'zod';
 
 const createRating = z.object({
-  rating: z.enum(['advanced', 'intermediate', 'beginner', 'Advanced', 'Intermediate', 'Beginner']),
+  // rating: z.enum(['advanced', 'intermediate', 'beginner', 'Advanced', 'Intermediate', 'Beginner']),
+  rating: z.string(),
   user_id: z.number().int(),
   sport_id: z.number().int(),
 });
