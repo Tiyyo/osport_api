@@ -13,7 +13,7 @@ export default (key: string) => async (
   try {
     const cacheValue = await Cache.get(paramsKey);
     if (req.method === 'GET' && cacheValue) {
-      return res.status(200).json({ data: cacheValue });
+      return res.status(200).json({ message: 'cached data', data: cacheValue });
     }
     req.body.cacheKey = paramsKey;
     return next();

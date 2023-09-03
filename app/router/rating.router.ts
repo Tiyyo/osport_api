@@ -25,7 +25,7 @@ router.route('/user/sport')
 
 router.route('/user/sport/:id')
   .get(
-    getCache('sport'),
+    // getCache('sport'),
     factory(getSports),
   );
 
