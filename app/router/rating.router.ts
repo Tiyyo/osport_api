@@ -31,7 +31,7 @@ router.route('/user/sport/:id')
 
 router.route('/user/own_rating/:id')
   .get(
-    getCache('own_rating'),
+    // getCache('own_rating'),
     factory(getStartRating),
   );
 
