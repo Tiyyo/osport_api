@@ -6,7 +6,6 @@ const createEventSchema = z.object({
   location: z.string(),
   duration: z.number(),
   nbMaxParticipant: z.number(),
-  eventStatus: z.string(),
   sportId: z.number(),
 });
 

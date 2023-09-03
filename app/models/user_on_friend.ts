@@ -2,6 +2,7 @@ import prisma from '../helpers/db.client.js';
 import type { FriendRequestStatus } from '../@types/index.d.js';
 import DatabaseError from '../helpers/errors/database.error.js';
 import NotFoundError from '../helpers/errors/notFound.error.js';
+import UserInputError from '../helpers/errors/userInput.error.js';
 
 export default {
   find: async (userId: number, status: FriendRequestStatus) => {
@@ -108,6 +109,22 @@ export default {
   },
   create: async ({ asker_id, asked_id }: Record<string, number>) => {
     try {
+      const isExist = await prisma.user_on_friend.findFirst({
+        where: {
+          asker_id,
+          asked_id,
+        },
+      });
+      if (isExist) throw new UserInputError('Friend request already sent');
+
+      const isExistReverse = await prisma.user_on_friend.findFirst({
+        where: {
+          asker_id: asked_id,
+          asked_id: asker_id,
+        },
+      });
+
+      if (isExistReverse) throw new UserInputError('You already have a pending request from this user');
       const result = await prisma.user_on_friend.create({
         data: {
           asker_id,
