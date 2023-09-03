@@ -36,6 +36,7 @@ export async function writeFile(buffer: Buffer) {
     fs.writeFileSync(`${dirname}/../../public/images/${name}.${extension}`, buffer);
     return { relativePath, name };
   } catch (error) {
+    console.log(error);
     throw new Error('Could not write file');
   }
 }

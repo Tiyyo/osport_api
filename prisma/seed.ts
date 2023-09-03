@@ -110,9 +110,9 @@ async function seed() {
 
   if (!admin) throw new Error('Can\'t add relation to admin account');
 
-  const arrayOneToFive = [1, 2, 3, 4, 5];
+  const arrayOneToFiveWithout3 = [1, 2, 4, 5];
 
-  const friendQueries = arrayOneToFive.map((n) => Friend.create({
+  const friendQueries = arrayOneToFiveWithout3.map((n) => Friend.create({
     asker_id: admin.id,
     asked_id: userIds[n],
   }));
