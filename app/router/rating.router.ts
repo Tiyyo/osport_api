@@ -15,7 +15,7 @@ const {
 
 router.route('/user/sport')
   .post(
-    validateSchema(createRatingSchema, canals.body),
+    // validateSchema(createRatingSchema, canals.body),
     factory(rate),
   )
   .patch(
