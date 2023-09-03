@@ -4,7 +4,7 @@ function checkParams(params: any) {
   const parsedParams = parseInt(params, 10);
 
   if (Number.isNaN(parsedParams)) {
-    throw new Error('Invalid params');
+    throw new Error('Invalid params : params must be a number');
   }
   return parsedParams;
 }
