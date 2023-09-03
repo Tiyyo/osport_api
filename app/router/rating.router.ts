@@ -29,10 +29,10 @@ router.route('/user/sport/:id')
     factory(getSports),
   );
 
-// router.route('/user/own_rating/:id')
-//   .get(
-//     // getCache('own_rating'),
-//     factory(getStartRating),
-//   );
+router.route('/user/own_rating/:id')
+  .get(
+    // getCache('own_rating'),
+    factory(getStartRating),
+  );
 
 export default router;
