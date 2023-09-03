@@ -15,7 +15,7 @@ const {
 
 router.route('/:id')
   .get(
-    getCache('participant'),
+    // getCache('participant'),
     factory(getParticipants),
   );
 

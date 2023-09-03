@@ -3,7 +3,6 @@ import errorHandler from '../middleware/error.handler.js';
 import authRouter from './auth.router.js';
 import userRouter from './user.router.js';
 import eventRouter from './event.router.js';
-import NotFoundError from '../helpers/errors/notFound.error.js';
 import participantRouter from './participant.router.js';
 import friendlistRouter from './friendlist.router.js';
 import messageRouter from './message.router.js';
@@ -21,7 +20,7 @@ router.use('/', ratingRouter);
 router.use('/event', eventRouter);
 
 router.use('/test', async (_req, res) => {
-  generateBalancedTeam(31);
+  generateBalancedTeam(5);
   res.send('test');
 });
 router.get('/', async (_req, res) => {

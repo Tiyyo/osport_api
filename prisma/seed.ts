@@ -25,7 +25,51 @@ async function seed() {
     password: 'admin',
   };
 
-  await createUser(testAccount);
+  const steeveAccount = {
+    username: 'steeve',
+    email: 'steeve.matou@gmail.com',
+    password: 'steeve',
+  };
+
+  const guillaumeAccount = {
+    username: 'guillaume',
+    email: 'guillaume@gmail.com',
+    password: 'guillaume',
+  };
+
+  const thomasAccount = {
+    username: 'thomas',
+    email: 'thomas@gmail.com',
+    password: 'thomas',
+  };
+
+  const anthonyAccount = {
+    username: 'anthony',
+    email: 'anthony@gmail.com',
+    password: 'anthony',
+  };
+
+  const denisAccount = {
+    username: 'denis',
+    email: 'denis@gmail.com',
+    password: 'denis',
+  };
+
+  const accounts = [testAccount,
+    steeveAccount,
+    guillaumeAccount,
+    thomasAccount,
+    anthonyAccount,
+    denisAccount];
+
+  const queriesAccount = accounts.map((account) => createUser(account));
+
+  try {
+    await Promise.all(queriesAccount);
+  } catch (error) {
+    logger.info('Seeding account failed');
+    logger.error(error);
+  }
 
   const admin = await prisma.user.findFirst({
     where: { username: testAccount.username },
@@ -196,12 +240,13 @@ async function seed() {
     status: string,
     nbIteration: Array<number>,
     number = 0,
+    halfparticipant = 6,
   ) {
     return nbIteration.map((n) => ({
       event_id,
       user_id: userIds[n + number],
       status,
-      team: n < 6 ? 1 : 2,
+      team: n < halfparticipant ? 1 : 2,
     }));
   }
 
@@ -232,7 +277,7 @@ async function seed() {
 
   const arrayOneToSix = [1, 2, 3, 4, 5, 6];
 
-  const ParticipantR2 = arrayOneToFiveR.map((n) => invitForCloseEvent(n + 5, 'accepted', arrayOneToSix, 10));
+  const ParticipantR2 = arrayOneToFiveR.map((n) => invitForCloseEvent(n + 5, 'accepted', arrayOneToSix, 10, 4));
 
   const eventQueries3 = arrayOneToFiveR.map(() => ({
     date: faker.date.past(),
