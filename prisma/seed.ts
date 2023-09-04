@@ -114,7 +114,7 @@ async function seed() {
 
   const friendQueries = arrayOneToFiveWithout3.map((n) => Friend.create({
     asker_id: admin.id,
-    asked_id: userIds[n],
+    asked_id: userIds[n + 5],
   }));
 
   const arrayFiveToTen = [6, 7, 8, 9, 10, 11];
@@ -122,7 +122,7 @@ async function seed() {
   const friendQueries2 = arrayFiveToTen.map((n) => prisma.user_on_friend.create({
     data: {
       asker_id: admin.id,
-      asked_id: userIds[n],
+      asked_id: userIds[n + 5],
       status: 'accepted',
     },
   }));
@@ -179,17 +179,17 @@ async function seed() {
   const levels = [2, 5, 8];
 
   const ownRatingFootballQueries = arrIteration.map((_, index) => ({
-    user_id: userIds[index + 1],
+    user_id: userIds[index + 5],
     sport_id: 1,
     rating: levels[getRandomInt(0, 3)],
-    rater_id: userIds[index + 1],
+    rater_id: userIds[index + 5],
   }));
 
   const ownRatingBasketballQueries = arrIteration.map((_, index) => ({
-    user_id: userIds[index + 1],
+    user_id: userIds[index + 5],
     sport_id: 2,
     rating: levels[getRandomInt(0, 3)],
-    rater_id: userIds[index + 1],
+    rater_id: userIds[index + 5],
   }));
 
   function allExceptOne(id: number, index: number) {

@@ -5,6 +5,7 @@ import checkParams from '../utils/checkParams.js';
 // import Cache from '../service/cache.js';
 import { generateBalancedTeam } from '../service/generateTeam.js';
 import UserInputError from '../helpers/errors/userInput.error.js';
+import prisma from '../helpers/db.client.js';
 
 export default {
   getParticipants: async (req: Request, res: Response) => {
@@ -44,7 +45,6 @@ export default {
     const event = await Event.findOne({ eventId });
 
     if (event?.nb_max_participant === participants) {
-      // TODO update event status to open -> full
       throw new UserInputError('Event is full');
     }
 
@@ -52,6 +52,14 @@ export default {
 
     if (event?.nb_max_participant === participants + 1) {
       await generateBalancedTeam(eventId);
+      await prisma.event.update({
+        where: {
+          id: eventId,
+        },
+        data: {
+          status: 'full',
+        },
+      });
     }
 
     return res.status(200).json({ message: 'status updated' });
