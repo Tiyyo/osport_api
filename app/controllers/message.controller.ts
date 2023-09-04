@@ -25,6 +25,7 @@ export default {
   update: async (req: Request, res: Response) => {
     const {
       id,
+      // @ts-ignore
       eventId,
       message,
     } = req.body;

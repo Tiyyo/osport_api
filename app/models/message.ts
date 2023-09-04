@@ -7,7 +7,13 @@ export default {
   create: async (data: Prisma.Event_chat_on_userCreateInput) => {
     try {
       await prisma.event_chat_on_user.create({
-        data,
+        data: {
+          // @ts-ignore
+          event_id: data.event,
+          // @ts-ignore
+          user_id: data.user,
+          message: data.message,
+        },
       });
       await prisma.$disconnect();
     } catch (error: any) {
@@ -29,7 +35,7 @@ export default {
     try {
       const result = await prisma.event_chat_on_user.findMany({
         where: { event_id },
-        orderBy: { created_at: 'asc' },
+        orderBy: { created_at: 'desc' },
         include: {
           user: true,
         },
