@@ -9,6 +9,8 @@ export default {
   rate: async (req: Request, res: Response) => {
     const { user_id, sport_id, rating: stringRating } = req.body;
 
+    console.log(user_id, sport_id, stringRating);
+
     const rating = associateStringToNumber(stringRating);
 
     await UserOnSport.addOwnSport(user_id, sport_id, rating);
