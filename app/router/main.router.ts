@@ -20,7 +20,7 @@ router.use('/', ratingRouter);
 router.use('/event', eventRouter);
 
 router.use('/test', async (_req, res) => {
-  generateBalancedTeam(29);
+  generateBalancedTeam(32);
   res.send('test');
 });
 router.get('/', async (_req, res) => {

@@ -41,8 +41,6 @@ export default {
   },
 
   validateEvent: async (req: Request, res: Response) => {
-    console.log(req.body);
-
     const {
       userId,
       eventId,
@@ -54,6 +52,13 @@ export default {
 
       if (!existingEvent) {
         return res.status(200).json({ message: 'This event doesn\'t exist' });
+      }
+
+      const participants = await UserOnEvent.find(eventId);
+      const confirmedParticipants = participants.filter((participant) => participant.status === 'accepted');
+
+      if (confirmedParticipants.length !== existingEvent.nb_max_participant) {
+        return res.status(200).json({ error: 'Not enough confirmed participants' });
       }
 
       // Then, check if the user is the creator of the event

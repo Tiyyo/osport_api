@@ -35,6 +35,8 @@ export default {
     // const keyToDelete = `participant${eventId}`;
     // await Cache.del([keyToDelete, `event${eventId}`]);
 
+    console.log(eventId, user_id, status, 'line 38');
+
     if (status === 'rejected') {
       await UserOnEvent.update(user_id, eventId, status);
       return res.status(204).json({ message: 'status updated' });
@@ -42,13 +44,20 @@ export default {
 
     const participants = await UserOnEvent.findConfirmed(eventId);
 
+    console.log(participants, 'participants', 'line 47');
+
     const event = await Event.findOne({ eventId });
 
+    console.log(event, 'event', 'line 51');
+
     if (event?.nb_max_participant === participants) {
+      console.log('event participants === participants', 'line 54');
       throw new UserInputError('Event is full');
     }
 
-    await UserOnEvent.update(user_id, eventId, status);
+    const resUp = await UserOnEvent.update(user_id, eventId, status);
+
+    console.log(resUp, 'line 60');
 
     if (event?.nb_max_participant === participants + 1) {
       await generateBalancedTeam(eventId);

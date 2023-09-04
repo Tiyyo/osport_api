@@ -24,6 +24,8 @@ export async function generateBalancedTeam(event_id: number) {
     }
   });
 
+  console.log(participants, 'participants');
+
   if (participants.length < required_participants) throw new Error('Not enough participants');
 
   // @ts-ignore
@@ -34,6 +36,8 @@ export async function generateBalancedTeam(event_id: number) {
   const queriesRatings = idsParticipants.map((id) => UserOnSport.getRating(id, event.sport_id));
 
   const valueRating = await Promise.all(queriesRatings);
+
+  console.log(valueRating, 'valueRating');
 
   const ids = Object.values(valueRating.map((rating) => rating.user_id))
   const values = Object.values(valueRating.map((value) => value.gb_rating)) as number[];
@@ -58,7 +62,10 @@ export async function generateBalancedTeam(event_id: number) {
     participants: required_participants,
   };
 
+  console.log(values);
+
   const { team_1, team_2 } = divideInTeam(config);
+
 
   if (!team_1 || !team_2) throw new Error('Teams are not created')
 
@@ -109,14 +116,21 @@ export function divideInTeam(config: TeamGeneratorConfig) {
 
   const player = getPlayerObject(max_index, config.ids, config.values);
 
-  useRandomConditionAtStart(
-    config.participants,
-    config.ids,
-    value_team_1,
-    value_team_2,
-  )
-    ? config.team1.push(player)
-    : config.team2.push(player);
+  function checkIfValueIsZero() {
+    if (player.rating === 0) {
+      config.team1.length < config.team2.length ? config.team1.push(player) : config.team2.push(player);
+    } else {
+      useRandomConditionAtStart(
+        config.participants,
+        config.ids,
+        value_team_1,
+        value_team_2,
+      )
+        ? config.team1.push(player)
+        : config.team2.push(player);
+    }
+  }
+  checkIfValueIsZero();
 
   deleteFromArrayAfterPush(config.ids, config.values, max_index);
 
