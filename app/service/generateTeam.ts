@@ -30,14 +30,11 @@ export async function generateBalancedTeam(event_id: number) {
 
   // @ts-ignore
   const idsParticipants = participants.map((p) => p.user_id);
-  console.log(idsParticipants, 'idsParticipants');
   // @ts-ignore
 
   const queriesRatings = idsParticipants.map((id) => UserOnSport.getRating(id, event.sport_id));
 
   const valueRating = await Promise.all(queriesRatings);
-
-  console.log(valueRating, 'valueRating');
 
   const ids = Object.values(valueRating.map((rating) => rating.user_id))
   const values = Object.values(valueRating.map((value) => value.gb_rating)) as number[];
@@ -62,10 +59,7 @@ export async function generateBalancedTeam(event_id: number) {
     participants: required_participants,
   };
 
-  console.log(values);
-
   const { team_1, team_2 } = divideInTeam(config);
-
 
   if (!team_1 || !team_2) throw new Error('Teams are not created')
 

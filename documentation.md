@@ -210,11 +210,14 @@ Endpoint: `PATCH /user`
 
 Description
 
+Note : userId have to be same as the user id in the token
+a middleware will verify that part on this route
+
 ##### Request Body
 
 ```json
 { 
-"id": 4, // Number
+"userId": 4, // Number
 "email"?: "john.do@example.com", // String
 "username"?: "john", // String
 "password"?: "securePassword",  // String
@@ -264,7 +267,7 @@ Note: The key with the image must be named "image"
 Otherwise the request will not work
 ```json
 {
-"id": 17,
+"id": 12, // String | number
 "image": "insaneurl"
 }
 ```
@@ -373,6 +376,33 @@ Status Code : `200 Ok`
 }
 ```
 
+#### User can retrieve his start rating
+
+Endpoint: `GET /user/own_rating/:id`
+
+User can retrieve the rating he has posted for a sport
+
+
+##### Response
+
+Status Code : `200 Ok`
+
+```json
+{
+    "message": "User start rating",
+    "data": [
+        {
+            "rating": 5,
+            "name": "Football"
+        },
+        {
+            "rating": 2,
+            "name": "BasketBall"
+        }
+    ]
+}
+```
+
 
 
 
@@ -455,6 +485,31 @@ Status Code : `201 Created`
 
 ```json
 { "message": "Friend request sent successfully" }
+```
+
+#### Add friend 
+Endpoint: `POST /user_friends/add`
+
+remplace send routes
+Sends a friend request to a user with his username, email or id.
+
+##### Request Body
+
+```json
+{
+  "username": "John",
+  "email": "john;doe@example.com" ,
+  "userId": 3
+}
+```
+
+##### Response
+
+Status Code : `201 Created`
+
+
+```json
+{ "message": "Friend added successfully "}
 ```
 
 #### Accept friend request
@@ -561,13 +616,13 @@ Send invitation to participant to an event.
 ```json
 {
     "event_id": 1, // Number
-    "user_id": 2  // Number
+    "ids": [2, 7, 8]  // Number | Number[]
 }
 ```
 
 ##### Response
 
-Status Code : `204 No Content`
+Status Code : `201 Created`
 
 ```json
 { "message": "Invitation sent" }
@@ -584,8 +639,8 @@ Update status of an event's participant.
 ```json
 {
     "event_id": 1, // Number
-    "user_id": 2  // Number
-    "status": "accepted" // String (accepted, pending, refused)
+    "user_id": 2,  // Number
+    "status": "accepted" // String (accepted, pending, rejected)
 }
 ```
 
@@ -601,13 +656,14 @@ Status Code : `204 No Content`
 
 ### Message
 
-This module handles operations related to managing messages for events.
+This module handles operations related to managing messages for chat event.
 
 #### Get Historic Messages
 
 Endpoint: `GET /chat/event/:id`
 
 Retrieves historic messages for a specific event.
+Messages are sorted by creation date descendant.
 
 ##### Response
 
@@ -759,6 +815,207 @@ Status Code : `204 No Content`
 </br>
 </br>
 
+### Events
+
+This module handles operations related to managing events.
+
+#### Get Event
+
+Endpoint: `GET /event/:id`
+
+Retrieves all events for specific user.
+
+##### Response
+
+Status Code : `200 Ok`
+
+```json
+{
+    "message": "Events found",
+    "data": [
+        {
+            "id": 32,
+            "date": "2023-09-06T00:00:00.000Z",
+            "location": "city",
+            "duration": 60,
+            "nb_team": 2,
+            "nb_max_participant": 6,
+            "status": "finished",
+            "winner_team": 2,
+            "score_team_1": 7,
+            "score_team_2": 8,
+            "sport_name": "Football",
+            "user_status": "accepted",
+            "user_team": 2
+        },
+        {
+            "id": 28,
+            "date": "2023-09-05T00:00:00.000Z",
+            "location": "paris",
+            "duration": 60, /// min
+            "nb_team": 2,
+            "nb_max_participant": 6,
+            "status": "finished",
+            "winner_team": 1,
+            "score_team_1": 7,
+            "score_team_2": 5,
+            "sport_name": "Football",
+            "user_status": "accepted",
+            "user_team": null
+        },
+    ]
+}
+```
+
+#### Create Event
+
+Endpoint: `POST /event`
+
+Create a new event.
+
+##### Request Body
+
+```json
+{
+    "userId": 1, // Number
+    "eventDate" : "2023-09-05T00:00:00.000Z", // Date
+    "location": "paris", // String
+    "duration": 60, /// min // Number
+    "nbMaxParticipant": 6, // Number
+    "sportId": 1, // Number
+    "eventStatus": "finished", // String
+    "sportId": 1, // Number
+    "message": "Message updated" // String max 255 characters
+}
+```
+
+##### Response
+
+Status Code : `201 Created`
+
+```json
+{ "message": "Event created", "data": event }
+```
+
+#### Update Event
+
+Endpoint: `PATCH /event`
+
+Update an event
+
+##### Request Body
+
+```json
+{
+    "userId": 1, // Number
+    "eventId" : 1, // Number
+    "eventDate" : "2023-09-05T00:00:00.000Z", // Date
+    "location": "paris", // String
+    "duration": 60, /// min // Number
+    "nb_max_participant:": 6, // Number
+    "score_team_1": 7, // Number
+    "score_team_2": 5, // Number
+    "nb_team" : 2, // Number
+    "sport_id": 1, // Number
+}
+```
+
+##### Response
+
+Status Code : `200 Ok`
+
+```json
+{ "message": "Event updated", "data": eventUpdated }
+```
+
+#### Event details
+
+Endpoint: `POST /event/details/:id`
+
+Retrieves one specific event with all details.
+
+
+##### Response
+
+Status Code : `200 Ok`
+
+```json
+{
+    "message": "Event found",
+    "data": {
+        "id": 1,
+        "date": "2022-11-07T19:38:47.750Z",
+        "location": "Daishaburgh",
+        "duration": 60,
+        "nb_team": 2,
+        "nb_max_participant": 10,
+        "status": "closed",
+        "winner_team": 1,
+        "creator_id": 4,
+        "score_team_1": 7,
+        "score_team_2": 2,
+        "sport_id": 1,
+        "created_at": "2023-09-04T07:24:42.620Z",
+        "updated_at": "2023-09-04T14:12:30.203Z"
+    }
+}
+```
+
+#### Validate Event
+
+Endpoint: `PATCH /event/validate`
+
+Update the status of an even to closed
+
+##### Request Body
+
+```json
+{
+    "eventId": 1, // Number
+    "userId": 1, // Number
+}
+```
+
+##### Response
+
+Status Code : `200 Ok`
+
+```json
+{ "message": "Event validated", "data": event }
+```
+
+#### Result
+
+Endpoint: `PATCH /event/results`
+
+Save the result of an event
+
+##### Request Body
+
+```json
+{
+    "userId": 1, // Number
+    "eventId" : 1, // Number
+    "eventDate"? : "2023-09-05T00:00:00.000Z", // Date
+    "location"?: "paris", // String
+    "duration"?: 60, /// min // Number
+    "nb_max_participant:"?: 6, // Number
+    "score_team_1": 7, // Number
+    "score_team_2": 5, // Number
+    "nb_team"? : 2, // Number
+    "sport_id"?: 1, // Number
+}
+```
+
+##### Response
+
+Status Code : `200 Ok`
+
+```json
+{ "message": "Result of the event has been saved", "data": eventUpdated }
+```
+
+
 ## Routers
 
 ### Routers Structure
@@ -849,7 +1106,7 @@ export default class Cache {
   }
 
   static async del(keys: string[]) {
-    redis.del(keys);
+    redis.del(...keys);
   }
 }
 
@@ -866,37 +1123,174 @@ export default upload;
 the body of the request. It is used to ensure that the user is authorized to perform the requested operation.
 
 ```typescript
-const { verify } = jwt;
-
-const validateUser = async (req: Request, res: Response, next: NextFunction) => {
+const validateUser = async (
+  req: Request,
+  _res: Response,
+  next: NextFunction,
+) => {
+  next();
   let token: string = '';
   let userInfos: any = {};
 
   if (req.cookies && req.cookies.accessToken) token = req.cookies.accessToken;
 
-  verify(token, process.env.JWT_TOKEN_KEY as string, (err, decoded) => {
-    if (err) next(new AuthorizationError('Unauthorized user'));
-    userInfos = decoded[0];
-  });
-  if (!userInfos) next(new AuthorizationError('Unauthorized user'));
-  const headersUserId = userInfos.userId;
-  const bodyUserId = req.body.id;
+  verify(token, process.env.JWT_TOKEN_KEY as string, async (err, decoded) => {
+    if (err || !decoded || typeof decoded === 'string') next(new AuthorizationError('Unauthorized'));
+    if (decoded) userInfos = decoded;
 
-  try {
-    const user = await User.getUserInfos(headersUserId);
-    if (headersUserId === bodyUserId && user?.id === bodyUserId) {
-      return next();
-    }
-    res.status(401).json({ error: 'Unauthorized' });
-  } catch (error) {
-    if (error instanceof NotFoundError) {
-      return res.status(401).json({ error: 'Unauthorized' });
-    }
-    return next(error);
-  }
+    const headersUserId = userInfos[0].userId;
+    const bodyUserId = req.body.userId;
+
+    console.log(headersUserId, bodyUserId);
+    if (headersUserId !== bodyUserId) next(new AuthorizationError('Unauthorized user'));
+  });
 };
+
+export default validateUser
 ```
 
 
 ### Purpose
 
+## Algorithm
+
+- The `generateBalancedTeam` function fetches event details and participants from a database, then divides them into balanced teams using the divideInTeam function and update database with the result at the end.
+
+```typescript	
+export async function generateBalancedTeam(event_id: number) {
+
+  const event = await prisma.event.findUnique({
+    where: {
+      id: event_id,
+    }
+  });
+
+  if (!event) throw new Error('Event not found');
+
+  const required_participants = event.nb_max_participant;
+
+  const participants = await prisma.event_on_user.findMany({
+    where: {
+      event_id,
+      status: 'accepted'
+    }
+  });
+
+  console.log(participants, 'participants');
+
+  if (participants.length < required_participants) throw new Error('Not enough participants');
+
+  // @ts-ignore
+  const idsParticipants = participants.map((p) => p.user_id);
+  // @ts-ignore
+
+  const queriesRatings = idsParticipants.map((id) => UserOnSport.getRating(id, event.sport_id));
+
+  const valueRating = await Promise.all(queriesRatings);
+
+  const ids = Object.values(valueRating.map((rating) => rating.user_id))
+  const values = Object.values(valueRating.map((value) => value.gb_rating)) as number[];
+
+  console.info('Algo has started');
+  console.time('Algo time start');
+
+  const team1: Player[] = [];
+  const team2: Player[] = [];
+
+// Create configuration object
+  const config = {
+    team1,
+    team2,
+    ids,
+    values,
+    participants: required_participants,
+  };
+   // Divide participants into two balanced teams
+  const { team_1, team_2 } = divideInTeam(config);
+
+  if (!team_1 || !team_2) throw new Error('Teams are not created')
+
+  if (team_1.length !== team_2.length) throw new Error('Teams are not balanced')
+
+  const updateParticipantsTeam1 = team_1.map((p) => prisma.event_on_user.update({
+    where: {
+      event_id_user_id: {
+        user_id: p.id,
+        event_id,
+      }
+    },
+    data: {
+      team: 1,
+    }
+  }))
+
+  const updateParticipantsTeam2 = team_2.map((p) => prisma.event_on_user.update({
+    where: {
+      event_id_user_id: {
+        user_id: p.id,
+        event_id,
+      }
+    },
+    data: {
+      team: 2,
+    }
+  }))
+
+  const allUpdates = [...updateParticipantsTeam1, ...updateParticipantsTeam2];
+
+  await Promise.all(allUpdates);
+
+  console.log({ team_1, team_2 }, 'this is the result');
+  console.timeEnd('Algo time start');
+
+  return { team_1, team_2 };
+}
+```
+
+-The `divideInTeam` function recursively divides participants into two teams based on their ratings.
+Several utility functions like getRandomArbitrary, useRandomConditionAtStart, deleteFromArrayAfterPush, getMaxIndex, getPlayerObject, and getTeamValue are used to support the main algorithm.
+
+```typescript
+export function divideInTeam(config: TeamGeneratorConfig) {
+  // we check if the participants are even
+  if (config.participants % 2 !== 0) return { error: 'participants must be even' };
+  
+  // we get the value of each team
+  const value_team_1 = getTeamValue(config.team1);
+  const value_team_2 = getTeamValue(config.team2);
+
+  // we get the max values index in ratings array
+  const max_index = getMaxIndex(config.values);
+
+  // we construct our player object
+  const player = getPlayerObject(max_index, config.ids, config.values);
+
+  // check if the value is 0 if yes push to the team with less players
+  // if not and it's first round, we randomaly push to a team
+  // if not and it's not the first round, we push to the team with less value
+  function checkIfValueIsZero() {
+    if (player.rating === 0) {
+      config.team1.length < config.team2.length ? config.team1.push(player) : config.team2.push(player);
+    } else {
+      useRandomConditionAtStart(
+        config.participants,
+        config.ids,
+        value_team_1,
+        value_team_2,
+      )
+        ? config.team1.push(player)
+        : config.team2.push(player);
+    }
+  }
+  checkIfValueIsZero();
+
+  // delete the player from reference arrays each rounds
+  deleteFromArrayAfterPush(config.ids, config.values, max_index);
+
+  // the recursion will stop when the ids array is empty
+  if (config.ids.length !== 0) {
+    divideInTeam(config);
+  }
+  return { team_1: config.team1, team_2: config.team2 };
+}
+```
