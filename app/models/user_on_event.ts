@@ -4,7 +4,6 @@ import NotFoundError from '../helpers/errors/notFound.error.js';
 
 export default {
   find: async (event_id?: number, user_id?: number) => {
-    console.log(event_id, user_id);
     try {
       const userOnEvent = await prisma.event_on_user.findMany({
         where: {

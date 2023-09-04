@@ -125,8 +125,11 @@ export default {
   GROUP BY sport.name`;
 
       const result: SportLevel = sportLevelResult[0];
+      console.log(result, 'Result line 128');
 
       const sport = { name: sport_id === 1 ? 'Football' : 'Basketball', gb_rating: result ? Number(result.gb_rating) : 5, user_id };
+
+      console.log(sport, 'this is the sport', 'line 131 user on port');
 
       await prisma.$disconnect();
       return sport;

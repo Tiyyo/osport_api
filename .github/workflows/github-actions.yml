@@ -2,7 +2,7 @@ name: SSH Remote Commands
 on:
   push:
     branches:
-      - deploy
+      - main
 
 jobs:
   # lint:
@@ -74,9 +74,9 @@ jobs:
           script: |
             cd /var/www/osport/projet-o-sport-back
             git fetch
-            git checkout deploy
-            git reset --hard origin/deploy
-            git pull origin deploy
+            git checkout main
+            git reset --hard origin/main
+            git pull origin main
 
       - name: Checkout repo
         uses: actions/checkout@v3

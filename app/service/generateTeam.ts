@@ -1,7 +1,6 @@
 import type { Player, TeamGeneratorConfig } from '../@types/index.js';
 import UserOnSport from '../models/user_on_sport.js';
 import prisma from '../helpers/db.client.js';
-import logger from '../helpers/logger.js';
 
 /* eslint-disable */
 
@@ -24,18 +23,20 @@ export async function generateBalancedTeam(event_id: number) {
       status: 'accepted'
     }
   });
+
+  if (participants.length < required_participants) throw new Error('Not enough participants');
+
   // @ts-ignore
   const idsParticipants = participants.map((p) => p.user_id);
+  console.log(idsParticipants, 'idsParticipants');
   // @ts-ignore
 
   const queriesRatings = idsParticipants.map((id) => UserOnSport.getRating(id, event.sport_id));
 
   const valueRating = await Promise.all(queriesRatings);
-  console.log(valueRating, 'this is the result');
+
   const ids = Object.values(valueRating.map((rating) => rating.user_id))
   const values = Object.values(valueRating.map((value) => value.gb_rating)) as number[];
-
-  console.log(valueRating, 'this is the result');
 
   console.info('Algo has started');
   console.time('Algo time start');
@@ -46,8 +47,8 @@ export async function generateBalancedTeam(event_id: number) {
   const team1: Player[] = [];
   const team2: Player[] = [];
 
-  logger.debug('ids', ids);
-  logger.debug('values', values);
+  // logger.debug('ids', ids);
+  // logger.debug('values', values);
 
   const config = {
     team1,
