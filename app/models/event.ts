@@ -109,7 +109,8 @@ export default {
     event.score_team_1,
     event.score_team_2,
     sport.name as sport_name,
-    participant.status as user_status
+    participant.status as user_status,
+    participant.team as user_team
   FROM "Event" AS event
   INNER JOIN "Event_on_user" AS participant ON participant.event_id = event.id
   INNER JOIN "Sport" AS sport ON sport.id = event.sport_id
