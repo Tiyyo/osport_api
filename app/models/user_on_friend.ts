@@ -86,7 +86,7 @@ export default {
         },
       });
       await prisma.$disconnect();
-      if (!result) throw new NotFoundError('No pending request found');
+      if (result.length === 0) throw new NotFoundError('No pending request found');
       // @ts-ignore
       const data = result.map((relation) => ({
         user_id: relation.asked_id,
