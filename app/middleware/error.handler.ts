@@ -9,10 +9,9 @@ import UserInputError from '../helpers/errors/userInput.error.js';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const errorHandler = (error: any, _req: Request, res: Response, _next: NextFunction) => {
-  logger.info(error);
-  logger.error(error);
-  logger.debug(error);
-  console.log(error);
+  if (res.app.get('env') === 'development') {
+    console.log(error);
+  }
   if (error instanceof AuthorizationError
     || error instanceof ServerError
     || error instanceof NotFoundError

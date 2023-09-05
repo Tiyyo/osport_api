@@ -143,39 +143,6 @@ async function seed() {
     logger.error('Seeding friend failed');
   }
 
-  // const testData = {
-  //   date: faker.date.future(),
-  //   location: faker.location.city(),
-  //   duration: 60,
-  //   nb_max_participant: 10,
-  //   user_id: admin.id,
-  //   sport_id: 1,
-  // };
-
-  // try {
-  //   await prisma.event.create({
-  //     data: {
-  //       date: testData.date,
-  //       location: testData.location,
-  //       duration: 60,
-  //       nb_max_participant: 10,
-  //       creator: {
-  //         connect: { id: testData.user_id },
-  //       },
-  //       sport: {
-  //         connect: {
-  //           id: 1,
-  //         },
-  //       },
-  //     },
-  //   });
-  // } catch (error) {
-  //   console.log(error);
-  //   console.log('event is failling');
-  // }
-
-  // user rate himlsef
-
   const levels = [2, 5, 8];
 
   const ownRatingFootballQueries = arrIteration.map((_, index) => ({
@@ -343,7 +310,6 @@ async function seed() {
       data: participantQueries,
     });
   } catch (error) {
-    console.log(error);
     logger.info('Seeding event on user failed');
     logger.error(error);
   }

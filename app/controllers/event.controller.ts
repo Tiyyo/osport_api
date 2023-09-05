@@ -3,7 +3,6 @@ import EventModel from '../models/event.js';
 import UserOnEvent from '../models/user_on_event.js';
 import findWinnerTeam from '../utils/findWinner.js';
 import checkParams from '../utils/checkParams.js';
-// import UserOnEvent from '../models/user_on_event.ts';
 
 export default {
 

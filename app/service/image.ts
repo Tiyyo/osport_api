@@ -2,6 +2,7 @@ import crypto from 'crypto';
 import * as url from 'url';
 import fs from 'fs';
 import sharp from 'sharp';
+import ServerError from '../helpers/errors/server.error.js';
 
 const dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
@@ -36,8 +37,7 @@ export async function writeFile(buffer: Buffer) {
     fs.writeFileSync(`${dirname}/../../public/images/${name}.${extension}`, buffer);
     return { relativePath, name };
   } catch (error) {
-    console.log(error);
-    throw new Error('Could not write file');
+    throw new Error(`Could not write file :${error}`);
   }
 }
 
@@ -58,7 +58,6 @@ export async function deleteImageFromServer(relativePath: string) {
   try {
     fs.rmSync(`${dirname}/../../public${relativePath}`);
   } catch (error) {
-    console.log(error);
-    throw new Error('Could not delete file');
+    throw new ServerError(`Could not delete file${error}`);
   }
 }

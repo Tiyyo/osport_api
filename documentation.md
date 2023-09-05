@@ -1141,7 +1141,6 @@ const validateUser = async (
     const headersUserId = userInfos[0].userId;
     const bodyUserId = req.body.userId;
 
-    console.log(headersUserId, bodyUserId);
     if (headersUserId !== bodyUserId) next(new AuthorizationError('Unauthorized user'));
   });
 };
@@ -1176,7 +1175,6 @@ export async function generateBalancedTeam(event_id: number) {
     }
   });
 
-  console.log(participants, 'participants');
 
   if (participants.length < required_participants) throw new Error('Not enough participants');
 
@@ -1191,8 +1189,6 @@ export async function generateBalancedTeam(event_id: number) {
   const ids = Object.values(valueRating.map((rating) => rating.user_id))
   const values = Object.values(valueRating.map((value) => value.gb_rating)) as number[];
 
-  console.info('Algo has started');
-  console.time('Algo time start');
 
   const team1: Player[] = [];
   const team2: Player[] = [];
@@ -1239,9 +1235,6 @@ export async function generateBalancedTeam(event_id: number) {
   const allUpdates = [...updateParticipantsTeam1, ...updateParticipantsTeam2];
 
   await Promise.all(allUpdates);
-
-  console.log({ team_1, team_2 }, 'this is the result');
-  console.timeEnd('Algo time start');
 
   return { team_1, team_2 };
 }

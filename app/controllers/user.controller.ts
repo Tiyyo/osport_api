@@ -61,8 +61,6 @@ export default {
   updateUser: async (req: Request, res: Response) => {
     const { id, ...data } = req.body;
 
-    console.log('Controller is called');
-
     const user = await UserModel.updateUser(id, data);
 
     return res.status(200).json({ message: 'User has been updated', data: user });

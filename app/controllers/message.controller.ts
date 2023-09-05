@@ -26,7 +26,7 @@ export default {
     const {
       id,
       // @ts-ignore
-      eventId,
+      // eventId,
       message,
     } = req.body;
 

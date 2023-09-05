@@ -139,8 +139,6 @@ export default {
     }
   },
   update: async (askerId: number, askedId: number, status: FriendRequestStatus) => {
-    console.log(askerId, askedId, status);
-
     const firstQuery = prisma.user_on_friend.update({
       where: {
         asked_id_asker_id: {

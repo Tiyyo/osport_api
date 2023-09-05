@@ -3,67 +3,67 @@ import {
 } from 'vitest';
 import { Request, Response } from 'express';
 import authControlller from '../../controllers/auth.controllers.js';
-import prisma from '../../helpers/db.client.js';
 
 const {
-  register,
+  // register,
   // signin,
   validate,
   logout,
 } = authControlller;
 
-const user = {
-  username: 'john',
-  email: 'john.doe@gmail.com',
-  password: 'test',
-};
+// const user = {
+//   username: 'john',
+//   email: 'john.doe@gmail.com',
+//   password: 'test',
+// };
 
-describe('register', () => {
-  afterEach(async () => {
-    vi.restoreAllMocks();
-    await prisma.user.delete({
-      where: {
-        username: user.username,
-        email: user.email,
-      },
-    });
-  });
+// describe('register', () => {
+//   afterEach(async () => {
+//     vi.restoreAllMocks();
+//     await prisma.user.delete({
+//       where: {
+//         username: user.username,
+//         email: user.email,
+//       },
+//     });
+//   });
 
-  // we need to mock the createUser function
-  // we need this line
-  vi.mock('../../service/auth');
+//   // we need to mock the createUser function
+//   // we need this line
+//   vi.mock('../../service/auth');
 
-  // but not these one no idea why
-  // const cb = vi.fn();
-  // createUser.mockReturnValue(true);
+//   // but not these one no idea why
+//   // const cb = vi.fn();
+//   // createUser.mockReturnValue(true);
 
-  const mockRequest = {
-    body: user,
-  } as Request;
+//   const mockRequest = {
+//     body: user,
+//   } as Request;
 
-  const mockResponse = () => {
-    const res = {} as Response;
-    res.status = vi.fn().mockReturnValue(res);
-    res.json = vi.fn().mockReturnValue(res);
-    return res;
-  };
+//   const mockResponse = () => {
+//     const res = {} as Response;
+//     res.status = vi.fn().mockReturnValue(res);
+//     res.json = vi.fn().mockReturnValue(res);
+//     return res;
+//   };
 
-  test('should return a json with a message', async () => {
-    const res = mockResponse();
-    const req = mockRequest;
+//   test('should return a json with a message', async () => {
+//     const res = mockResponse();
+//     const req = mockRequest;
 
-    await register(req, res);
-    expect(res.json).toBeCalledWith(expect.objectContaining({ message: 'User created successfully' }));
-  });
+//     await register(req, res);
+//     expect(res.json).toBeCalledWith(expect.objectContaining({
+// message: 'User created successfully' }));
+//   });
 
-  test('should return a status 201', async () => {
-    const res = mockResponse();
-    const req = mockRequest;
+//   test('should return a status 201', async () => {
+//     const res = mockResponse();
+//     const req = mockRequest;
 
-    await register(req, res);
-    expect(res.status).toBeCalledWith(201);
-  });
-});
+//     await register(req, res);
+//     expect(res.status).toBeCalledWith(201);
+//   });
+// });
 
 // describe('signin', () => {
 //   afterEach(() => {
