@@ -17,6 +17,7 @@ const errorHandler = (error: any, _req: Request, res: Response, _next: NextFunct
     || error instanceof NotFoundError
   ) {
     logger.error(`${error.name} ${error.message}`);
+    console.log('error handler is working');
     return res.status(error.status).json({ error: error.userMessage });
   }
 

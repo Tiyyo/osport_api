@@ -20,7 +20,7 @@ const {
 // GET -> /user
 router.route('/:id')
   .get(factory(getUser))
-  .delete(factory(deleteUser));
+  .delete(validateUser, factory(deleteUser));
 
 // PATCH -> /user
 router.route('/')
