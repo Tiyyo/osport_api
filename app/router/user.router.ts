@@ -6,6 +6,7 @@ import validateUser from '../middleware/validate.user.js';
 import updateUserSchema from '../schemas/user/updateUser.js';
 import validateSchema from '../middleware/schemas.validator.js';
 import canals from '../helpers/canals.js';
+import getCache from '../middleware/cache.js';
 
 const router: Router = express.Router();
 
@@ -17,16 +18,13 @@ const {
   updateUser,
 } = userController;
 
-// GET -> /user
 router.route('/:id')
-  .get(factory(getUser))
+  .get(getCache('user'), factory(getUser))
   .delete(validateUser, factory(deleteUser));
 
-// PATCH -> /user
 router.route('/')
   .patch(validateUser, validateSchema(updateUserSchema, canals.body), factory(updateUser));
 
-// PATCH -> /user/image
 router.route('/image')
   .patch(upload.single('image'), factory(updateImage));
 
