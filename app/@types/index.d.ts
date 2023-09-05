@@ -38,3 +38,14 @@ export type TeamGeneratorConfig = {
 export type UserInfos = {
   userId: number;
 };
+
+export type ChatMessage = {
+  id?: number;
+  message: string;
+  username?: string;
+  userId: number;
+  eventId: number;
+  created_at: Date;
+  updated_at?: Date;
+  avatar?: string;
+};

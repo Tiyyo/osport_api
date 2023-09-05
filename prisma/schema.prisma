@@ -134,6 +134,7 @@ model Event_chat_on_user {
   user       User      @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
   user_id    Int
   message    String
+  avatar     String?
   created_at DateTime  @default(now())
   updated_at DateTime? @updatedAt
 }
