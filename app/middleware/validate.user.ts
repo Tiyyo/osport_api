@@ -1,7 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 import checkParams from '../utils/checkParams.js';
-import type { UserInfos } from '../@types/index.d.ts';
 
 const { verify } = jwt;
 
