@@ -20,6 +20,8 @@ export type AllowedUserUpdate = {
 };
 export type FriendRequestStatus = 'pending' | 'accepted' | 'rejected';
 
+export type Levels = 'beginner' | 'intermediate' | 'advanced';
+
 export type Player = {
   id: number;
   rating: number;
@@ -33,4 +35,6 @@ export type TeamGeneratorConfig = {
   team2: Player[];
 };
 
-export type Levels = 'beginner' | 'intermediate' | 'advanced';
+export type UserInfos = {
+  userId: number;
+};

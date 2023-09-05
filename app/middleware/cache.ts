@@ -12,10 +12,10 @@ export default (key: string) => async (
   if (req.params.id) paramsKey = key + req.params.id;
   try {
     const cacheValue = await Cache.get(paramsKey);
+    req.body.cacheKey = paramsKey;
     if (req.method === 'GET' && cacheValue) {
       return res.status(200).json({ message: 'cached data', data: cacheValue });
     }
-    req.body.cacheKey = paramsKey;
     return next();
   } catch (error) {
     logger.error(error);

@@ -10,10 +10,11 @@ import prisma from '../helpers/db.client.js';
 export default {
   getParticipants: async (req: Request, res: Response) => {
     const id = checkParams(req.params.id);
+    // const { cacheKey } = req.body;
 
     const participants = await UserOnEvent.find(id);
 
-    // await Cache.set(`participant${id}`, participants);
+    // await Cache.set(cacheKey, participants);
 
     res.status(200).json({ message: 'Participant retrieved succesfully', data: participants });
   },

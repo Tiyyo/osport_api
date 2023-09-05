@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
-import AuthorizationError from '../helpers/errors/unauthorized.error.js';
 import checkParams from '../utils/checkParams.js';
+import type { UserInfos } from '../@types/index.d.ts';
 
 const { verify } = jwt;
 
@@ -11,7 +11,7 @@ const validateUser = async (
   next: NextFunction,
 ) => {
   let token: string = '';
-  let userInfos: any = {};
+  let userInfos: any = null;
   let requestUserId: string | number = '';
 
   if (req.cookies && req.cookies.accessToken) token = req.cookies.accessToken;
@@ -33,8 +33,7 @@ const validateUser = async (
       return next();
     });
   } catch (error) {
-    res.status(401);
-    // next(error);
+    res.status(401).json({ error: 'Unauthorized user' });
   }
 };
 
