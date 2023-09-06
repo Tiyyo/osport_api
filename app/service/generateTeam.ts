@@ -5,7 +5,6 @@ import Cache from './cache.js';
 
 /* eslint-disable */
 
-// will take an event_id as parameter
 export async function generateBalancedTeam(event_id: number) {
 
   const event = await prisma.event.findUnique({
@@ -29,7 +28,6 @@ export async function generateBalancedTeam(event_id: number) {
 
   // @ts-ignore
   const idsParticipants = participants.map((p) => p.user_id);
-  // @ts-ignore
 
   const queriesRatings = idsParticipants.map((id) => UserOnSport.getRating(id, event.sport_id));
 

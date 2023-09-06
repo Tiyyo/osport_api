@@ -18,7 +18,7 @@ export type AllowedUserUpdate = {
   password?: string;
   imageUrl?: string;
 };
-export type FriendRequestStatus = 'pending' | 'accepted' | 'rejected';
+export type RequestStatus = 'pending' | 'accepted' | 'rejected';
 
 export type Levels = 'beginner' | 'intermediate' | 'advanced';
 
@@ -48,4 +48,10 @@ export type ChatMessage = {
   created_at: Date;
   updated_at?: Date;
   avatar?: string;
+};
+
+type SportLevel = {
+  name: string,
+  gb_rating: number | null,
+  user_id?: number,
 };

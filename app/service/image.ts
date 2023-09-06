@@ -25,7 +25,7 @@ export async function getExtension(buffer: Buffer) {
     const extension = await sharp(buffer).metadata().then((metadata) => metadata.format);
     return extension;
   } catch (error) {
-    throw new Error('Could not get extension');
+    throw new ServerError('Could not get extension');
   }
 }
 
@@ -37,7 +37,7 @@ export async function writeFile(buffer: Buffer) {
     fs.writeFileSync(`${dirname}/../../public/images/${name}.${extension}`, buffer);
     return { relativePath, name };
   } catch (error) {
-    throw new Error(`Could not write file :${error}`);
+    throw new ServerError(`Could not write file :${error}`);
   }
 }
 

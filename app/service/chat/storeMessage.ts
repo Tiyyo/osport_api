@@ -18,23 +18,27 @@ export const storeInRedis = async (messageInfos: ChatMessage, historyKey: string
       await redis.rpop(historyKey);
     }
     await redis.lpush(historyKey, JSON.stringify(messageInfos));
-    logger.info('Message stored in history');
+    logger.info(`Message stored in ${historyKey} historic`);
   }
 };
 
 export const storeInPostgres = async (messageInfos: ChatMessage) => {
   // store in postgres
-  await prisma.event_chat_on_user.create(
-    {
-      data: {
-        message: messageInfos.message,
-        user_id: messageInfos.userId,
-        event_id: messageInfos.eventId,
-        created_at: messageInfos.created_at,
-        avatar: messageInfos.avatar,
+  try {
+    await prisma.event_chat_on_user.create(
+      {
+        data: {
+          message: messageInfos.message,
+          user_id: messageInfos.userId,
+          event_id: messageInfos.eventId,
+          created_at: messageInfos.created_at,
+          avatar: messageInfos.avatar,
+        },
       },
-    },
-  );
+    );
+  } catch (error: any) {
+    console.log(error);
+  }
 };
 
 export const getHistory = async (historyKey: string) => {

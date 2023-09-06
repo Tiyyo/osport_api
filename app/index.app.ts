@@ -17,11 +17,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(`${dirname}/../public`)));
 
-// // Cors should not be used that way in production
-// // the corsOptions should be set to the origin of the client
-// // app.use(cors(corsOptions))
-
-app.use(cors({ credentials: true, origin: 'http://localhost:5173' }));
+app.use(cors({ credentials: true, origin: process.env.CLIENT_URL }));
 
 app.use(router);
 

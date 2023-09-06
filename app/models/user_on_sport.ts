@@ -1,12 +1,7 @@
 import prisma from '../helpers/db.client.js';
 import DatabaseError from '../helpers/errors/database.error.js';
 import UserInputError from '../helpers/errors/userInput.error.js';
-
-type SportLevel = {
-  name: string,
-  gb_rating: number | null,
-  user_id?: number,
-};
+import type { SportLevel } from '../@types/index.js';
 
 export default {
 
@@ -57,7 +52,6 @@ export default {
     }
   },
   getRatings: async (user_id: number) => {
-    // (user_id , sport_id)
     try {
       const resultFoot: any = await prisma.$queryRaw`
     SELECT sport.name ,
@@ -125,7 +119,9 @@ export default {
   GROUP BY sport.name`;
 
       const result: SportLevel = sportLevelResult[0];
-
+      // need to return a default rating of 5 if no rating is found
+      // in order to not break the algorithm
+      // this is the only role for this function in the app
       const sport = { name: sport_id === 1 ? 'Football' : 'Basketball', gb_rating: result ? Number(result.gb_rating) : 5, user_id };
 
       await prisma.$disconnect();

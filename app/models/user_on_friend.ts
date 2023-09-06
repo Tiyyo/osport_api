@@ -1,11 +1,11 @@
 import prisma from '../helpers/db.client.js';
-import type { FriendRequestStatus } from '../@types/index.d.js';
+import type { RequestStatus } from '../@types/index.d.js';
 import DatabaseError from '../helpers/errors/database.error.js';
 import NotFoundError from '../helpers/errors/notFound.error.js';
 import UserInputError from '../helpers/errors/userInput.error.js';
 
 export default {
-  find: async (userId: number, status: FriendRequestStatus) => {
+  find: async (userId: number, status: RequestStatus) => {
     try {
       const result = await prisma.user_on_friend.findMany({
         where: {
@@ -138,7 +138,7 @@ export default {
       throw new DatabaseError(error.message, 'user_on_friend', error);
     }
   },
-  update: async (askerId: number, askedId: number, status: FriendRequestStatus) => {
+  update: async (askerId: number, askedId: number, status: RequestStatus) => {
     const firstQuery = prisma.user_on_friend.update({
       where: {
         asked_id_asker_id: {

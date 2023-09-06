@@ -17,7 +17,6 @@ const errorHandler = (error: any, _req: Request, res: Response, _next: NextFunct
     || error instanceof NotFoundError
   ) {
     logger.error(`${error.name} ${error.message}`);
-    console.log('error handler is working');
     return res.status(error.status).json({ error: error.userMessage });
   }
 
@@ -31,15 +30,20 @@ const errorHandler = (error: any, _req: Request, res: Response, _next: NextFunct
     return res.status(200).json({ error: error.userMessage });
   }
 
-  if (error instanceof ValidationError) {
+  if (error instanceof ValidationError && res.app.get('env') === 'development') {
     logger.error(`${error.name} ${error.message}`);
     return res.status(200).json({ error: `${error.userMessage} ${JSON.stringify(error.fieldErrors).replace(/[!@#$%^&\\/{}:*]/g, '').replace(/["]/g, ' ')}` });
+  }
+
+  if (error instanceof ValidationError) {
+    logger.error(`${error.name} ${error.message}`);
+    return res.status(200).json({ error: `${error.userMessage}` });
   }
 
   if (res.app.get('env') !== 'development') {
     return res.status(500).send('Internal Server Error');
   }
-  const unknowError = 'Unknow error';
+  const unknowError = 'Unknow Error';
 
   logger.error(`${unknowError + error.message}`);
   return res.status(500).send({ error: error.message });

@@ -14,8 +14,6 @@ const initSocket = async (server, options) => {
   const io = new Server(server, options);
 
   io.on('connection', (socket) => {
-    logger.info('A new user has logged in');
-
     socket.on('join_event_chat', async (nameoftheroom) => {
       // nameoftheroom devrait toujours être de cette forme : chatevent${eventId}
       socket.join(nameoftheroom);
@@ -36,7 +34,7 @@ const initSocket = async (server, options) => {
       socket.data.userId = userId;
     });
 
-    socket.on('user_sent_message', (message: string, avatar: string, eventId) => {
+    socket.on('user_sent_message', async (message: string, avatar: string, eventId) => {
       // on ecoute le message envoyé par l'utilisateur
       // on regarde dans quelle room il a été posté
       // on envoie le message à tous les utilisateurs de la room
@@ -60,8 +58,12 @@ const initSocket = async (server, options) => {
         created_at: new Date(),
         avatar,
       };
-      storeInRedis(messageToStore, `chatevent${eventId}`);
-      storeInPostgres(messageToStore);
+      storeInRedis(messageToStore, 'chatevent01');
+      try {
+        await storeInPostgres(messageToStore);
+      } catch (error) {
+        logger.error(error);
+      }
     });
   });
 };

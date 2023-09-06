@@ -199,7 +199,7 @@ async function seed() {
     nb_max_participant: 10,
     creator_id: admin.id,
     sport_id: 1,
-    status: 'full',
+    status: 'closed',
   }));
 
   function invitForCloseEvent(

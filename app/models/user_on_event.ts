@@ -1,6 +1,7 @@
 import prisma from '../helpers/db.client.js';
 import DatabaseError from '../helpers/errors/database.error.js';
 import NotFoundError from '../helpers/errors/notFound.error.js';
+import type { RequestStatus } from '../@types/index.js';
 
 export default {
   find: async (event_id?: number, user_id?: number) => {
@@ -58,7 +59,7 @@ export default {
       throw new DatabaseError(error.message, 'user_on_event', error);
     }
   },
-  update: async (user_id: number, event_id: number, status: string, team?: number) => {
+  update: async (user_id: number, event_id: number, status: RequestStatus, team?: number) => {
     try {
       const result = await prisma.event_on_user.update({
         where: {

@@ -24,6 +24,7 @@ const validateUser = async (
       if (req.method === 'GET' || req.method === 'DELETE') {
         requestUserId = checkParams(req.params.id);
       }
+
       if (req.method === 'PUT' || req.method === 'PATCH') {
         requestUserId = req.body.userId;
       }
