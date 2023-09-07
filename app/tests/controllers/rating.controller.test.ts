@@ -4,6 +4,7 @@ import {
 import { Request, Response } from 'express';
 import ratingController from '../../controllers/rating.controller.js';
 import UserOnSport from '../../models/user_on_sport.js';
+import Cache from '../../service/cache.js';
 
 const {
   rate, updateRating, getStartRating, getSports,
@@ -33,6 +34,7 @@ describe('rate', () => {
     const res = mockResponse();
     const req = mockRequest;
     UserOnSport.addOwnSport = vi.fn().mockResolvedValue(true);
+    Cache.del = vi.fn().mockResolvedValue(true);
 
     await rate(req, res);
     expect(res.json).toBeCalledWith(expect.objectContaining({ message: 'Sport rated' }));
@@ -41,9 +43,19 @@ describe('rate', () => {
     const res = mockResponse();
     const req = mockRequest;
     UserOnSport.addOwnSport = vi.fn().mockResolvedValue(true);
+    Cache.del = vi.fn().mockResolvedValue(true);
 
     await rate(req, res);
     expect(res.status).toBeCalledWith(201);
+  });
+  test('should invalid cache with correct key', async () => {
+    const res = mockResponse();
+    const req = mockRequest;
+    UserOnSport.addOwnSport = vi.fn().mockResolvedValue(true);
+    Cache.del = vi.fn().mockResolvedValue(true);
+
+    await rate(req, res);
+    expect(Cache.del).toBeCalledWith(['sport1', 'own_rating1']);
   });
 });
 
@@ -68,6 +80,7 @@ describe('updateRating', () => {
       },
     } as Request;
     UserOnSport.updateSportRating = vi.fn().mockResolvedValue(true);
+    Cache.del = vi.fn().mockResolvedValue(true);
 
     const res = mockResponse();
     const req = mockRequest;
@@ -85,8 +98,10 @@ describe('updateRating', () => {
       },
     } as Request;
     UserOnSport.updateSportRating = vi.fn().mockResolvedValue(true);
+    Cache.del = vi.fn().mockResolvedValue(true);
     const res = mockResponse();
     const req = mockRequest;
+
     await updateRating(req, res);
     expect(res.status).toBeCalledWith(200);
   });
@@ -100,9 +115,28 @@ describe('updateRating', () => {
       },
     } as Request;
     UserOnSport.updateSportRating = vi.fn().mockResolvedValue(true);
+    Cache.del = vi.fn().mockResolvedValue(true);
+
     const res = mockResponse();
     const req = mockRequest;
     await expect(updateRating(req, res)).rejects.toThrow('You cannot rate yourself');
+  });
+  test('should invalid cache with correct key', async () => {
+    const mockRequest = {
+      body: {
+        user_id: 1,
+        sport_id: 1,
+        rating: 2,
+        rater_id: 2,
+      },
+    } as Request;
+    UserOnSport.updateSportRating = vi.fn().mockResolvedValue(true);
+    Cache.del = vi.fn().mockResolvedValue(true);
+
+    const res = mockResponse();
+    const req = mockRequest;
+    await updateRating(req, res);
+    expect(Cache.del).toBeCalledWith(['sport1']);
   });
 });
 
@@ -140,6 +174,7 @@ describe('getStartRating', () => {
 
   test('should return a json with a message', async () => {
     UserOnSport.getStartRating = vi.fn().mockResolvedValue(ownRatingPayload);
+    Cache.set = vi.fn().mockResolvedValue(true);
     const res = mockResponse();
     const req = mockRequest;
     await getStartRating(req, res);
@@ -147,6 +182,7 @@ describe('getStartRating', () => {
   });
   test('should return a json with a data', async () => {
     UserOnSport.getStartRating = vi.fn().mockResolvedValue(ownRatingPayload);
+    Cache.set = vi.fn().mockResolvedValue(true);
     const res = mockResponse();
     const req = mockRequest;
     await getStartRating(req, res);
@@ -155,10 +191,19 @@ describe('getStartRating', () => {
 
   test('should return a status 200', async () => {
     UserOnSport.getStartRating = vi.fn().mockResolvedValue(ownRatingPayload);
+    Cache.set = vi.fn().mockResolvedValue(true);
     const res = mockResponse();
     const req = mockRequest;
     await getStartRating(req, res);
     expect(res.status).toBeCalledWith(200);
+  });
+  test('should call cache service with correct key', async () => {
+    UserOnSport.getStartRating = vi.fn().mockResolvedValue(ownRatingPayload);
+    Cache.set = vi.fn().mockResolvedValue(true);
+    const res = mockResponse();
+    const req = mockRequest;
+    await getStartRating(req, res);
+    expect(Cache.set).toBeCalledWith('test', ownRatingPayload);
   });
 });
 
@@ -195,6 +240,7 @@ describe('getSports', () => {
   ];
   test('should return a json with a message', async () => {
     UserOnSport.getRatings = vi.fn().mockResolvedValue(RatingPayload);
+    Cache.set = vi.fn().mockResolvedValue(true);
     const res = mockResponse();
     const req = mockRequest;
     await getSports(req, res);
@@ -202,6 +248,7 @@ describe('getSports', () => {
   });
   test('should return a json with a data', async () => {
     UserOnSport.getRatings = vi.fn().mockResolvedValue(RatingPayload);
+    Cache.set = vi.fn().mockResolvedValue(true);
     const res = mockResponse();
     const req = mockRequest;
     await getSports(req, res);
@@ -209,9 +256,18 @@ describe('getSports', () => {
   });
   test('should return a status 200', async () => {
     UserOnSport.getRatings = vi.fn().mockResolvedValue(RatingPayload);
+    Cache.set = vi.fn().mockResolvedValue(true);
     const res = mockResponse();
     const req = mockRequest;
     await getSports(req, res);
     expect(res.status).toBeCalledWith(200);
+  });
+  test('should call cache service with correct key', async () => {
+    UserOnSport.getRatings = vi.fn().mockResolvedValue(RatingPayload);
+    Cache.set = vi.fn().mockResolvedValue(true);
+    const res = mockResponse();
+    const req = mockRequest;
+    await getSports(req, res);
+    expect(Cache.set).toBeCalledWith('test', RatingPayload);
   });
 });

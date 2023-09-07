@@ -5,6 +5,7 @@ import bcrypt from 'bcrypt';
 import User from '../../models/user.js';
 import authService from '../../service/auth.js';
 import UserInputError from '../../helpers/errors/userInput.error.js';
+import '../../helpers/env.load.js';
 
 const { createUser, login } = authService;
 

@@ -4,6 +4,7 @@ import {
 import { Request, Response } from 'express';
 import userController from '../../controllers/user.controller.js';
 import User from '../../models/user.js';
+import Cache from '../../service/cache.js';
 
 const { getUser, deleteUser, updateUser } = userController;
 
@@ -34,6 +35,8 @@ describe('getUser', () => {
   test('should return a json with a message', async () => {
     const res = mockResponse();
     const req = mockRequest;
+    User.getUserInfos = vi.fn().mockResolvedValue(userInfosPayload);
+    Cache.set = vi.fn().mockResolvedValue(true);
 
     await getUser(req, res);
     expect(res.json).toBeCalledWith(expect.objectContaining({ message: 'User informations' }));
@@ -41,6 +44,8 @@ describe('getUser', () => {
   test('should return a status 200', async () => {
     const res = mockResponse();
     const req = mockRequest;
+    User.getUserInfos = vi.fn().mockResolvedValue(userInfosPayload);
+    Cache.set = vi.fn().mockResolvedValue(true);
 
     await getUser(req, res);
     expect(res.status).toBeCalledWith(200);
@@ -49,9 +54,19 @@ describe('getUser', () => {
     const res = mockResponse();
     const req = mockRequest;
     User.getUserInfos = vi.fn().mockResolvedValue(userInfosPayload);
+    Cache.set = vi.fn().mockResolvedValue(true);
 
     await getUser(req, res);
     expect(res.json).toBeCalledWith(expect.objectContaining({ data: userInfosPayload }));
+  });
+  test('should call cache service with correct key', async () => {
+    const res = mockResponse();
+    const req = mockRequest;
+    User.getUserInfos = vi.fn().mockResolvedValue(userInfosPayload);
+    Cache.set = vi.fn().mockResolvedValue(true);
+
+    await getUser(req, res);
+    expect(Cache.set).toBeCalledWith('user1', userInfosPayload);
   });
 });
 
@@ -75,6 +90,7 @@ describe('delate user', () => {
     const res = mockResponse();
     const req = mockRequest;
     User.deleteUser = vi.fn().mockResolvedValue(true);
+    Cache.del = vi.fn().mockResolvedValue(true);
 
     await deleteUser(req, res);
     expect(res.json).toBeCalledWith(expect.objectContaining({ message: 'User has been deleted' }));
@@ -83,9 +99,19 @@ describe('delate user', () => {
     const res = mockResponse();
     const req = mockRequest;
     User.deleteUser = vi.fn().mockResolvedValue(true);
+    Cache.del = vi.fn().mockResolvedValue(true);
 
     await deleteUser(req, res);
     expect(res.status).toBeCalledWith(200);
+  });
+  test('should invalidate cache service with correct key', async () => {
+    const res = mockResponse();
+    const req = mockRequest;
+    User.deleteUser = vi.fn().mockResolvedValue(true);
+    Cache.del = vi.fn().mockResolvedValue(true);
+
+    await deleteUser(req, res);
+    expect(Cache.del).toBeCalledWith(['user9999']);
   });
 });
 
@@ -121,6 +147,7 @@ describe('update user', () => {
     const res = mockResponse();
     const req = mockRequest;
     User.updateUser = vi.fn().mockResolvedValue(userInfosPayload);
+    Cache.del = vi.fn().mockResolvedValue(true);
 
     await updateUser(req, res);
     expect(res.json).toBeCalledWith(expect.objectContaining({ message: 'User has been updated' }));
@@ -129,6 +156,7 @@ describe('update user', () => {
     const res = mockResponse();
     const req = mockRequest;
     User.updateUser = vi.fn().mockResolvedValue(userInfosPayload);
+    Cache.del = vi.fn().mockResolvedValue(true);
 
     await updateUser(req, res);
     expect(res.status).toBeCalledWith(200);
@@ -137,8 +165,18 @@ describe('update user', () => {
     const res = mockResponse();
     const req = mockRequest;
     User.updateUser = vi.fn().mockResolvedValue(userInfosPayload);
+    Cache.del = vi.fn().mockResolvedValue(true);
 
     await updateUser(req, res);
     expect(res.json).toBeCalledWith(expect.objectContaining({ data: userInfosPayload }));
+  });
+  test('should invalidate cache service with correct key', async () => {
+    const res = mockResponse();
+    const req = mockRequest;
+    User.updateUser = vi.fn().mockResolvedValue(userInfosPayload);
+    Cache.del = vi.fn().mockResolvedValue(true);
+
+    await updateUser(req, res);
+    expect(Cache.del).toBeCalledWith(['user1']);
   });
 });
