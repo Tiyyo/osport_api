@@ -40,7 +40,7 @@ export default {
   getUserInfos: async (id: number) => {
     // We find the user with the id provided by the front
     try {
-      const user: any = await prisma.user.findUnique({
+      const user = await prisma.user.findUnique({
         where: {
           id,
         },
@@ -50,6 +50,7 @@ export default {
       if (!user) throw new NotFoundError('User not found');
 
       // We exclude all datas that front doesn't need, the image will be added later
+      // lose all the type of User
       const userFiltered = exclude(
         user,
         [

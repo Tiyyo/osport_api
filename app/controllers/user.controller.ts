@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import UserModel from '../models/user.js';
+import User from '../models/user.js';
 import Image from '../models/image.js';
 import { deleteImageFromServer, saveImageOnServer } from '../service/image.js';
 import checkParams from '../utils/checkParams.js';
@@ -14,7 +14,7 @@ export default {
     const id = checkParams(req.params.id);
     const { cacheKey } = req.body;
 
-    const user = await UserModel.getUserInfos(id);
+    const user = await User.getUserInfos(id);
 
     await Cache.set(cacheKey, user);
 
@@ -37,7 +37,7 @@ export default {
 
     const imageStored = await Image.create({ title: name, url: relativePath });
 
-    const user = await UserModel.getUserInfos(Number(id));
+    const user = await User.getUserInfos(Number(id));
 
     if (user.image_url) {
       try {
@@ -48,7 +48,7 @@ export default {
       }
     }
 
-    const isUpdated = await UserModel.updateUser(Number(id), { imageUrl: imageStored.url });
+    const isUpdated = await User.updateUser(Number(id), { imageUrl: imageStored.url });
 
     await Cache.del([`user${id}`]);
 
@@ -58,7 +58,7 @@ export default {
   deleteUser: async (req: Request, res: Response) => {
     const id = checkParams(req.params.id);
 
-    await UserModel.deleteUser(id);
+    await User.deleteUser(id);
 
     await Cache.del([`user${id}`]);
 
@@ -68,7 +68,7 @@ export default {
   updateUser: async (req: Request, res: Response) => {
     const { userId, ...data } = req.body;
 
-    const user = await UserModel.updateUser(userId, data);
+    const user = await User.updateUser(userId, data);
 
     await Cache.del([`user${userId}`]);
 

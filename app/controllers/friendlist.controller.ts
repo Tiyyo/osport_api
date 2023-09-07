@@ -47,12 +47,12 @@ export default {
       friend = await User.findOne({ username, email });
     } catch (error) {
       logger.error(error);
-      res.status(200).json({ error: "Friend doesn't exist" });
+      return res.status(200).json({ error: "Friend doesn't exist" });
     }
 
     await Friends.create({ asker_id: userId, asked_id: friend.id });
 
-    res.status(201).json({ message: 'Friend added successfully' });
+    return res.status(201).json({ message: 'Friend added successfully' });
   },
   acceptFriendRequest: async (req: Request, res: Response) => {
     const { userId, friendId } = req.body;
@@ -75,7 +75,7 @@ export default {
     try {
       await Friends.findRequest({ userId, friendId });
     } catch (error) {
-      if (error instanceof NotFoundError) return res.status(200).json({ message: 'No pending friend request found' });
+      if (error instanceof NotFoundError) return res.status(200).json({ error: 'No pending friend request found' });
     }
 
     const updateStatus = 'rejected';

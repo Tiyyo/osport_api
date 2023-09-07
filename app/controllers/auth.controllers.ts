@@ -1,5 +1,7 @@
 import { Response, Request } from 'express';
-import { createUser, login } from '../service/auth.js';
+import authService from '../service/auth.js';
+
+const { createUser, login } = authService;
 
 export default {
   register: async (req: Request, res: Response) => {

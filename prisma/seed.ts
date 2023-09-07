@@ -1,7 +1,7 @@
 import { faker } from '@faker-js/faker';
 import prisma from '../app/helpers/db.client.js';
 import logger from '../app/helpers/logger.js';
-import { createUser } from '../app/service/auth.js';
+import authService from '../app/service/auth.js';
 import Friend from '../app/models/user_on_friend.js';
 
 function getRandomInt(min: number, max: number) {
@@ -62,7 +62,7 @@ async function seed() {
     anthonyAccount,
     denisAccount];
 
-  const queriesAccount = accounts.map((account) => createUser(account));
+  const queriesAccount = accounts.map((account) => authService.createUser(account));
 
   try {
     await Promise.all(queriesAccount);

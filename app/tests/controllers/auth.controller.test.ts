@@ -2,102 +2,110 @@ import {
   describe, vi, afterEach, test, expect,
 } from 'vitest';
 import { Request, Response } from 'express';
+import authService from '../../service/auth.js';
 import authControlller from '../../controllers/auth.controllers.js';
+import createToken from '../../helpers/token/create.access.js';
+import auth from '../../service/auth.js';
 
 const {
-  // register,
-  // signin,
+  register,
+  signin,
   validate,
   logout,
 } = authControlller;
 
-// const user = {
-//   username: 'john',
-//   email: 'john.doe@gmail.com',
-//   password: 'test',
-// };
+const user = {
+  username: 'john',
+  email: 'john.doe@gmail.com',
+  password: 'test',
+};
 
-// describe('register', () => {
-//   afterEach(async () => {
-//     vi.restoreAllMocks();
-//     await prisma.user.delete({
-//       where: {
-//         username: user.username,
-//         email: user.email,
-//       },
-//     });
-//   });
+describe('register', () => {
+  afterEach(async () => {
+    vi.restoreAllMocks();
+  });
 
-//   // we need to mock the createUser function
-//   // we need this line
-//   vi.mock('../../service/auth');
+  // we need to mock the createUser function
+  // we need this line
+  vi.mock('../../service/auth');
 
-//   // but not these one no idea why
-//   // const cb = vi.fn();
-//   // createUser.mockReturnValue(true);
+  const mockCreateUser = vi.spyOn(authService, 'createUser');
 
-//   const mockRequest = {
-//     body: user,
-//   } as Request;
+  // but not these one no idea why
+  // const cb = vi.fn();
+  // createUser.mockReturnValue(true);
 
-//   const mockResponse = () => {
-//     const res = {} as Response;
-//     res.status = vi.fn().mockReturnValue(res);
-//     res.json = vi.fn().mockReturnValue(res);
-//     return res;
-//   };
+  const mockRequest = {
+    body: user,
+  } as Request;
 
-//   test('should return a json with a message', async () => {
-//     const res = mockResponse();
-//     const req = mockRequest;
+  const mockResponse = () => {
+    const res = {} as Response;
+    res.status = vi.fn().mockReturnValue(res);
+    res.json = vi.fn().mockReturnValue(res);
+    return res;
+  };
+  test('should call createUser', async () => {
+    const res = mockResponse();
+    const req = mockRequest;
+    authService.createUser = vi.fn().mockReturnValue(true);
 
-//     await register(req, res);
-//     expect(res.json).toBeCalledWith(expect.objectContaining({
-// message: 'User created successfully' }));
-//   });
+    await register(req, res);
+    expect(authService.createUser).toBeCalled();
+  });
 
-//   test('should return a status 201', async () => {
-//     const res = mockResponse();
-//     const req = mockRequest;
+  test('should return a json with a message', async () => {
+    const res = mockResponse();
+    const req = mockRequest;
 
-//     await register(req, res);
-//     expect(res.status).toBeCalledWith(201);
-//   });
-// });
+    await register(req, res);
+    expect(res.json).toBeCalledWith(expect.objectContaining({ message: 'User created successfully' }));
+  });
 
-// describe('signin', () => {
-//   afterEach(() => {
-//     vi.restoreAllMocks();
-//   });
+  test('should return a status 201', async () => {
+    const res = mockResponse();
+    const req = mockRequest;
 
-//   vi.mock('../../service/auth');
-//   const cb = vi.fn();
-//   cb.mockReturnValue({ accessToken: 'test' });
+    await register(req, res);
+    expect(res.status).toBeCalledWith(201);
+  });
+});
 
-//   const mockRequest = {
-//     body: {
-//       emailOrUsername: 'john',
-//       password: 'test',
-//     },
-//   } as Request;
+describe('signin', () => {
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
 
-//   const mockResponse = () => {
-//     const res = {} as Response;
-//     res.status = vi.fn().mockReturnValue(res);
-//     res.json = vi.fn().mockReturnValue(res);
-//     res.cookie = vi.fn().mockReturnValue(res);
-//     return res;
-//   };
-//   test('should return a json with a message', async () => {
-//     const res = mockResponse();
-//     const req = mockRequest;
+  const token = createToken('8h', { userId: 1 });
 
-//     await signin(req, res);
-//     expect(res.json).toBeCalledWith(expect.objectContaining(
-// { message: 'User logged in successfully' }
-// ));
-//   });
-// });
+  vi.mock('../../service/auth');
+  const cb = vi.fn();
+  cb.mockReturnValue({ accessToken: token });
+
+  const mockRequest = {
+    body: {
+      emailOrUsername: 'john',
+      password: 'test',
+    },
+  } as Request;
+
+  const mockResponse = () => {
+    const res = {} as Response;
+    res.status = vi.fn().mockReturnValue(res);
+    res.json = vi.fn().mockReturnValue(res);
+    res.cookie = vi.fn().mockReturnValue(res);
+    return res;
+  };
+  test.skip('should return a json with a message', async () => {
+    const res = mockResponse();
+    const req = mockRequest;
+
+    await signin(req, res);
+    expect(res.json).toBeCalledWith(expect.objectContaining(
+      { message: 'User logged in successfully' },
+    ));
+  });
+});
 
 describe('validate', () => {
   afterEach(() => {
@@ -171,7 +179,6 @@ describe('logout', () => {
     await logout(req, res);
     expect(res.status).toBeCalledWith(200);
   });
-
   test('should clear the cookie', async () => {
     const res = mockResponse();
     const req = mockRequest;
