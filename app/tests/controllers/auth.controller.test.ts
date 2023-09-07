@@ -5,7 +5,6 @@ import { Request, Response } from 'express';
 import authService from '../../service/auth.js';
 import authControlller from '../../controllers/auth.controllers.js';
 import createToken from '../../helpers/token/create.access.js';
-import '../../../build/app/helpers/env.load.js';
 import '../../helpers/env.load.js';
 
 const {

@@ -5,7 +5,6 @@ import { Request, Response, NextFunction } from 'express';
 import validateToken from '../../middleware/validate.token.js';
 import createToken from '../../helpers/token/create.access.js';
 import '../../helpers/env.load.js';
-import '../../../build/app/helpers/env.load.js';
 
 describe('validate token middleware', () => {
   afterEach(() => {

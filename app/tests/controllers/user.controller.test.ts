@@ -5,7 +5,6 @@ import { Request, Response } from 'express';
 import userController from '../../controllers/user.controller.js';
 import User from '../../models/user.js';
 import Cache from '../../service/cache.js';
-import '../../../build/app/helpers/env.load.js';
 
 const { getUser, deleteUser, updateUser } = userController;
 
