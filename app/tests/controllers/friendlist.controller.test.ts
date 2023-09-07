@@ -1,4 +1,3 @@
-import { after } from 'node:test';
 import {
   describe, vi, afterEach, test, expect,
 } from 'vitest';

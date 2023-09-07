@@ -18,7 +18,7 @@ export default {
     };
 
     try {
-      const { accessToken } = await login(data);
+      const { accessToken } = await authService.login(data);
 
       res.cookie('accessToken', accessToken, {
         httpOnly: true, sameSite: 'none', secure: true, maxAge: 24 * 60 * 60 * 1000,
