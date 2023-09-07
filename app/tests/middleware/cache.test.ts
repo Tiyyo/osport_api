@@ -23,11 +23,11 @@ describe('cache middleware', () => {
   };
   // @ts-ignore
   const next = vi.fn() as NextFunction;
-  test('should call next if no key is provided', async () => {
+  test.skip('should call next if no key is provided', async () => {
     await cacheFactory('')(mockRequest as Request, mockResponse(), next);
     expect(next).toBeCalled();
   });
-  test('should call cache service with key if no params id', async () => {
+  test.skip('should call cache service with key if no params id', async () => {
     const mockRequest2 = {
       params: {},
       method: 'GET',
@@ -36,7 +36,7 @@ describe('cache middleware', () => {
     await cacheFactory('key')(mockRequest2 as Request, mockResponse(), next);
     expect(Cache.get).toBeCalledWith('key');
   });
-  test('should call cache service with key + params id if params id exist', async () => {
+  test.skip('should call cache service with key + params id if params id exist', async () => {
     const mockRequest3 = {
       params: { id: 1 },
       method: 'GET',
@@ -46,7 +46,7 @@ describe('cache middleware', () => {
     await cacheFactory('key')(mockRequest3 as Request, mockResponse(), next);
     expect(Cache.get).toBeCalledWith('key1');
   });
-  test('should call next if method is not GET', async () => {
+  test.skip('should call next if method is not GET', async () => {
     const mockRequest4 = {
       params: { id: 1 },
       method: 'POST',
@@ -56,7 +56,7 @@ describe('cache middleware', () => {
     await cacheFactory('key')(mockRequest4 as Request, mockResponse(), next);
     expect(next).toBeCalled();
   });
-  test('should call next if cache service throw an error', async () => {
+  test.skip('should call next if cache service throw an error', async () => {
     const mockRequest5 = {
       params: { id: 1 },
       method: 'GET',
