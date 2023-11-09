@@ -1,7 +1,7 @@
 import type { Player, TeamGeneratorConfig } from '../@types/index.js';
 import UserOnSport from '../models/user_on_sport.js';
 import prisma from '../helpers/db.client.js';
-import Cache from './cache.js';
+// import Cache from './cache.js';
 
 /* eslint-disable */
 
@@ -81,7 +81,7 @@ export async function generateBalancedTeam(event_id: number) {
 
   await Promise.all(allUpdates);
 
-  await Cache.del([`participant${event_id}`]);
+  // await Cache.del([`participant${event_id}`]);
 
   return { team_1, team_2 };
 }

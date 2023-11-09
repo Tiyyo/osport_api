@@ -3,7 +3,7 @@ import EventModel from '../models/event.js';
 import UserOnEvent from '../models/user_on_event.js';
 import findWinnerTeam from '../utils/findWinner.js';
 import checkParams from '../utils/checkParams.js';
-import Cache from '../service/cache.js';
+// import Cache from '../service/cache.js';
 
 export default {
 
@@ -38,7 +38,7 @@ export default {
     await UserOnEvent.createMany(event.id, userId);
     await UserOnEvent.update(userId, event.id, 'accepted');
 
-    await Cache.del([`event${userId}`, `participant${event.id}`]);
+    // await Cache.del([`event${userId}`, `participant${event.id}`]);
 
     return res.status(201).json({ message: 'Event created ', data: event });
   },
@@ -77,7 +77,7 @@ export default {
     // If yes, update the event status to 'closed'
     const event = await EventModel.validateEvent('closed', eventId);
 
-    await Cache.del([`event${userId}`]);
+    // await Cache.del([`event${userId}`]);
 
     return res.status(200).json({ message: 'Event validated', data: event });
   },
@@ -112,18 +112,18 @@ export default {
 
     const eventUpdated = await EventModel.updateEvent(eventId, data);
 
-    await Cache.del([`event${userId}`]);
+    // await Cache.del([`event${userId}`]);
 
     return res.status(200).json({ message: 'Event updated', data: eventUpdated });
   },
 
   getEvents: async (req: Request, res: Response) => {
     const id = checkParams(req.params.id);
-    const { cacheKey } = req.body;
+    // const { cacheKey } = req.body;
 
     const events = await EventModel.getEvents(id);
 
-    await Cache.set(cacheKey, events);
+    // await Cache.set(cacheKey, events);
 
     return res.status(200).json({ message: 'Events found', data: events });
   },
@@ -173,7 +173,7 @@ export default {
 
     const eventUpdated = await EventModel.updateEvent(eventId, data);
 
-    await Cache.del([`event${userId}`]);
+    // await Cache.del([`event${userId}`]);
 
     return res.status(200).json({ message: 'Result of the event has been saved', data: eventUpdated });
   },
