@@ -5,7 +5,6 @@ import validateSchema from '../middleware/schemas.validator.js';
 import createEventSchema from '../schemas/event/createEvent.js';
 import { updateEventSchema } from '../schemas/event/updateEvent.js';
 import { validateEventSchema } from '../schemas/event/validateEvent.js';
-import getCache from '../middleware/cache.js';
 import canals from '../helpers/canals.js';
 import validateUser from '../middleware/validate.user.js';
 
@@ -34,6 +33,6 @@ router.route('/results')
   .patch(validateSchema(updateEventSchema, canals.body), factory(resultsEvent));
 
 router.route('/:id')
-  .get(getCache('event'), factory(getEvents));
+  .get(factory(getEvents));
 
 export default router;

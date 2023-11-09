@@ -4,19 +4,19 @@ import Image from '../models/image.js';
 import { deleteImageFromServer, saveImageOnServer } from '../service/image.js';
 import checkParams from '../utils/checkParams.js';
 import logger from '../helpers/logger.js';
-import Cache from '../service/cache.js';
+// import Cache from '../service/cache.js';
 
 export default {
 
   getUser: async (req: Request, res: Response) => {
     // data should be validated before reaching this point
-    // factory controller will handle the error throwing in database or createUser function
+    // factory controller will handle the error thrown in database or createUser function
     const id = checkParams(req.params.id);
-    const { cacheKey } = req.body;
+    // const { cacheKey } = req.body;
 
     const user = await User.getUserInfos(id);
 
-    await Cache.set(cacheKey, user);
+    // await Cache.set(cacheKey, user);
 
     return res.status(200).json({ message: 'User informations', data: user });
   },
@@ -50,7 +50,7 @@ export default {
 
     const isUpdated = await User.updateUser(Number(id), { imageUrl: imageStored.url });
 
-    await Cache.del([`user${id}`]);
+    // await Cache.del([`user${id}`]);
 
     return res.status(200).json({ message: 'User has been updated', data: isUpdated, error });
   },
@@ -60,7 +60,7 @@ export default {
 
     await User.deleteUser(id);
 
-    await Cache.del([`user${id}`]);
+    // await Cache.del([`user${id}`]);
 
     return res.status(200).json({ message: 'User has been deleted' });
   },
@@ -70,7 +70,7 @@ export default {
 
     const user = await User.updateUser(userId, data);
 
-    await Cache.del([`user${userId}`]);
+    // await Cache.del([`user${userId}`]);
 
     return res.status(200).json({ message: 'User has been updated', data: user });
   },
