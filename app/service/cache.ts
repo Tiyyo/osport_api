@@ -1,7 +1,11 @@
 // import { Redis } from 'ioredis';
 
 // const redis = new Redis();
-
+export default {
+  set: 'cool',
+  get: 'cool',
+  del: 'cool',
+};
 // export default class Cache {
 //   static DEFAULT_EXPIRATION = 300; // 5 minutes
 

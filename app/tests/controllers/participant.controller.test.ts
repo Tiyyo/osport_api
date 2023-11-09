@@ -79,7 +79,6 @@ describe('getParticipants', () => {
     const res = mockResponse();
     const req = mockRequest;
     UserOnEvent.find = vi.fn().mockResolvedValue(participantsPayload);
-    Cache.set = vi.fn().mockResolvedValue(true);
 
     await getParticipants(req, res);
     expect(res.json).toBeCalledWith(expect.objectContaining({ message: 'Participant retrieved succesfully' }));
@@ -88,7 +87,6 @@ describe('getParticipants', () => {
     const res = mockResponse();
     const req = mockRequest;
     UserOnEvent.find = vi.fn().mockResolvedValue(participantsPayload);
-    Cache.set = vi.fn().mockResolvedValue(true);
 
     await getParticipants(req, res);
     expect(res.json).toBeCalledWith(expect.objectContaining({ data: participantsPayload }));
@@ -97,7 +95,6 @@ describe('getParticipants', () => {
     const res = mockResponse();
     const req = mockRequest;
     UserOnEvent.find = vi.fn().mockResolvedValue(participantsPayload);
-    Cache.set = vi.fn().mockResolvedValue(true);
 
     await getParticipants(req, res);
     expect(res.status).toBeCalledWith(200);
@@ -106,7 +103,6 @@ describe('getParticipants', () => {
     const res = mockResponse();
     const req = mockRequest;
     UserOnEvent.find = vi.fn().mockResolvedValue(participantsPayload);
-    Cache.set = vi.fn().mockResolvedValue(true);
 
     await getParticipants(req, res);
     expect(Cache.set).toBeCalledWith('participant99', participantsPayload);
@@ -137,7 +133,7 @@ describe('sendInvitation', () => {
     const req = mockRequest;
 
     UserOnEvent.createMany = vi.fn().mockResolvedValue(true);
-    Cache.del = vi.fn().mockResolvedValue(true);
+    // Cache.del = vi.fn().mockResolvedValue(true);
 
     await sendInvitation(req, res);
     expect(res.json).toBeCalledWith(expect.objectContaining({ message: 'Invitation sent' }));
@@ -147,7 +143,7 @@ describe('sendInvitation', () => {
     const req = mockRequest;
 
     UserOnEvent.createMany = vi.fn().mockResolvedValue(true);
-    Cache.del = vi.fn().mockResolvedValue(true);
+    // Cache.del = vi.fn().mockResolvedValue(true);
 
     await sendInvitation(req, res);
     expect(res.status).toBeCalledWith(201);
@@ -157,7 +153,7 @@ describe('sendInvitation', () => {
     const req = mockRequest;
 
     UserOnEvent.createMany = vi.fn().mockResolvedValue(true);
-    Cache.del = vi.fn().mockResolvedValue(true);
+    // Cache.del = vi.fn().mockResolvedValue(true);
 
     await sendInvitation(req, res);
     expect(Cache.del).toBeCalledWith(['participant99']);
@@ -187,7 +183,7 @@ describe('updateStatus', () => {
     const res = mockResponse();
     const req = mockRequest;
     UserOnEvent.update = vi.fn().mockResolvedValue(true);
-    Cache.del = vi.fn().mockResolvedValue(true);
+    // Cache.del = vi.fn().mockResolvedValue(true);
 
     await updateStatus(req, res);
     expect(res.status).toBeCalledWith(204);
@@ -204,7 +200,7 @@ describe('updateStatus', () => {
     const res = mockResponse();
     const req = mockRequest;
     UserOnEvent.update = vi.fn().mockResolvedValue(true);
-    Cache.del = vi.fn().mockResolvedValue(true);
+    // Cache.del = vi.fn().mockResolvedValue(true);
 
     await updateStatus(req, res);
     expect(res.json).toBeCalledWith(expect.objectContaining({ message: 'status updated' }));
@@ -223,7 +219,7 @@ describe('updateStatus', () => {
 
     UserOnEvent.findConfirmed = vi.fn().mockResolvedValue(4);
     Event.findOne = vi.fn().mockResolvedValue({ nb_max_participant: 4 });
-    Cache.del = vi.fn().mockResolvedValue(true);
+    // Cache.del = vi.fn().mockResolvedValue(true);
 
     await expect(updateStatus(req, res)).rejects.toThrow('Event is full');
   });
@@ -243,7 +239,7 @@ describe('updateStatus', () => {
     Event.findOne = vi.fn().mockResolvedValue({ nb_max_participant: 4 });
     vi.mock('./../../service/generateTeam.js', () => ({ generateBalancedTeam: vi.fn().mockResolvedValue(true) }));
     prisma.event.update = vi.fn().mockResolvedValue(true);
-    Cache.del = vi.fn().mockResolvedValue(true);
+    // Cache.del = vi.fn().mockResolvedValue(true);
 
     await updateStatus(req, res);
     expect(generateBalancedTeam).toBeCalledWith(99);
@@ -274,7 +270,7 @@ describe('updateStatus', () => {
     Event.findOne = vi.fn().mockResolvedValue({ nb_max_participant: 4 });
     vi.mock('./../../service/generateTeam.js', () => ({ generateBalancedTeam: vi.fn().mockResolvedValue(true) }));
     prisma.event.update = vi.fn().mockResolvedValue(true);
-    Cache.del = vi.fn().mockResolvedValue(true);
+    // Cache.del = vi.fn().mockResolvedValue(true);
 
     await updateStatus(req, res);
     expect(generateBalancedTeam).toBeCalledWith(99);

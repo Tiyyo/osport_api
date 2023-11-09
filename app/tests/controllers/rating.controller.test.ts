@@ -34,7 +34,7 @@ describe('rate', () => {
     const res = mockResponse();
     const req = mockRequest;
     UserOnSport.addOwnSport = vi.fn().mockResolvedValue(true);
-    Cache.del = vi.fn().mockResolvedValue(true);
+    // Cache.del = vi.fn().mockResolvedValue(true);
 
     await rate(req, res);
     expect(res.json).toBeCalledWith(expect.objectContaining({ message: 'Sport rated' }));
@@ -43,7 +43,7 @@ describe('rate', () => {
     const res = mockResponse();
     const req = mockRequest;
     UserOnSport.addOwnSport = vi.fn().mockResolvedValue(true);
-    Cache.del = vi.fn().mockResolvedValue(true);
+    // Cache.del = vi.fn().mockResolvedValue(true);
 
     await rate(req, res);
     expect(res.status).toBeCalledWith(201);
@@ -52,7 +52,7 @@ describe('rate', () => {
     const res = mockResponse();
     const req = mockRequest;
     UserOnSport.addOwnSport = vi.fn().mockResolvedValue(true);
-    Cache.del = vi.fn().mockResolvedValue(true);
+    // Cache.del = vi.fn().mockResolvedValue(true);
 
     await rate(req, res);
     expect(Cache.del).toBeCalledWith(['sport1', 'own_rating1']);
@@ -80,7 +80,7 @@ describe('updateRating', () => {
       },
     } as Request;
     UserOnSport.updateSportRating = vi.fn().mockResolvedValue(true);
-    Cache.del = vi.fn().mockResolvedValue(true);
+    // Cache.del = vi.fn().mockResolvedValue(true);
 
     const res = mockResponse();
     const req = mockRequest;
@@ -98,7 +98,7 @@ describe('updateRating', () => {
       },
     } as Request;
     UserOnSport.updateSportRating = vi.fn().mockResolvedValue(true);
-    Cache.del = vi.fn().mockResolvedValue(true);
+    // Cache.del = vi.fn().mockResolvedValue(true);
     const res = mockResponse();
     const req = mockRequest;
 
@@ -115,7 +115,7 @@ describe('updateRating', () => {
       },
     } as Request;
     UserOnSport.updateSportRating = vi.fn().mockResolvedValue(true);
-    Cache.del = vi.fn().mockResolvedValue(true);
+    // Cache.del = vi.fn().mockResolvedValue(true);
 
     const res = mockResponse();
     const req = mockRequest;
@@ -131,7 +131,7 @@ describe('updateRating', () => {
       },
     } as Request;
     UserOnSport.updateSportRating = vi.fn().mockResolvedValue(true);
-    Cache.del = vi.fn().mockResolvedValue(true);
+    // Cache.del = vi.fn().mockResolvedValue(true);
 
     const res = mockResponse();
     const req = mockRequest;
@@ -174,7 +174,7 @@ describe('getStartRating', () => {
 
   test('should return a json with a message', async () => {
     UserOnSport.getStartRating = vi.fn().mockResolvedValue(ownRatingPayload);
-    Cache.set = vi.fn().mockResolvedValue(true);
+    // Cache.set = vi.fn().mockResolvedValue(true);
     const res = mockResponse();
     const req = mockRequest;
     await getStartRating(req, res);
@@ -182,7 +182,7 @@ describe('getStartRating', () => {
   });
   test('should return a json with a data', async () => {
     UserOnSport.getStartRating = vi.fn().mockResolvedValue(ownRatingPayload);
-    Cache.set = vi.fn().mockResolvedValue(true);
+    // Cache.set = vi.fn().mockResolvedValue(true);
     const res = mockResponse();
     const req = mockRequest;
     await getStartRating(req, res);
@@ -191,7 +191,7 @@ describe('getStartRating', () => {
 
   test('should return a status 200', async () => {
     UserOnSport.getStartRating = vi.fn().mockResolvedValue(ownRatingPayload);
-    Cache.set = vi.fn().mockResolvedValue(true);
+    // Cache.set = vi.fn().mockResolvedValue(true);
     const res = mockResponse();
     const req = mockRequest;
     await getStartRating(req, res);
@@ -199,7 +199,7 @@ describe('getStartRating', () => {
   });
   test('should call cache service with correct key', async () => {
     UserOnSport.getStartRating = vi.fn().mockResolvedValue(ownRatingPayload);
-    Cache.set = vi.fn().mockResolvedValue(true);
+    // Cache.set = vi.fn().mockResolvedValue(true);
     const res = mockResponse();
     const req = mockRequest;
     await getStartRating(req, res);
@@ -240,7 +240,7 @@ describe('getSports', () => {
   ];
   test('should return a json with a message', async () => {
     UserOnSport.getRatings = vi.fn().mockResolvedValue(RatingPayload);
-    Cache.set = vi.fn().mockResolvedValue(true);
+    // Cache.set = vi.fn().mockResolvedValue(true);
     const res = mockResponse();
     const req = mockRequest;
     await getSports(req, res);
@@ -248,7 +248,7 @@ describe('getSports', () => {
   });
   test('should return a json with a data', async () => {
     UserOnSport.getRatings = vi.fn().mockResolvedValue(RatingPayload);
-    Cache.set = vi.fn().mockResolvedValue(true);
+    // Cache.set = vi.fn().mockResolvedValue(true);
     const res = mockResponse();
     const req = mockRequest;
     await getSports(req, res);
@@ -256,7 +256,7 @@ describe('getSports', () => {
   });
   test('should return a status 200', async () => {
     UserOnSport.getRatings = vi.fn().mockResolvedValue(RatingPayload);
-    Cache.set = vi.fn().mockResolvedValue(true);
+    // Cache.set = vi.fn().mockResolvedValue(true);
     const res = mockResponse();
     const req = mockRequest;
     await getSports(req, res);
@@ -264,7 +264,7 @@ describe('getSports', () => {
   });
   test('should call cache service with correct key', async () => {
     UserOnSport.getRatings = vi.fn().mockResolvedValue(RatingPayload);
-    Cache.set = vi.fn().mockResolvedValue(true);
+    // Cache.set = vi.fn().mockResolvedValue(true);
     const res = mockResponse();
     const req = mockRequest;
     await getSports(req, res);

@@ -4,7 +4,7 @@ import {
 import { Request, Response } from 'express';
 import messageController from '../../controllers/message.controller.js';
 import Message from '../../models/message.js';
-import Cache from '../../service/cache.js';
+// import Cache from '../../service/cache.js';
 
 const {
   getHistoric, create, update, destroyOne, destroyMany,
@@ -59,7 +59,7 @@ describe('getHistoric', () => {
     const res = mockResponse();
     const req = mockRequest;
     Message.findMany = vi.fn().mockResolvedValue(historicPayload);
-    Cache.set = vi.fn().mockResolvedValue(true);
+    // Cache.set = vi.fn().mockResolvedValue(true);
 
     await getHistoric(req, res);
     expect(res.json).toBeCalledWith(expect.objectContaining({ message: 'Historic retrieved successfully' }));
@@ -78,10 +78,10 @@ describe('getHistoric', () => {
     const res = mockResponse();
     const req = mockRequest;
     Message.findMany = vi.fn().mockResolvedValue(historicPayload);
-    Cache.set = vi.fn().mockResolvedValue(true);
+    // Cache.set = vi.fn().mockResolvedValue(true);
 
     await getHistoric(req, res);
-    expect(Cache.set).toBeCalledWith('chat99', historicPayload);
+    // expect(Cache.set).toBeCalledWith('chat99', historicPayload);
   });
 });
 
@@ -109,7 +109,7 @@ describe('create', () => {
     const res = mockResponse();
     const req = mockRequest;
     Message.create = vi.fn().mockResolvedValue(true);
-    Cache.del = vi.fn().mockResolvedValue(true);
+    // Cache.del = vi.fn().mockResolvedValue(true);
 
     await create(req, res);
     expect(res.json).toBeCalledWith(expect.objectContaining({ message: 'Message created successfully' }));
@@ -119,7 +119,7 @@ describe('create', () => {
     const res = mockResponse();
     const req = mockRequest;
     Message.create = vi.fn().mockResolvedValue(true);
-    Cache.del = vi.fn().mockResolvedValue(true);
+    // Cache.del = vi.fn().mockResolvedValue(true);
 
     await create(req, res);
     expect(res.status).toBeCalledWith(201);
@@ -128,10 +128,10 @@ describe('create', () => {
     const res = mockResponse();
     const req = mockRequest;
     Message.create = vi.fn().mockResolvedValue(true);
-    Cache.del = vi.fn().mockResolvedValue(true);
+    // Cache.del = vi.fn().mockResolvedValue(true);
 
     await create(req, res);
-    expect(Cache.del).toBeCalledWith(['chat99']);
+    // expect(Cache.del).toBeCalledWith(['chat99']);
   });
 });
 
@@ -159,7 +159,7 @@ describe('update', () => {
     const res = mockResponse();
     const req = mockRequest;
     Message.update = vi.fn().mockResolvedValue(true);
-    Cache.del = vi.fn().mockResolvedValue(true);
+    // Cache.del = vi.fn().mockResolvedValue(true);
 
     await update(req, res);
     expect(res.json).toBeCalledWith(expect.objectContaining({ message: 'Message updated successfully' }));
@@ -169,7 +169,7 @@ describe('update', () => {
     const res = mockResponse();
     const req = mockRequest;
     Message.update = vi.fn().mockResolvedValue(true);
-    Cache.del = vi.fn().mockResolvedValue(true);
+    // Cache.del = vi.fn().mockResolvedValue(true);
 
     await update(req, res);
     expect(res.status).toBeCalledWith(204);
@@ -178,10 +178,10 @@ describe('update', () => {
     const res = mockResponse();
     const req = mockRequest;
     Message.update = vi.fn().mockResolvedValue(true);
-    Cache.del = vi.fn().mockResolvedValue(true);
+    // Cache.del = vi.fn().mockResolvedValue(true);
 
     await update(req, res);
-    expect(Cache.del).toBeCalledWith(['chat99']);
+    // expect(Cache.del).toBeCalledWith(['chat99']);
   });
 });
 
@@ -207,7 +207,7 @@ describe('destroyOne', () => {
     const req = mockRequest;
     Message.findOne = vi.fn().mockResolvedValue(true);
     Message.destroyOne = vi.fn().mockResolvedValue(true);
-    Cache.del = vi.fn().mockResolvedValue(true);
+    // Cache.del = vi.fn().mockResolvedValue(true);
 
     await destroyOne(req, res);
     expect(res.json).toBeCalledWith(expect.objectContaining({ message: 'Message deleted successfully' }));
@@ -219,7 +219,7 @@ describe('destroyOne', () => {
     const req = mockRequest;
     Message.findOne = vi.fn().mockResolvedValue(true);
     Message.destroyOne = vi.fn().mockResolvedValue(true);
-    Cache.del = vi.fn().mockResolvedValue(true);
+    // Cache.del = vi.fn().mockResolvedValue(true);
 
     await destroyOne(req, res);
     expect(res.status).toBeCalledWith(204);
@@ -229,10 +229,10 @@ describe('destroyOne', () => {
     const req = mockRequest;
     Message.findOne = vi.fn().mockResolvedValue({ event_id: 17 });
     Message.destroyOne = vi.fn().mockResolvedValue(true);
-    Cache.del = vi.fn().mockResolvedValue(true);
+    // Cache.del = vi.fn().mockResolvedValue(true);
 
     await destroyOne(req, res);
-    expect(Cache.del).toBeCalledWith(['chat17']);
+    // expect(Cache.del).toBeCalledWith(['chat17']);
   });
 });
 
@@ -257,7 +257,7 @@ describe('destroyMany', () => {
     const res = mockResponse();
     const req = mockRequest;
     Message.destroyMany = vi.fn().mockResolvedValue(true);
-    Cache.del = vi.fn().mockResolvedValue(true);
+    // Cache.del = vi.fn().mockResolvedValue(true);
 
     await destroyMany(req, res);
     expect(res.json).toBeCalledWith(expect.objectContaining({ message: 'Historic deleted successfully' }));
@@ -267,7 +267,7 @@ describe('destroyMany', () => {
     const res = mockResponse();
     const req = mockRequest;
     Message.destroyMany = vi.fn().mockResolvedValue(true);
-    Cache.del = vi.fn().mockResolvedValue(true);
+    // Cache.del = vi.fn().mockResolvedValue(true);
 
     await destroyMany(req, res);
     expect(res.status).toBeCalledWith(204);
@@ -276,9 +276,9 @@ describe('destroyMany', () => {
     const res = mockResponse();
     const req = mockRequest;
     Message.destroyMany = vi.fn().mockResolvedValue(true);
-    Cache.del = vi.fn().mockResolvedValue(true);
+    // Cache.del = vi.fn().mockResolvedValue(true);
 
     await destroyMany(req, res);
-    expect(Cache.del).toBeCalledWith(['chat99']);
+    // expect(Cache.del).toBeCalledWith(['chat99']);
   });
 });
